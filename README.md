@@ -3,9 +3,7 @@ Adam Snark Rabbit
 
 Mojo Lingo's Go-To Rabbit
 -------------------------
-
-
-/"Snark is my middle name"/
+"Snark is my middle name"
 
 Adam Snark Rabbit is Mojo Lingo's little helper.  He can perform all kinds of
 tasks, from announcing conference bridge participants and CI build status to
