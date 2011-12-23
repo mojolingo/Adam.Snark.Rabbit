@@ -1,6 +1,7 @@
 source :rubygems
 
 gem "adhearsion", :git => 'git://github.com/adhearsion/adhearsion.git', :branch => :develop
+gem "adhearsion-reporter", :git => 'git://github.com/adhearsion/adhearsion-reporter.git', :branch => :develop
 
 #
 # Here are some example plugins you might like to use. Simply
