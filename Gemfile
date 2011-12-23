@@ -35,6 +35,7 @@ gem 'jquery-rails'
 group :development do
   # Deploy with Capistrano
   gem 'capistrano'
+  gem 'capistrano-ext'
 
   # To use debugger
   # gem 'ruby-debug19', :require => 'ruby-debug'
@@ -47,4 +48,21 @@ group :test, :development do
   gem 'rspec-rails-mocha'
   gem 'jasmine-rails'
   gem 'factory_girl_rails'
+
+  gem 'cucumber-rails'
+  gem 'database_cleaner'
+  gem 'launchy'
+  gem 'capybara'
+
+  gem 'guard-rspec'
+  gem 'guard-cucumber'
+  gem 'guard-rails-assets'
+  gem 'guard-jasmine-headless-webkit'
+
+  if RUBY_PLATFORM =~ /darwin/
+    gem 'growl_notify'
+    gem 'rb-fsevent'
+  elsif RUBY_PLATFORM =~ /linux/
+    gem 'rb-inotify'
+  end
 end
