@@ -43,4 +43,8 @@ end
 group :test, :development do
   gem 'rspec-rails'
   gem 'database_cleaner'
+  gem 'mocha'
+  gem 'rspec-rails-mocha'
+  gem 'jasmine-rails'
+  gem 'factory_girl_rails'
 end

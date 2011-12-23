@@ -53,6 +53,7 @@ module ASR
 
     config.generators do |generator|
       generator.test_framework :rspec, :views => false
+      generator.fixture_replacement :factory_girl, :dir => "spec/factories"
     end
   end
 end
