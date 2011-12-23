@@ -33,6 +33,8 @@ gem 'haml'
 gem 'haml-rails'
 
 gem 'inherited_resources'
+gem 'simple-navigation'
+gem 'simple_form'
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -44,6 +46,10 @@ group :development do
 
   # To use debugger
   # gem 'ruby-debug19', :require => 'ruby-debug'
+
+  gem 'hpricot'
+  gem 'ruby_parser'
+  gem 'web-app-theme'
 end
 
 group :test, :development do
