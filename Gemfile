@@ -29,6 +29,11 @@ end
 
 gem 'jquery-rails'
 
+gem 'haml'
+gem 'haml-rails'
+
+gem 'inherited_resources'
+
 # Use unicorn as the web server
 # gem 'unicorn'
 
