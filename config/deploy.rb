@@ -28,7 +28,7 @@ namespace :deploy do
   desc "Restart Adhearsion"
   task :restart_adhearsion, roles: :adhearsion do
     run "sudo -i god load #{release_path}/config/all.god"
-    run "sudo -i god restart palmling"
+    run "sudo -i god restart arabbit"
   end
 
   desc "Symlink shared resources on each release"
