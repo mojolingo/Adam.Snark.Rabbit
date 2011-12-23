@@ -14,3 +14,13 @@ gem "adhearsion-reporter", :git => 'git://github.com/adhearsion/adhearsion-repor
 # gem 'adhearsion-ldap'
 # gem 'adhearsion-xmpp'
 # gem 'adhearsion-drb'
+
+group :development do
+  gem 'capistrano'
+  gem 'capistrano-ext'
+  gem 'rvm'
+end
+
+group :test, :development do
+  gem 'rspec'
+end
