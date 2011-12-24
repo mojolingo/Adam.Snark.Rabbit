@@ -23,20 +23,20 @@ end
 # FIXME: Won't this result in having both environments "up" on every server that gets a deployment?
 @environments.keys.each do |env|
   God.watch do |w|
-    w.name = "arabbit-adhearsion-#{env}"
+    w.name  = "arabbit-adhearsion-#{env}"
     w.group = "arabbit"
 
-    w.interval = 30.seconds
-    w.start_grace = 20.seconds
+    w.interval      = 30.seconds
+    w.start_grace   = 20.seconds
     w.restart_grace = 20.seconds
 
     w.dir = @app_path
 
-    w.start = ahnctl_command :start, env
-    w.stop = ahnctl_command :stop, env
+    w.start   = ahnctl_command :start, env
+    w.stop    = ahnctl_command :stop, env
     w.restart = ahnctl_command :restart, env
 
-    w.pid_file = @pid_file
+    w.pid_file = pid_file env
     w.behavior :clean_pid_file
 
     w.uid, w.gid = app_uid_gid(env)
@@ -74,4 +74,3 @@ end
     end
   end
 end
-

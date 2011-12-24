@@ -15,12 +15,67 @@ gem "adhearsion-reporter", :git => 'git://github.com/adhearsion/adhearsion-repor
 # gem 'adhearsion-xmpp'
 # gem 'adhearsion-drb'
 
+gem 'rails', '3.1.3'
+
+gem 'mongoid',  '~> 2.3'
+gem 'bson_ext', '~> 1.4'
+
+# Gems used only for assets and not required
+# in production environments by default.
+group :assets do
+  gem 'sass-rails',   '~> 3.1.5'
+  gem 'coffee-rails', '~> 3.1.1'
+  gem 'uglifier',     '>= 1.0.3'
+end
+
+gem 'jquery-rails'
+
+gem 'haml'
+gem 'haml-rails'
+
+gem 'inherited_resources'
+gem 'simple-navigation'
+gem 'simple_form'
+
+# Use unicorn as the web server
+# gem 'unicorn'
+
 group :development do
+  # Deploy with Capistrano
   gem 'capistrano'
   gem 'capistrano-ext'
   gem 'rvm'
+
+  # To use debugger
+  # gem 'ruby-debug19', :require => 'ruby-debug'
+
+  gem 'hpricot'
+  gem 'ruby_parser'
+  gem 'web-app-theme'
 end
 
 group :test, :development do
-  gem 'rspec'
+  gem 'rspec-rails'
+  gem 'database_cleaner'
+  gem 'mocha'
+  gem 'rspec-rails-mocha'
+  gem 'jasmine-rails'
+  gem 'factory_girl_rails'
+
+  gem 'cucumber-rails'
+  gem 'database_cleaner'
+  gem 'launchy'
+  gem 'capybara'
+
+  gem 'guard-rspec'
+  gem 'guard-cucumber'
+  gem 'guard-rails-assets'
+  gem 'guard-jasmine-headless-webkit'
+
+  if RUBY_PLATFORM =~ /darwin/
+    gem 'growl_notify'
+    gem 'rb-fsevent'
+  elsif RUBY_PLATFORM =~ /linux/
+    gem 'rb-inotify'
+  end
 end
