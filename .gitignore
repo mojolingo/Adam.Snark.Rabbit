@@ -1,7 +1,6 @@
 .*.swp
 .*.swo
 .DS_STORE
-config/adhearsion.rb
 vendor/ruby
 
 # See http://help.github.com/ignore-files/ for more about ignoring files.
