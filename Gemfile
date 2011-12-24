@@ -67,6 +67,7 @@ group :test, :development do
   gem 'launchy'
   gem 'capybara'
 
+  gem 'guard', '~> 0.8.0'
   gem 'guard-rspec'
   gem 'guard-cucumber'
   gem 'guard-rails-assets'
