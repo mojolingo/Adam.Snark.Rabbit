@@ -20,6 +20,14 @@ def app_uid_gid(env)
   [@environments[env][:uid], @environments[env][:gid]]
 end
 
+def environment_file(env)
+  File.join @environments[env], 'shared', 'environment.yml'
+end
+
+def environment_variables(env)
+  YAML.load_file environment_file(env)
+end
+
 # FIXME: Won't this result in having both environments "up" on every server that gets a deployment?
 @environments.keys.each do |env|
   God.watch do |w|
@@ -40,6 +48,8 @@ end
     w.behavior :clean_pid_file
 
     w.uid, w.gid = app_uid_gid(env)
+
+    w.env = environment_variables(env)
 
     w.start_if do |start|
       start.condition(:process_running) do |c|
