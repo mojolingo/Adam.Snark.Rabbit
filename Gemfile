@@ -68,16 +68,10 @@ group :test, :development do
   gem 'launchy'
   gem 'capybara'
 
-  gem 'guard', '~> 0.8.0'
+  gem 'guard'
   gem 'guard-rspec'
   gem 'guard-cucumber'
   gem 'guard-rails-assets'
   gem 'guard-jasmine-headless-webkit'
-
-  if RUBY_PLATFORM =~ /darwin/
-    gem 'growl_notify'
-    gem 'rb-fsevent'
-  elsif RUBY_PLATFORM =~ /linux/
-    gem 'rb-inotify'
-  end
+  gem 'ruby_gntp'
 end
