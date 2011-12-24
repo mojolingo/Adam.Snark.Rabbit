@@ -9,19 +9,19 @@ guard 'rspec' do
   watch(%r{^app/controllers/(.+)_(controller)\.rb$})  { |m| ["spec/routing/#{m[1]}_routing_spec.rb", "spec/#{m[2]}s/#{m[1]}_#{m[2]}_spec.rb", "spec/acceptance/#{m[1]}_spec.rb"] }
 end
 
-guard 'rails-assets' do
-  watch(%r{^.*/assets/.+$})
-  watch('config/application.rb')
-end
+# guard 'rails-assets' do
+#   watch(%r{^.*/assets/.+$})
+#   watch('config/application.rb')
+# end
 
-spec_location = "spec/javascripts/%s_spec"
+# spec_location = "spec/javascripts/%s_spec"
 
-guard 'jasmine-headless-webkit' do
-  watch(%r{^app/views/.*\.jst$})
-  watch(%r{^public/javascripts/(.*)\.js$}) { |m| newest_js_file(spec_location % m[1]) }
-  watch(%r{^.*/assets/javascripts/(.*)\.(js|coffee)$}) { |m| newest_js_file(spec_location % m[1]) }
-  watch(%r{^spec/javascripts/(.*)_spec\..*}) { |m| newest_js_file(spec_location % m[1]) }
-end
+# guard 'jasmine-headless-webkit' do
+#   watch(%r{^app/views/.*\.jst$})
+#   watch(%r{^public/javascripts/(.*)\.js$}) { |m| newest_js_file(spec_location % m[1]) }
+#   watch(%r{^.*/assets/javascripts/(.*)\.(js|coffee)$}) { |m| newest_js_file(spec_location % m[1]) }
+#   watch(%r{^spec/javascripts/(.*)_spec\..*}) { |m| newest_js_file(spec_location % m[1]) }
+# end
 
 guard 'cucumber' do
   watch(%r{^features/.+\.feature$})

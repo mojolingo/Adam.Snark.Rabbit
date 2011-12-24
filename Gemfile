@@ -51,8 +51,9 @@ group :development do
 
   gem 'hpricot'
   gem 'ruby_parser'
-  gem 'web-app-theme'
 end
+
+gem 'web-app-theme', :group => [:development, :assets]
 
 group :test, :development do
   gem 'rspec-rails'
