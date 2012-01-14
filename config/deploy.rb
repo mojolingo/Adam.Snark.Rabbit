@@ -15,7 +15,7 @@ set :use_sudo,      false
 set :keep_releases, 5
 set :default_stage, "staging"
 
-set :rvm_ruby_string, "ruby-1.9.2"
+set :rvm_ruby_string, "ruby-1.9.3-p0"
 
 namespace :deploy do
   desc "Restart app"
