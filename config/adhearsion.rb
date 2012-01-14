@@ -27,7 +27,7 @@ Adhearsion.config do |config|
   # ******* Configuration for punchblock **************
 
   # Autoreconnect in case of failure
-  config.punchblock.auto_reconnect = ENV['AHN_PB_AUTO_RECONNECT'] if ENV.has_key?('AHN_PB_AUTO_RECONNECT')
+  config.punchblock.reconnect_tries = ENV['AHN_PB_RECONNECT_TRIES'] if ENV.has_key?('AHN_PB_RECONNECT_TRIES')
 
   # Host punchblock needs to connect (where rayo or asterisk are located)
   config.punchblock.host           = ENV['AHN_PB_HOST'] if ENV.has_key?('AHN_PB_HOST')
