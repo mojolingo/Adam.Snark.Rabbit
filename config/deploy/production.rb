@@ -1,7 +1,7 @@
 set :rails_env, 'staging'
 
 set :user,      'arabbit'
-set :deploy_to, '/home/arabbit/application'
+set :deploy_to, '/srv/apps/arabbit.mojolingo.com'
 
 set :branch, 'develop'
 
