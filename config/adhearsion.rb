@@ -73,7 +73,11 @@ Adhearsion.config do |config|
 end
 
 Adhearsion.router do
+  # TODO: DOCUMENT THIS USAGE!!!
+  route 'Mojo Lingo Extensions', ExtensionsController, lambda {|call| call.variables[:to] =~ /arabbit@127.0.0.1/ }
+
   route 'default' do
+    puts call.variables.inspect
     answer
     speak "Hi, this is Adam, but you can call me Mr Rabbit. I don't really do much yet, but it's nice to meet you anyway! Bye!"
     hangup
