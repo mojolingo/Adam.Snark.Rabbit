@@ -34,7 +34,7 @@ class ExtensionsController < Adhearsion::CallController
       logger.debug("Found destinations for #{extension}@#{account}: numbers: #{numbers.join(', ')}; devices: #{devices.join(', ')}")
       {:numbers => numbers, :devices => devices}
     else
-      logger.warn "Too many entries match the requested extension."
+      logger.warn "Too many entries (#{count}) match #{extension}@{account}"
       nil
     end
   end
