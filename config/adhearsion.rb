@@ -74,7 +74,7 @@ end
 
 Adhearsion.router do
   # TODO: DOCUMENT THIS USAGE!!!
-  route 'Mojo Lingo Extensions', ExtensionsController, lambda {|call| call.variables[:to] =~ /arabbit@127.0.0.1/ }
+  route 'Mojo Lingo Extensions', ExtensionsController, lambda {|call| call.variables[:to] =~ /^<sip:\d+@/ }
 
   route 'default' do
     puts call.variables.inspect
