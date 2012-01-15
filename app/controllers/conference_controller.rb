@@ -62,27 +62,26 @@ class ExtensionsController < Adhearsion::CallController
   end
   
   def validate_pin
-      pin = conf.pin.to_s
-      ahn_log.conference.debug("Getting PIN from caller for #{conf.room_number}")
-      digits = nil
-      retries = 0
-      while (retries < 3 && pin != digits)
-        retries += 1
-        digits = self.input 6, :accept_key => '#', :timeout => 5,
-          :play => 'conf-getpin'
-        ahn_log.conference.debug("Read PIN: #{digits}")
-
-        if (pin != digits)
-          self.play('conf-invalidpin')
-        end
-      end
+    pin = conf.pin.to_s
+    ahn_log.conference.debug("Getting PIN from caller for #{conf.room_number}")
+    digits = nil
+    retries = 0
+    while (retries < 3 && pin != digits)
+      retries += 1
+      digits = self.input 6, :accept_key => '#', :timeout => 5,
+        :play => 'conf-getpin'
+      ahn_log.conference.debug("Read PIN: #{digits}")
 
       if (pin != digits)
-        ahn_log.conference.info("Conference PIN authentication failed for #{conf.room_number}.")
-        self.play('goodbye')
-        self.hangup
-        return false
+        self.play('conf-invalidpin')
       end
+    end
+
+    if (pin != digits)
+      ahn_log.conference.info("Conference PIN authentication failed for #{conf.room_number}.")
+      self.play('goodbye')
+      self.hangup
+      return false
     end
   end
 end
