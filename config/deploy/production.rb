@@ -1,4 +1,4 @@
-set :rails_env, 'staging'
+set :rails_env, 'production'
 
 set :user,      'arabbit'
 set :deploy_to, '/srv/apps/arabbit.mojolingo.com'
