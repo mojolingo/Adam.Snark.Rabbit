@@ -20,6 +20,10 @@ gem 'rails', '3.1.3'
 gem 'mongoid',  '~> 2.3'
 gem 'bson_ext', '~> 1.4'
 
+# Needed to look up extensions
+gem 'activeldap'
+gem 'ruby-ldap'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

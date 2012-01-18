@@ -47,6 +47,11 @@ GEM
       rack-mount (~> 0.8.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.0.3)
+    activeldap (3.1.1)
+      activemodel (~> 3.1.0)
+      fast_gettext
+      gettext_i18n_rails
+      locale
     activemodel (3.1.3)
       activesupport (= 3.1.3)
       builder (~> 3.0.0)
@@ -122,8 +127,11 @@ GEM
     factory_girl_rails (1.4.0)
       factory_girl (~> 2.3.0)
       railties (>= 3.0.0)
+    fast_gettext (0.6.4)
     ffi (1.0.11)
     future-resource (0.0.2)
+    gettext_i18n_rails (0.4.3)
+      fast_gettext
     gherkin (2.7.1)
       json (>= 1.4.6)
     girl_friday (0.9.7)
@@ -181,6 +189,7 @@ GEM
     launchy (2.0.5)
       addressable (~> 2.2.6)
     little-plugger (1.1.3)
+    locale (2.0.5)
     logging (1.6.1)
       little-plugger (>= 1.1.2)
     loquacious (1.9.1)
@@ -276,6 +285,7 @@ GEM
     rubigen (1.5.6)
       activesupport (>= 2.3.5)
       i18n
+    ruby-ldap (0.9.12)
     ruby_ami (0.1.5)
       activesupport (>= 3.0.9)
       countdownlatch (>= 1.0.0)
@@ -340,6 +350,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activeldap
   adhearsion!
   adhearsion-reporter!
   bson_ext (~> 1.4)
@@ -367,6 +378,7 @@ DEPENDENCIES
   rails (= 3.1.3)
   rspec-rails
   rspec-rails-mocha
+  ruby-ldap
   ruby_gntp
   ruby_parser
   rvm
