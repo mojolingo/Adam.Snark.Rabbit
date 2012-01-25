@@ -1,3 +1,3 @@
-class Extension < ActiveLdap::Base
+class Extensions < ActiveLdap::Base
   ldap_mapping :dn_attribute => 'uid', :prefix => 'ou=Extensions', :classes => ['top', 'AsteriskUser', 'AsteriskVoiceMail']
 end
