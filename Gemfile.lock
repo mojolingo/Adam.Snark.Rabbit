@@ -9,10 +9,10 @@ GIT
 
 GIT
   remote: git://github.com/adhearsion/adhearsion.git
-  revision: a4221f17fb16db58f53a518ec461b24414d2694f
+  revision: 376eef2cc7a6143ab7ac59f7a9259597d78f6c0a
   branch: develop
   specs:
-    adhearsion (2.0.0.alpha1)
+    adhearsion (2.0.0.alpha2)
       activesupport (>= 3.0.10)
       adhearsion-loquacious (>= 1.9.0)
       bundler (>= 1.0.10)
@@ -25,7 +25,7 @@ GIT
       json
       logging (>= 1.6.1)
       pry
-      punchblock (>= 0.8.4)
+      punchblock (>= 0.9.1)
       rake
       ruby_speech (>= 0.4.0)
       thor
@@ -234,11 +234,11 @@ GEM
       nokogiri (~> 1.4.6)
     nokogiri (1.4.7)
     polyglot (0.3.3)
-    pry (0.9.8)
+    pry (0.9.8.1)
       coderay (~> 1.0.5)
       method_source (~> 0.7)
       slop (>= 2.4.3, < 3)
-    punchblock (0.8.4)
+    punchblock (0.9.1)
       activesupport (>= 2.1.0)
       blather (>= 0.5.12)
       celluloid (>= 0.6.0)
