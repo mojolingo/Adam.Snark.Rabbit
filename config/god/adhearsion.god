@@ -4,8 +4,8 @@
   :staging => {:path => '/home/arabbit/application', :uid => 'arabbit', :gid => 'arabbit'}
 }
 
-def ahnctl_command(action = :start, env = :production)
-  "cd #{app_path(env)} && bundle exec ahnctl #{action} #{app_path(env)} --pid-file=#{pid_file(env)}"
+def ahn_command(action = :start, env = :production)
+  "cd #{app_path(env)} && bundle exec ahn #{action} . --pid-file=#{pid_file(env)}"
 end
 
 def app_path(env)
@@ -40,9 +40,9 @@ end
 
     w.dir = @app_path
 
-    w.start   = ahnctl_command :start, env
-    w.stop    = ahnctl_command :stop, env
-    w.restart = ahnctl_command :restart, env
+    w.start   = ahn_command :start, env
+    w.stop    = ahn_command :stop, env
+    w.restart = ahn_command :restart, env
 
     w.pid_file = pid_file env
     w.behavior :clean_pid_file
