@@ -1,8 +1,9 @@
 # FIXME: Can we do better than duplicating this information in Cap and God?
-@environments = {
+@environments = {}
+{
   :production => {:path => '/srv/apps/arabbit.mojolingo.com', :uid => 'arabbit', :gid => 'arabbit'},
   :staging => {:path => '/home/arabbit/application', :uid => 'arabbit', :gid => 'arabbit'}
-}
+}.map { |env, settings| @environments[env] = settings if File.exist? settings[:path] }
 
 def ahn_command(action = :start, env = :production)
   "cd #{app_path(env)} && bundle exec ahn #{action} . --pid-file=#{pid_file(env)}"
