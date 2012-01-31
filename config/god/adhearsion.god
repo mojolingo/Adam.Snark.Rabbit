@@ -1,6 +1,6 @@
 # FIXME: Can we do better than duplicating this information in Cap and God?
 @environments = {
-  :production => {:path => '/srv/apps/arabbit', :uid => 'arabbit', :gid => 'arabbit'}
+  :production => {:path => '/srv/apps/arabbit.mojolingo.com', :uid => 'arabbit', :gid => 'arabbit'},
   :staging => {:path => '/home/arabbit/application', :uid => 'arabbit', :gid => 'arabbit'}
 }
 
@@ -9,11 +9,11 @@ def ahn_command(action = :start, env = :production)
 end
 
 def app_path(env)
-  File.join @environments[env], 'current'
+  File.join @environments[env][:path], 'current'
 end
 
 def pid_file(env)
-  File.join @environments[env], 'shared', 'pids', 'adhearsion.pid'
+  File.join @environments[env][:path], 'shared', 'pids', 'adhearsion.pid'
 end
 
 def app_uid_gid(env)
@@ -21,7 +21,7 @@ def app_uid_gid(env)
 end
 
 def environment_file(env)
-  File.join @environments[env], 'shared', 'environment.yml'
+  File.join @environments[env][:path], 'shared', 'config', 'environment.yml'
 end
 
 def environment_variables(env)
