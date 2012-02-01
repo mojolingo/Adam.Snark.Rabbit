@@ -1,4 +1,4 @@
-class ExtensionsController < Adhearsion::CallController
+class ExtensionController < Adhearsion::CallController
   def run
     answer
 

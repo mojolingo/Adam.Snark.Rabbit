@@ -1,4 +1,4 @@
-class ExtensionsController < Adhearsion::CallController
+class ConferenceController < Adhearsion::CallController
   def run
     answer
   end
