@@ -5,7 +5,7 @@
   :staging => {:path => '/home/arabbit/application', :uid => 'arabbit', :gid => 'arabbit'}
 }.map { |env, settings| @environments[env] = settings if File.exist? settings[:path] }
 
-def ahn_command(action = :start, env = :production)
+def ahn_command(action = :daemon, env = :production)
   "cd #{app_path(env)} && bundle exec ahn #{action} . --pid-file=#{pid_file(env)}"
 end
 
@@ -41,7 +41,7 @@ end
 
     w.dir = @app_path
 
-    w.start   = ahn_command :start, env
+    w.start   = ahn_command :daemon, env
     w.stop    = ahn_command :stop, env
     w.restart = ahn_command :restart, env
 
