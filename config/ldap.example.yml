@@ -1,0 +1,6 @@
+production:
+  host: ldap-atlanta.alkaloid.net
+  method: :tls
+  base: dc=alkaloid,dc=net
+  bind_dn: uid=Adam.Snark.Rabbit,ou=Service Accounts,dc=alkaloid,dc=net
+  password: XXXXXX
