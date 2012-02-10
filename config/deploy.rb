@@ -31,7 +31,7 @@ namespace :deploy do
 
   desc "Symlink shared resources on each release"
   task :symlink_shared do
-    %w{public/system tmp log}.each do |p|
+    %w{config/environment.yml public/system tmp log}.each do |p|
       run "rm -rf #{release_path}/#{p} && ln -nfs #{shared_path}/#{p} #{release_path}/#{p}"
     end
   end
