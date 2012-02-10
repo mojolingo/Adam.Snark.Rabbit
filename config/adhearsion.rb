@@ -28,9 +28,24 @@ Adhearsion.router do
   route 'Mojo Lingo Extensions', ExtensionController, lambda {|call| call.variables[:to] =~ /^<sip:\d+@/ }
 
   route 'default' do
-    puts call.variables.inspect
     answer
     speak "Hi, this is Adam, but you can call me Mr Rabbit. I don't really do much yet, but it's nice to meet you anyway! Bye!"
+    dial 'sip:4046955106@208.52.151.10', :from => 'tel:+14044754840', :for => 30
     hangup
+  end
+end
+
+Adhearsion::XMPP.register_handlers do
+  subscription :request? do |s|
+    if s.from.domain =~ /mojolingo\.(com|net)/
+      logger.info "Approving XMPP subscription for #{s.from}"
+      client.write s.approve!
+    end
+  end
+
+  message :chat?, :body do |m|
+    reply = m.reply
+    reply.body = "Did you REALLY just say \"#{m.body}\"?!?"
+    client.write reply
   end
 end
