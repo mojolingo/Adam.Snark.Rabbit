@@ -15,6 +15,12 @@
 #        end
 
 Adhearsion.config do |config|
+  # The Airbrake/Errbit API key [AHN_REPORTER_API_KEY]
+  config.reporter.api_key = "68cd5fc4331903ace2d33b372339b38a"
+
+  # Base URL for notification service [AHN_REPORTER_URL]
+  config.reporter.url     = "http://errbit.mojolingo.com"
+
 end
 
 Adhearsion.router do

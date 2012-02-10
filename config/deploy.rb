@@ -2,6 +2,7 @@ $:.unshift File.expand_path('./lib', ENV['rvm_path'])
 require 'rvm/capistrano'
 require 'bundler/capistrano'
 require 'capistrano/ext/multistage'
+require 'airbrake/capistrano'
 
 default_run_options[:pty] = true
 default_environment['LC_CTYPE'] = 'en_US.UTF-8'

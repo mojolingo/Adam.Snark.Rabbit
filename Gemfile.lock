@@ -79,6 +79,9 @@ GEM
       multi_json (~> 1.0)
     addressable (2.2.6)
     adhearsion-loquacious (1.9.2)
+    airbrake (3.0.9)
+      activesupport
+      builder
     arel (2.2.1)
     blather (0.5.12)
       activesupport (>= 3.0.7)
@@ -362,6 +365,7 @@ DEPENDENCIES
   adhearsion!
   adhearsion-reporter!
   adhearsion-xmpp!
+  airbrake
   bson_ext (~> 1.4)
   capistrano
   capistrano-ext
