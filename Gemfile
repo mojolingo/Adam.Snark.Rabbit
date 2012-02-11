@@ -63,7 +63,7 @@ group :development do
   gem 'ruby_parser'
 end
 
-gem 'web-app-theme', :group => [:development, :assets]
+gem 'web-app-theme', '~> 0.8.0', :group => [:development, :assets]
 
 group :test, :development do
   gem 'rspec-rails'
