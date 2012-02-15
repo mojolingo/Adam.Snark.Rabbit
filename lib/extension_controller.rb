@@ -7,7 +7,7 @@ class ExtensionController < Adhearsion::CallController
   end
 
   def get_destinations(extension, account = 'mojolingo')
-    ahn_log.destinations.info("Looking up destinations for #{extension}@#{account}")
+    logger.destinations.info("Looking up destinations for #{extension}@#{account}")
     numbers = []
     devices = []
     count = 0
