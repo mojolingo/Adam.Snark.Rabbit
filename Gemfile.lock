@@ -9,7 +9,7 @@ GIT
 
 GIT
   remote: git://github.com/adhearsion/adhearsion-xmpp.git
-  revision: 9dbb82e604de160de727a44366aa602d974b1ce8
+  revision: daf7020221ad5a51bf399544c65c28694c28c20a
   branch: develop
   specs:
     adhearsion-xmpp (0.1.0)
@@ -19,7 +19,7 @@ GIT
 
 GIT
   remote: git://github.com/adhearsion/adhearsion.git
-  revision: 8cdb942d2f11081e381d203021a1ae3b73e3d3cf
+  revision: 89f17d4771c3675b73145804e9832afa1f75cc70
   branch: develop
   specs:
     adhearsion (2.0.0.alpha2)
