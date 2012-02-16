@@ -44,8 +44,6 @@ Adhearsion::XMPP.register_handlers do
   end
 
   message :chat?, :body do |m|
-    reply = m.reply
-    reply.body = "Did you REALLY just say \"#{m.body}\"?!?"
-    client.write reply
+    client.write MessageHandler.respond_to m
   end
 end
