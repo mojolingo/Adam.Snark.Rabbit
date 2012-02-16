@@ -11,11 +11,11 @@ class MessageHandler
       username = message.body.match(/^get status for (\w+)/)[1]
       response = StatusMessages.last_status_for username
       reply = message.reply
-      reply.body = case response["statuses"].first
+      reply.body = case response.first
       when nil
         "No status updates found for #{username}"
       else
-        response["statuses"].first['text']
+        "@#{username}: \"#{response.first['text']}\""
       end
       reply
     end
