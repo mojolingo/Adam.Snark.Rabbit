@@ -12,7 +12,7 @@ gem "adhearsion-reporter", :git => 'git://github.com/adhearsion/adhearsion-repor
 # gem 'adhearsion-rails'
 # gem 'adhearsion-activerecord'
 # gem 'adhearsion-ldap'
-gem 'adhearsion-xmpp', :git => 'git@github.com:adhearsion/adhearsion-xmpp.git', :branch => :develop
+gem 'adhearsion-xmpp', :git => 'git://github.com/adhearsion/adhearsion-xmpp.git', :branch => :develop
 gem 'punchblock'
 # gem 'adhearsion-drb'
 
