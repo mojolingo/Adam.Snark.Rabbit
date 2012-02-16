@@ -2,9 +2,10 @@ require 'httparty'
 
 class StatusMessages
   include HTTParty
+  include Singleton
   base_uri 'status.mojolingo.com/api'
 
-  def initialize(username, password)
+  def setup(username, password)
     @auth = {:username => username, :password => password}
   end
 
@@ -31,5 +32,11 @@ class StatusMessages
   def last_status_for(username, count = 1)
     # the second parameter is unused, hence nil
     timeline :user, nil, :query => { :screen_name => username, :count => count }
+  end
+
+  class << self
+    def method_missing(method, *args, &block)
+      instance.send method, *args, &block
+    end
   end
 end
