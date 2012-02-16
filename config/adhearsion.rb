@@ -23,6 +23,8 @@ Adhearsion.config do |config|
 
 end
 
+StatusMessages.setup "arabbit", Adhearsion.config.punchblock['password']
+
 Adhearsion.router do
   # TODO: DOCUMENT THIS USAGE!!!
   route 'Mojo Lingo Extensions', ExtensionController, lambda {|call| call.variables[:to] =~ /^<sip:\d+@/ }
