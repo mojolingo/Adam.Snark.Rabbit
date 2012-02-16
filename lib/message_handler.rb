@@ -2,16 +2,22 @@ class MessageHandler
   class << self
     def respond_to(message)
       case message.body
-      when /^get status for/i
+      when /^get status/i
         get_status message
       end
     end
 
     def get_status(message)
       username = message.body.match(/^get status for (\w+)/)[1]
-      status = StatusMessages.last_status_for username
+      response = StatusMessages.last_status_for username
       reply = message.reply
-      reply.body = status.text
+      reply.body = case response["statuses"].first
+      when nil
+        "No status updates found for #{username}"
+      else
+        response["statuses"].first['text']
+      end
+      reply
     end
   end
 end
