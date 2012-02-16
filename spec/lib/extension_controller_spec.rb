@@ -16,7 +16,7 @@ describe ExtensionController do
   end
   
   
-  it 'should default the account to "mojoingo"' do
+  it 'should default the account to "mojolingo"' do
     pending
     extension = 101
     account = "testing"
