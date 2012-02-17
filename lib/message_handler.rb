@@ -14,6 +14,9 @@ class MessageHandler
       reply.body = case response.first
       when nil
         "No status updates found for #{username}"
+      when Array
+        # {"error"=>"No such user."} becomes ["error", "No such user."]
+        response.has_key?('error') ? "Server reported an error: #{response['error']}" : "Unknown error processing this request."
       else
         "@#{username}: \"#{response.first['text']}\""
       end
