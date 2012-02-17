@@ -34,6 +34,49 @@ describe MessageHandler do
       @input = MockMessage.new 'bklang@mojolingo.com', 'arabbit@mojolingo.com', 'get status for blangfeld'
     end
 
+    it 'should fetch the latest status from the public timeline' do
+      @input.body = 'get status'
+      mock_status = [{"text"=>
+   "Ben Langfeld (https://status.mojolingo.com/url/6) started following Adam Snark Rabbit (https://status.mojolingo.com/url/23).",
+  "truncated"=>false,
+  "created_at"=>"Fri Feb 17 15:37:43 -0500 2012",
+  "in_reply_to_status_id"=>nil,
+  "source"=>"activity",
+  "id"=>308,
+  "in_reply_to_user_id"=>nil,
+  "in_reply_to_screen_name"=>nil,
+  "geo"=>nil,
+  "favorited"=>false,
+  "user"=>
+   {"id"=>4,
+    "name"=>"Ben Langfeld",
+    "screen_name"=>"blangfeld",
+    "location"=>"Preston, UK",
+    "description"=>nil,
+    "profile_image_url"=>
+     "https://secure.gravatar.com/avatar.php?gravatar_id=f4971cb1f368ba9a03f227469768bdf6&default=http%3A%2F%2Fstatus.mojolingo.com",
+    "url"=>"http://langfeld.me",
+    "protected"=>false,
+    "followers_count"=>7,
+    "friends_count"=>10,
+    "created_at"=>"Mon Oct 17 07:35:54 -0400 2011",
+    "favourites_count"=>0,
+    "utc_offset"=>"0",
+    "time_zone"=>"UTC",
+    "statuses_count"=>45,
+    "following"=>true,
+    "statusnet_blocking"=>false,
+    "notifications"=>true,
+    "statusnet_profile_url"=>"https://status.mojolingo.com/blangfeld"},
+  "statusnet_html"=>
+   "<a href=\"https://status.mojolingo.com/blangfeld\">Ben Langfeld</a> started following arabbit",
+  "statusnet_conversation_id"=>268}]
+
+      StatusMessages.expects(:timeline).once.with(:public, 1).returns mock_status
+
+      MessageHandler.respond_to(@input).body.should == '@blangfeld: "Ben Langfeld (https://status.mojolingo.com/url/6) started following Adam Snark Rabbit (https://status.mojolingo.com/url/23)."'
+    end
+
     it 'should request the latest status for a given user' do
       mock_status = [{'text' => 'Ben Was Here', 'user' => {'screen_name' => 'blangfeld'}}]
       StatusMessages.expects(:last_status_for).once.with('blangfeld').returns mock_status
