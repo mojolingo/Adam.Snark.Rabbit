@@ -25,7 +25,7 @@ class MessageHandler
     end
 
     def get_status(message)
-      username = message.body.match(/^get status for (\w+)/)[1]
+      username = message.body.match(/^get status for (\w+)/)[1] rescue nil
       response = username.nil? ? StatusMessages.timeline(:public, 1) : StatusMessages.last_status_for(username)
       case response.first
       when nil
