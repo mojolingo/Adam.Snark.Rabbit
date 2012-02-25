@@ -32,7 +32,6 @@ Adhearsion.router do
   route 'default' do
     answer
     speak "Hi, this is Adam, but you can call me Mr Rabbit. I don't really do much yet, but it's nice to meet you anyway! Bye!"
-    dial 'sip:4046955106@208.52.151.10', :from => 'tel:+14044754840', :for => 30
     hangup
   end
 end
