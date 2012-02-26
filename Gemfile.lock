@@ -61,10 +61,10 @@ GIT
 
 GIT
   remote: git://github.com/sprsquish/blather.git
-  revision: 23351abd89b6ab6920855fc088e86fda35521100
+  revision: d46d5d7fc289579592dc4260369729279c97bbdd
   branch: develop
   specs:
-    blather (0.6.0)
+    blather (0.6.1)
       activesupport (>= 3.0.7)
       eventmachine (>= 0.12.6)
       niceogiri (>= 0.1.0)
