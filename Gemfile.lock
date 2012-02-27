@@ -45,7 +45,7 @@ GIT
 
 GIT
   remote: git://github.com/adhearsion/punchblock.git
-  revision: b09772084bf5dd75633241f47b8b0ae2e86ee96d
+  revision: 18b592d087a4492d9c3a8a5b83ca986a1530a324
   branch: develop
   specs:
     punchblock (0.9.2)
@@ -61,7 +61,7 @@ GIT
 
 GIT
   remote: git://github.com/sprsquish/blather.git
-  revision: 68f1d8e15ec5c014902de50120c18e59062caf2c
+  revision: ca4f6072f2f150770917bacbe02fa712281f8c72
   branch: develop
   specs:
     blather (0.6.1)
