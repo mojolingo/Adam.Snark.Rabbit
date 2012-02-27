@@ -44,19 +44,9 @@ Adhearsion::XMPP.register_handlers do
     end
   end
 
-  message :chat?, :body do |m|
-    client.write MessageHandler.respond_to m
-  end
-
-  message :groupchat?, :body, :delay => nil do |m|
-    # Only respond to groupchat messages if the message was directed at me
-    if m.body =~ /^arabbit: |^!/
-      m.body = m.body.gsub /^arabbit: |^!/, ''
-      response = MessageHandler.respond_to m
-      # Strip the resource off the "to" field, since it represents the sender of the original message
-      response.to = "#{response.to.node}@#{response.to.domain}"
-      client.write response
-    end
+  message [:chat?, :groupchat?], :body, :delay => nil do |m|
+    response = MessageHandler.respond_to m
+    client.write response unless response.nil?
   end
 
   muc_user :invite?, :from => /@conference.mojolingo.com/ do |muc_user|

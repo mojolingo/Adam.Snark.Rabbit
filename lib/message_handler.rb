@@ -1,7 +1,18 @@
 class MessageHandler
+  ADDRESSED_TO_ME = /^arabbit: |^!/
+
   class << self
     def respond_to(message)
+
+      if message.groupchat?
+        return nil unless message.body =~ ADDRESSED_TO_ME
+      end
+
+      message.body = message.body.gsub ADDRESSED_TO_ME, ''
+
       reply = message.reply
+      # Strip the resource off the "to" field, since it represents the sender of the original message
+      reply.to = "#{reply.to.node}@#{reply.to.domain}" if message.groupchat?
       reply.body = case message.body
       when /^list projects/
         list_project_names message

@@ -1,10 +1,19 @@
 require 'spec_helper'
 
 class MockMessage
-  attr_accessor :from, :to, :body
+  attr_accessor :from, :to, :body, :groupchat, :chat
 
   def initialize(from, to, body = nil)
-    @from, @to, @body = from, to, body
+    @from, @to, @body = Blather::JID.new(from), Blather::JID.new(to), body
+    @groupchat, @chat = false, false
+  end
+
+  def groupchat?
+    @groupchat
+  end
+
+  def chat?
+    @chat
   end
 
   def reply
@@ -26,6 +35,28 @@ describe MessageHandler do
     it 'should show a reasonable error message' do
       @input = MockMessage.new 'bklang@mojolingo.com', 'arabbit@mojolingo.com', 'j23ijlksdvjlqk23;lkja;wlkj'
       MessageHandler.respond_to(@input).body.should == "Now you're not making any sense at all!"
+    end
+  end
+
+  describe 'reacting to groupchat messages' do
+    before :each do
+      @input = MockMessage.new 'internal-discuss@conference.mojolingo.com/requestor_nick', 'arabbit@mojolingo.com'
+      @input.groupchat = true
+    end
+
+    it 'should only react to messages addressed to me' do
+      @input.body = "So Ben, how's the leg?"
+      MessageHandler.respond_to(@input).should be nil
+    end
+
+    it 'should react to messages addressed to me with bang syntax' do
+      @input.body = '!blah blah invalid request'
+      MessageHandler.respond_to(@input).should_not be nil
+    end
+
+    it 'should react to messages addressed to me with nick syntax' do
+      @input.body = 'arabbit: blah blah invalid request'
+      MessageHandler.respond_to(@input).should_not be nil
     end
   end
 
