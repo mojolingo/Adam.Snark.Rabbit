@@ -153,4 +153,16 @@ describe MessageHandler do
       MessageHandler.respond_to(@input).body.should == 'Test Project (Big Customer)'
     end
   end
+
+  describe 'showing projects' do
+    before :each do
+      @input = MockMessage.new 'bklang@mojolingo.com', 'arabbit@mojolingo.com'
+    end
+
+    it 'should show the list of links for a given project' do
+      pending "Need fixtures"
+      @input.body = 'show project foobar'
+      MessageHandler.respond_to(@input).body.should == "GitHub: https://github.com/mojolingo/foobar\nPivotal Tracker: https://pivotaltracker.com/projects/123456"
+    end
+  end
 end
