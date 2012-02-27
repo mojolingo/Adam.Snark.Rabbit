@@ -37,6 +37,12 @@ Adhearsion.router do
 end
 
 Adhearsion::XMPP.register_handlers do
+  when_ready do
+    client.write(Blather::Stanza::Presence::MUC.new.tap do |j|
+      j.to = "internal-discuss@conference.mojolingo.com/arabbit"
+    end)
+  end
+
   subscription :request? do |s|
     if s.from.domain =~ /mojolingo\.(com|net)/
       logger.info "Approving XMPP subscription for #{s.from}"
