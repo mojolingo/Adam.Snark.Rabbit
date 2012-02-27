@@ -61,7 +61,7 @@ GIT
 
 GIT
   remote: git://github.com/sprsquish/blather.git
-  revision: d46d5d7fc289579592dc4260369729279c97bbdd
+  revision: 68f1d8e15ec5c014902de50120c18e59062caf2c
   branch: develop
   specs:
     blather (0.6.1)
@@ -346,7 +346,7 @@ GEM
     sexp_processor (3.0.10)
     simple-navigation (3.7.0)
       activesupport (>= 2.3.2)
-    simple_form (2.0.0)
+    simple_form (2.0.1)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
     slop (2.4.4)
