@@ -48,6 +48,17 @@ Adhearsion::XMPP.register_handlers do
     client.write MessageHandler.respond_to m
   end
 
+  message :groupchat?, :body, :delay => nil do |m|
+    # Only respond to groupchat messages if the message was directed at me
+    if m.body =~ /^arabbit: |^!/
+      m.body = m.body.gsub /^arabbit: |^!/, ''
+      response = MessageHandler.respond_to m
+      # Strip the resource off the "to" field, since it represents the sender of the original message
+      response.to = "#{response.to.node}@#{response.to.domain}"
+      client.write response
+    end
+  end
+
   muc_user :invite?, :from => /@conference.mojolingo.com/ do |muc_user|
     logger.info "Received an invite to #{muc_user.from} from #{muc_user.invite.from} with reason #{muc_user.invite.reason}."
     client.write(Blather::Stanza::Presence::MUC.new.tap do |j|
