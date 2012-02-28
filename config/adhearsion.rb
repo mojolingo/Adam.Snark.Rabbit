@@ -55,7 +55,7 @@ Adhearsion::XMPP.register_handlers do
     client.write response unless response.nil?
   end
 
-  muc_user :invite?, :from => /@conference.mojolingo.com/ do |muc_user|
+  muc_user_message :invite?, :from => /@conference.mojolingo.com/ do |muc_user|
     logger.info "Received an invite to #{muc_user.from} from #{muc_user.invite.from} with reason #{muc_user.invite.reason}."
     client.write(Blather::Stanza::Presence::MUC.new.tap do |j|
       j.to = [muc_user.from, 'arabbit'].join '/'
