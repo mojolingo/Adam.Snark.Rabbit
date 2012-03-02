@@ -43,6 +43,8 @@ Adhearsion::XMPP.register_handlers do
     end)
   end
 
+  presence { |p| Roster.update_presence_for p.from, p.state }
+
   subscription :request? do |s|
     if s.from.domain =~ /mojolingo\.(com|net)/
       logger.info "Approving XMPP subscription for #{s.from}"
