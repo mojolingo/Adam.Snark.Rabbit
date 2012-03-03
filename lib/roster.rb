@@ -3,6 +3,8 @@ require 'singleton'
 class Roster
   include Singleton
   attr_reader :mutex
+
+  PRESENCE_PRIORITY = [:available, :away, :xa, :dnd, :unavailable].freeze
   
   def initialize
     @mutex = Mutex.new
@@ -25,21 +27,11 @@ class Roster
     return (@roster[jid].has_key?(resource) ? @roster[jid][resource] : :unavailable) if resource
 
     if @roster.has_key?(jid)      
-      # Take the most-avaialble state
-      presence = nil
+      # Start by assuming the jid is unavailable
+      presence = :unavailable
+      # Take the most-available state
       @roster[jid].each do |r, p|
-        case p
-        when :available
-          presence = p
-        when :away
-          presence = p unless presence == :available
-        when :xa
-          presence = p unless [:available, :away].include? presence
-        when :dnd
-          presence = p unless [:available, :away, :xa].include? presence
-        else
-          presence = p unless [:available, :away, :xa, :dnd].include? presence
-        end
+        presence = p if PRESENCE_PRIORITY.index(p) < PRESENCE_PRIORITY.index(presence)
       end
       presence || :unavailable
     else
@@ -51,6 +43,7 @@ class Roster
     jid = Blather::JID.new jid
     jid, resource = jid.stripped.to_s, jid.resource
     raise ArgumentError, "Must supply a resource when updating presence" unless resource
+    raise ArgumentError unless PRESENCE_PRIORITY.include? state
     @roster[jid] ||= {}
     @roster[jid][resource] = state
   end

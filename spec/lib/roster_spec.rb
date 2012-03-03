@@ -71,9 +71,6 @@ describe Roster do
     it 'should return :dnd in preference to everything but :available, :away and :xa' do
       Roster.update_presence_for 'lgleason@mojolingo.com/tennessee', :unavailable
       Roster.update_presence_for 'lgleason@mojolingo.com/wine_cellar', :dnd
-      Roster.update_presence_for 'lgleason@mojolingo.com/home', :foo
-      Roster.update_presence_for 'lgleason@mojolingo.com/car', :bar
-      Roster.update_presence_for 'lgleason@mojolingo.com/transatlantic_flight', :baz
       Roster.presence_for('lgleason@mojolingo.com').should be :dnd
     end
     
