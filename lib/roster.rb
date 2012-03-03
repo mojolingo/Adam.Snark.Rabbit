@@ -33,7 +33,7 @@ class Roster
       @roster[jid].each do |r, p|
         presence = p if PRESENCE_PRIORITY.index(p) < PRESENCE_PRIORITY.index(presence)
       end
-      presence || :unavailable
+      presence
     else
       :unavailable
     end
