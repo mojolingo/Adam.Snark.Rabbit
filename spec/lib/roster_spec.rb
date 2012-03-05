@@ -8,11 +8,11 @@ class Roster
 end
 
 describe Roster do
-  before :each do
-    Roster.reset
-  end
-
   describe '#update_presence_for' do
+    before :each do
+      Roster.reset
+    end
+
     it 'should take a string JID as input' do
       Roster.update_presence_for 'lpradovera@mojolingo.com/broken_macbook_pro', :available
       Roster.presence_for('lpradovera@mojolingo.com').should be :available
@@ -31,6 +31,7 @@ describe Roster do
 
   describe '#presence_for' do
     before :each do
+      Roster.reset
       Roster.update_presence_for 'lgleason@mojolingo.com/tennessee', :xa
     end
 
@@ -82,6 +83,10 @@ describe Roster do
   end
 
   describe "presence helpers" do
+    before :each do
+      Roster.reset
+    end
+
     it 'should track state changes' do
       Roster.update_presence_for 'bklang@mojolingo.com/home', :available
       Roster.online?('bklang@mojolingo.com').should == true
@@ -103,6 +108,49 @@ describe Roster do
 
     it 'should return :unavailable when requesting presence for an unseen JID' do
       Roster.presence_for('no_such_person@mojolingo.com').should be :unavailable
+    end
+
+    it 'should allow iterating over the status of all online users' do
+      Roster.update_presence_for 'bklang@mojolingo.com/home', :available
+      Roster.update_presence_for 'blangfeld@mojolingo.com/work', :dnd
+      Roster.update_presence_for 'lpradovera@mojolingo.com/play', :away
+
+      presences = {
+        'bklang@mojolingo.com' => :available,
+        'blangfeld@mojolingo.com' => :dnd,
+        'lpradovera@mojolingo.com' => :away,
+      }
+
+      i = 0
+      Roster.each do |jid, status|
+        jid.should == presences.keys[i]
+        status.should == presences[jid]
+        i += 1
+      end
+    end
+
+    it "should allow iterating over the status of a specific JID's resources" do
+      Roster.update_presence_for 'bklang@mojolingo.com/home', :available
+      Roster.update_presence_for 'bklang@mojolingo.com/work', :dnd
+      Roster.update_presence_for 'bklang@mojolingo.com/play', :away
+
+      # And some non-bklang presences just to be safe:
+      Roster.update_presence_for 'blangfeld@mojolingo.com/work', :dnd
+      Roster.update_presence_for 'lpradovera@mojolingo.com/play', :away
+
+      presences = {
+        'home' => :available,
+        'work' => :dnd,
+        'play' => :away,
+      }
+
+      i = 0
+      Roster.each('bklang@mojolingo.com') do |resource, status|
+        resource.should == presences.keys[i]
+        status.should == presences[resource]
+        i += 1
+      end
+
     end
   end
 end

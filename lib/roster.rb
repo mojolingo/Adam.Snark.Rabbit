@@ -2,6 +2,7 @@ require 'singleton'
 
 class Roster
   include Singleton
+  include Enumerable
   attr_reader :mutex
 
   PRESENCE_PRIORITY = [:available, :away, :xa, :dnd, :unavailable].freeze
@@ -47,7 +48,16 @@ class Roster
     @roster[jid] ||= {}
     @roster[jid][resource] = state
   end
-  
+
+  def each(jid = nil)
+    jid = Blather::JID.new(jid).stripped.to_s unless jid.nil?
+    if jid
+      @roster[jid].each {|resource, presence| yield resource, presence}
+    else
+      @roster.keys.each {|jid| yield jid, presence_for(jid)}
+    end
+  end
+
   class << self
     def method_missing(method, *args, &block)
       instance.mutex.synchronize do
