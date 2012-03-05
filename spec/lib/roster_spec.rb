@@ -74,7 +74,7 @@ describe Roster do
       Roster.update_presence_for 'lgleason@mojolingo.com/wine_cellar', :dnd
       Roster.presence_for('lgleason@mojolingo.com').should be :dnd
     end
-    
+
     it 'should return presence for a specific resource when requested' do
       Roster.update_presence_for 'lgleason@mojolingo.com/wine_cellar', :dnd
       Roster.presence_for('lgleason@mojolingo.com/wine_cellar').should be :dnd
