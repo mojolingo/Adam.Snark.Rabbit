@@ -165,4 +165,49 @@ describe MessageHandler do
       MessageHandler.respond_to(@input).body.should == "GitHub: https://github.com/mojolingo/foobar\nPivotal Tracker: https://pivotaltracker.com/projects/123456"
     end
   end
+
+  describe 'entering time' do
+    before :each do
+      @input = MockMessage.new 'bklang@mojolingo.com', 'arabbit@mojolingo.com'
+    end
+
+    it 'should return a helpful error message when failing' do
+      e = XMLRPC::FaultException.new 0, 'Test Error'
+      Wisecrack.expects(:get_client_by_name).once.with('Customer').returns 'example_customer_id'
+      Wisecrack.expects(:record_time).once.raises e
+      @input.body = 'enter 1h for Customer: test'
+      MessageHandler.respond_to(@input).body.should == "Error processing your time request: Test Error"
+    end
+
+    it 'should return a helpful error if given a bad client name' do
+      @input.body = 'enter 1h for Customer: test'
+      Wisecrack.expects(:get_client_by_name).once.with('Customer').returns nil
+      MessageHandler.respond_to(@input).body.should == "I could not find a client by that name: Customer"
+    end
+
+    it 'should return a helpful error if the time request could not be processed' do
+      @input.body = 'enter 1h for Customer'
+      MessageHandler.respond_to(@input).body.should == 'I could not process that request.  Please enter time in the format:
+enter 2 hours for SampleClient: I fixed all their problems.'
+    end
+
+    it 'should return a helpful error if the message comes from groupchat' do
+      @input.from = 'internal-discuss@conference.mojolingo.com/Ben Klang'
+      @input.body = 'enter 1h for Customer: test description'
+      MessageHandler.respond_to(@input).body.should == "Sorry, this command does not work from groupchat. Send it to me directly."
+    end
+
+    it 'should execute a properly formatted request' do
+      @input.body = 'enter 3.3h for Customer: testing'
+      Wisecrack.expects(:get_client_by_name).once.with('Customer').returns 'id' => 'example_customer_id'
+
+      Wisecrack.expects(:record_time).once.with('date' => Date.today,
+                                                'client' => 'example_customer_id',
+                                                'type' => 1,
+                                                'hours' => 3.3,
+                                                'description' => 'testing',
+                                                'employee' => 'bklang@mojolingo.com').returns "339"
+      MessageHandler.respond_to(@input).body.should == "Time recorded. Get back to work!"
+    end
+  end
 end

@@ -18,6 +18,8 @@ class MessageHandler
         list_project_names message
       when /^get status/i
         get_status message
+      when /^enter [\d\.]+(?:h| hours) for/i
+        enter_time message
       when /^help/i
         help message
       else
@@ -31,6 +33,7 @@ class MessageHandler
       Things you can ask me:
       get status [for username]
       list projects [for customer]
+      enter <#.#> hours for <customer>: <description>
       help
       MSG
     end
@@ -59,6 +62,31 @@ class MessageHandler
         end
       end.flatten.join("\n")
       response.empty? ? 'No matching projects found.' : response
+    end
+
+    def enter_time(message)
+      # TODO: Need to look up the "real" JID from the Roster. Otherwise we'll post with the MUC JID, which is wrong!
+      return "Sorry, this command does not work from groupchat. Send it to me directly." if message.from.to_s =~ /@conference.mojolingo.com/
+
+      matches = message.body.match(/^enter ([\d\.]+)(?:h| hour[s]?) for (\w+): (.*)$/) || []
+      hours, client_name, description = matches[1], matches[2], matches[3]
+
+      return 'I could not process that request.  Please enter time in the format:
+enter 2 hours for SampleClient: I fixed all their problems.' if (client_name.nil? || hours.nil? || description.nil?)
+
+      client = Wisecrack.get_client_by_name client_name
+      return "I could not find a client by that name: #{client_name}" if client.nil?
+
+      Wisecrack.record_time 'date' => Date.today,
+                            'client' => client['id'],
+                            'type' => 1,
+                            'hours' => hours.to_f,
+                            'description' => description,
+                            'employee' => message.from.stripped.to_s
+
+      "Time recorded. Get back to work!"
+    rescue XMLRPC::FaultException => e
+      "Error processing your time request: #{e.message}"
     end
   end
 end
