@@ -70,7 +70,6 @@ gem 'web-app-theme', '~> 0.8.0', :group => [:development, :assets]
 
 group :test, :development do
   gem 'rspec-rails'
-  gem 'database_cleaner'
   gem 'mocha'
   gem 'rspec-rails-mocha'
   gem 'jasmine-rails'
