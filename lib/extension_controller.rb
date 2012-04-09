@@ -7,7 +7,7 @@ class ExtensionController < Adhearsion::CallController
   end
 
   def get_destinations(extension, account = 'mojolingo')
-    logger.destinations.info("Looking up destinations for #{extension}@#{account}")
+    logger.info "Looking up destinations for #{extension}@#{account}"
     numbers = []
     devices = []
     count = 0
@@ -15,7 +15,7 @@ class ExtensionController < Adhearsion::CallController
     # Each |entry| is an array of [dn, attributes] where attributes is the
     # typical hash you would expect from LDAP.  Each attribute is an array of
     # one or more values.
-    Extension.search(:filter => "(&(AstVoicemailMailbox=#{extension})(AstContext=#{account}))") do |entry|
+    Extension.search :filter => "(&(AstVoicemailMailbox=#{extension})(AstContext=#{account}))" do |entry|
       numbers = Array(entry.second["telephoneNumber"])
       devices = Array(entry.second["AstUserChannel"])
       count += 1
@@ -27,7 +27,7 @@ class ExtensionController < Adhearsion::CallController
       logger.debug "No entry found for #{extension}@{account}"
       nil
     when 1
-      logger.debug("Found destinations for #{extension}@#{account}: numbers: #{numbers.join(', ')}; devices: #{devices.join(', ')}")
+      logger.debug "Found destinations for #{extension}@#{account}: numbers: #{numbers.join(', ')}; devices: #{devices.join(', ')}"
       {:numbers => numbers, :devices => devices}
     else
       logger.warn "Too many entries (#{count}) match #{extension}@{account}"
