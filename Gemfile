@@ -73,9 +73,7 @@ group :test do
   gem 'database_cleaner'
   gem 'launchy'
   gem 'capybara'
-end
 
-group :test, :development do
   gem 'guard'
   gem 'guard-rspec'
   gem 'guard-cucumber'
