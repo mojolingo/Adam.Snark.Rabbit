@@ -35,8 +35,18 @@ GIT
       state_machine (>= 1.0.1)
 
 GIT
+  remote: git://github.com/mojolingo/activeldap.git
+  revision: d44c82ce8288f4cf78f814abf523cb98790cb28d
+  specs:
+    activeldap (3.1.2)
+      activemodel (~> 3.1)
+      fast_gettext
+      gettext_i18n_rails
+      locale
+
+GIT
   remote: git://github.com/sprsquish/blather.git
-  revision: 62a0384ce91d3634fa69e29f8e7cbb7db866f146
+  revision: e32ab968928c91a26b74ddf0145c2454fe4e29b3
   branch: develop
   specs:
     blather (0.7.0)
@@ -44,43 +54,45 @@ GIT
       eventmachine (>= 0.12.6)
       girl_friday
       niceogiri (~> 1.0)
-      nokogiri (~> 1.4.0)
+      nokogiri (~> 1.4)
+
+GIT
+  remote: https://github.com/pilu/web-app-theme.git
+  revision: b7310fe5001ed03b965049f293fce3527ae98dae
+  specs:
+    web-app-theme (0.8.0)
+      rails (~> 3.2.0)
+      thor (~> 0.14)
 
 GEM
   remote: http://rubygems.org/
   specs:
-    actionmailer (3.1.3)
-      actionpack (= 3.1.3)
-      mail (~> 2.3.0)
-    actionpack (3.1.3)
-      activemodel (= 3.1.3)
-      activesupport (= 3.1.3)
+    actionmailer (3.2.3)
+      actionpack (= 3.2.3)
+      mail (~> 2.4.4)
+    actionpack (3.2.3)
+      activemodel (= 3.2.3)
+      activesupport (= 3.2.3)
       builder (~> 3.0.0)
       erubis (~> 2.7.0)
-      i18n (~> 0.6)
-      rack (~> 1.3.5)
-      rack-cache (~> 1.1)
-      rack-mount (~> 0.8.2)
+      journey (~> 1.0.1)
+      rack (~> 1.4.0)
+      rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
-      sprockets (~> 2.0.3)
-    activeldap (3.1.1)
-      activemodel (~> 3.1.0)
-      fast_gettext
-      gettext_i18n_rails
-      locale
-    activemodel (3.1.3)
-      activesupport (= 3.1.3)
+      sprockets (~> 2.1.2)
+    activemodel (3.2.3)
+      activesupport (= 3.2.3)
       builder (~> 3.0.0)
-      i18n (~> 0.6)
-    activerecord (3.1.3)
-      activemodel (= 3.1.3)
-      activesupport (= 3.1.3)
-      arel (~> 2.2.1)
+    activerecord (3.2.3)
+      activemodel (= 3.2.3)
+      activesupport (= 3.2.3)
+      arel (~> 3.0.2)
       tzinfo (~> 0.3.29)
-    activeresource (3.1.3)
-      activemodel (= 3.1.3)
-      activesupport (= 3.1.3)
-    activesupport (3.1.3)
+    activeresource (3.2.3)
+      activemodel (= 3.2.3)
+      activesupport (= 3.2.3)
+    activesupport (3.2.3)
+      i18n (~> 0.6)
       multi_json (~> 1.0)
     addressable (2.2.7)
     adhearsion (2.0.0.rc5)
@@ -107,7 +119,7 @@ GEM
     airbrake (3.0.9)
       activesupport
       builder
-    arel (2.2.3)
+    arel (3.0.2)
     bson (1.6.2)
     bson_ext (1.6.2)
       bson (~> 1.6.2)
@@ -131,9 +143,9 @@ GEM
     childprocess (0.3.1)
       ffi (~> 1.0.6)
     coderay (1.0.6)
-    coffee-rails (3.1.1)
+    coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
-      railties (~> 3.1.0)
+      railties (~> 3.2.0)
     coffee-script (2.2.0)
       coffee-script-source
       execjs
@@ -147,11 +159,10 @@ GEM
       gherkin (~> 2.9.0)
       json (>= 1.4.6)
       term-ansicolor (>= 1.0.6)
-    cucumber-rails (0.5.2)
-      capybara (>= 1.0.0.rc1)
-      cucumber (>= 0.10.5)
-      nokogiri (>= 1.4.4)
-      rack-test (>= 0.5.7)
+    cucumber-rails (1.3.0)
+      capybara (>= 1.1.2)
+      cucumber (>= 1.1.8)
+      nokogiri (>= 1.5.0)
     database_cleaner (0.7.2)
     debugger (1.1.0)
       columnize (>= 0.3.1)
@@ -231,8 +242,9 @@ GEM
       jasmine
       jasmine-headless-webkit
       rails (>= 3.1.0)
-    jquery-rails (1.0.19)
-      railties (~> 3.0)
+    journey (1.0.3)
+    jquery-rails (2.0.2)
+      railties (>= 3.2.0, < 5.0)
       thor (~> 0.14)
     json (1.6.6)
     launchy (2.1.0)
@@ -243,7 +255,7 @@ GEM
       little-plugger (>= 1.1.3)
     macaddr (1.5.0)
       systemu (>= 2.4.0)
-    mail (2.3.3)
+    mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -269,32 +281,30 @@ GEM
       net-ssh (>= 1.99.1)
     niceogiri (1.0.1)
       nokogiri (~> 1.4)
-    nokogiri (1.4.7)
+    nokogiri (1.5.2)
     polyglot (0.3.3)
     pry (0.9.8.4)
       coderay (~> 1.0.5)
       method_source (~> 0.7.1)
       slop (>= 2.4.4, < 3)
-    rack (1.3.6)
+    rack (1.4.1)
     rack-cache (1.2)
       rack (>= 0.4)
-    rack-mount (0.8.3)
-      rack (>= 1.0.0)
     rack-ssl (1.3.2)
       rack
     rack-test (0.6.1)
       rack (>= 1.0)
-    rails (3.1.3)
-      actionmailer (= 3.1.3)
-      actionpack (= 3.1.3)
-      activerecord (= 3.1.3)
-      activeresource (= 3.1.3)
-      activesupport (= 3.1.3)
+    rails (3.2.3)
+      actionmailer (= 3.2.3)
+      actionpack (= 3.2.3)
+      activerecord (= 3.2.3)
+      activeresource (= 3.2.3)
+      activesupport (= 3.2.3)
       bundler (~> 1.0)
-      railties (= 3.1.3)
-    railties (3.1.3)
-      actionpack (= 3.1.3)
-      activesupport (= 3.1.3)
+      railties (= 3.2.3)
+    railties (3.2.3)
+      actionpack (= 3.2.3)
+      activesupport (= 3.2.3)
       rack-ssl (~> 1.3.2)
       rake (>= 0.8.7)
       rdoc (~> 3.4)
@@ -339,11 +349,10 @@ GEM
     rubyzip (0.9.7)
     rvm (1.11.3.3)
     sass (3.1.15)
-    sass-rails (3.1.6)
-      actionpack (~> 3.1.0)
-      railties (~> 3.1.0)
+    sass-rails (3.2.5)
+      railties (~> 3.2.0)
       sass (>= 3.1.10)
-      tilt (~> 1.3.2)
+      tilt (~> 1.3)
     selenium-webdriver (2.20.0)
       childprocess (>= 0.2.5)
       ffi (~> 1.0)
@@ -356,7 +365,7 @@ GEM
       actionpack (~> 3.0)
       activemodel (~> 3.0)
     slop (2.4.4)
-    sprockets (2.0.3)
+    sprockets (2.1.2)
       hike (~> 1.2)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
@@ -376,9 +385,6 @@ GEM
     uuid (2.3.5)
       macaddr (~> 1.0)
     uuidtools (2.1.2)
-    web-app-theme (0.8.0)
-      rails (~> 3.1.0.rc6)
-      thor (~> 0.14)
     xpath (0.1.4)
       nokogiri (~> 1.3)
 
@@ -386,7 +392,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activeldap
+  activeldap!
   adhearsion (= 2.0.0.rc5)
   adhearsion-reporter!
   adhearsion-xmpp!
@@ -396,8 +402,8 @@ DEPENDENCIES
   capistrano
   capistrano-ext
   capybara
-  coffee-rails (~> 3.1.1)
-  cucumber-rails
+  coffee-rails (~> 3.1)
+  cucumber-rails (~> 1.3)
   database_cleaner
   debugger
   factory_girl_rails
@@ -418,15 +424,15 @@ DEPENDENCIES
   mocha
   mongoid (~> 2.3)
   punchblock!
-  rails (= 3.1.3)
+  rails (~> 3.2)
   rspec-rails
   rspec-rails-mocha
   ruby-ldap
   ruby_gntp
   ruby_parser
   rvm
-  sass-rails (~> 3.1.5)
+  sass-rails (~> 3.1)
   simple-navigation
   simple_form
   uglifier (>= 1.0.3)
-  web-app-theme (~> 0.8.0)
+  web-app-theme!
