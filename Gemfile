@@ -48,6 +48,8 @@ gem 'simple_form'
 # Use unicorn as the web server
 # gem 'unicorn'
 
+gem "twitter-bootstrap-rails"
+
 group :development do
   # Deploy with Capistrano
   gem 'capistrano'
@@ -59,8 +61,6 @@ group :development do
   gem 'hpricot'
   gem 'ruby_parser'
 end
-
-gem 'web-app-theme', :git => 'https://github.com/pilu/web-app-theme.git', :group => [:development, :assets]
 
 group :test do
   gem 'rspec-rails'
