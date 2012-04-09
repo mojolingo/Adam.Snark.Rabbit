@@ -52,7 +52,7 @@ group :development do
   # Deploy with Capistrano
   gem 'capistrano'
   gem 'capistrano-ext'
-  gem 'rvm'
+  gem 'rvm-capistrano'
 
   gem 'debugger'
 

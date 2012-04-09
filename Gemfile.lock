@@ -347,7 +347,8 @@ GEM
       activesupport (>= 3.0.7)
       niceogiri (~> 1.0)
     rubyzip (0.9.7)
-    rvm (1.11.3.3)
+    rvm-capistrano (1.0.2)
+      capistrano (>= 2.0.0)
     sass (3.1.15)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
@@ -430,7 +431,7 @@ DEPENDENCIES
   ruby-ldap
   ruby_gntp
   ruby_parser
-  rvm
+  rvm-capistrano
   sass-rails (~> 3.1)
   simple-navigation
   simple_form
