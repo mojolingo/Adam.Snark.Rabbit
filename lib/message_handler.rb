@@ -68,7 +68,7 @@ class MessageHandler
       # TODO: Need to look up the "real" JID from the Roster. Otherwise we'll post with the MUC JID, which is wrong!
       return "Sorry, this command does not work from groupchat. Send it to me directly." if message.from.to_s =~ /@conference.mojolingo.com/
 
-      matches = message.body.match(/^enter ([\d\.]+)(?:h| hour[s]?) for (\w+): (.*)$/) || []
+      matches = message.body.match(/^enter ([\d\.]+)(?:h| hour[s]?) for ([\w\s]+): (.*)$/) || []
       hours, client_name, description = matches[1], matches[2], matches[3]
 
       return 'I could not process that request.  Please enter time in the format:

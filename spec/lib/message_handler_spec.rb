@@ -198,8 +198,8 @@ enter 2 hours for SampleClient: I fixed all their problems.'
     end
 
     it 'should execute a properly formatted request' do
-      @input.body = 'enter 3.3h for Customer: testing'
-      Wisecrack.expects(:get_client_by_name).once.with('Customer').returns 'id' => 'example_customer_id'
+      @input.body = 'enter 3.3h for Customer Bob: testing'
+      Wisecrack.expects(:get_client_by_name).once.with('Customer Bob').returns 'id' => 'example_customer_id'
 
       Wisecrack.expects(:record_time).once.with('date' => Date.today,
                                                 'client' => 'example_customer_id',
