@@ -48,5 +48,4 @@ end
 after 'deploy:update_code', 'rvm:trust_rvmrc'
 after 'deploy:update_code', 'deploy:symlink_shared'
 after 'deploy:update',      'deploy:cleanup'
-after 'deploy:update',      'deploy:migrate'
 after 'deploy:restart',     'deploy:restart_adhearsion'
