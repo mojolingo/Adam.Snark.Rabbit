@@ -1,21 +1,16 @@
 source :rubygems
 
-gem "adhearsion", :git => 'git://github.com/adhearsion/adhearsion.git', :branch => :develop
+gem "adhearsion", '2.0.0.rc5'
 gem "adhearsion-reporter", :git => 'git://github.com/adhearsion/adhearsion-reporter.git', :branch => :develop
-
-#
-# Here are some example plugins you might like to use. Simply
-# uncomment them and run `bundle install`.
-#
 
 # gem 'adhearsion-asterisk'
 # gem 'adhearsion-rails'
 # gem 'adhearsion-activerecord'
 # gem 'adhearsion-ldap'
+# gem 'adhearsion-drb'
 gem 'adhearsion-xmpp', :git => 'git://github.com/adhearsion/adhearsion-xmpp.git', :branch => :develop
 gem 'punchblock', :git => 'git://github.com/adhearsion/punchblock.git', :branch => :develop
 gem 'blather', :git => 'git://github.com/sprsquish/blather.git', :branch => :develop
-# gem 'adhearsion-drb'
 
 gem 'rails', '3.1.3'
 
@@ -59,8 +54,7 @@ group :development do
   gem 'capistrano-ext'
   gem 'rvm'
 
-  # To use debugger
-  # gem 'ruby-debug19', :require => 'ruby-debug'
+  gem 'debugger'
 
   gem 'hpricot'
   gem 'ruby_parser'
