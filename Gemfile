@@ -1,15 +1,14 @@
 source :rubygems
 
-gem "adhearsion", '2.0.0.rc5'
-gem "adhearsion-reporter", :git => 'git://github.com/adhearsion/adhearsion-reporter.git', :branch => :develop
+gem "adhearsion", '~> 2.0'
+gem "adhearsion-reporter", '~> 2.0'
 
 # gem 'adhearsion-asterisk'
 # gem 'adhearsion-rails'
 # gem 'adhearsion-activerecord'
 # gem 'adhearsion-ldap'
 # gem 'adhearsion-drb'
-gem 'adhearsion-xmpp', :git => 'git://github.com/adhearsion/adhearsion-xmpp.git', :branch => :develop
-gem 'punchblock', :git => 'git://github.com/adhearsion/punchblock.git', :branch => :develop
+gem 'adhearsion-xmpp', '~> 1.0'
 gem 'blather', :git => 'git://github.com/sprsquish/blather.git', :branch => :develop
 
 gem 'rails', '~> 3.2'

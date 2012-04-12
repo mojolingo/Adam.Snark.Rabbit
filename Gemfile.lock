@@ -1,42 +1,6 @@
 GIT
-  remote: git://github.com/adhearsion/adhearsion-reporter.git
-  revision: 8d3d380c2cd2f398895581726815fa1f22d8806c
-  branch: develop
-  specs:
-    adhearsion-reporter (2.0.0)
-      adhearsion (>= 2.0.0.alpha1)
-      toadhopper (>= 1.3.0)
-
-GIT
-  remote: git://github.com/adhearsion/adhearsion-xmpp.git
-  revision: a02d7243e6826ea6c988be4ef76d52ea9a2315e1
-  branch: develop
-  specs:
-    adhearsion-xmpp (0.2.1)
-      activesupport (>= 3.0.10)
-      adhearsion (>= 2.0.0.alpha3)
-      blather (>= 0.5.7)
-      i18n (>= 0.5.0)
-
-GIT
-  remote: git://github.com/adhearsion/punchblock.git
-  revision: a598d1f57f0e5e804e6a0fbd947d5b3ddb4e0893
-  branch: develop
-  specs:
-    punchblock (0.12.0)
-      activesupport (>= 2.1.0)
-      blather (>= 0.5.12)
-      celluloid (>= 0.9.0)
-      future-resource (>= 0.0.2)
-      has-guarded-handlers (>= 0.1.0)
-      niceogiri (>= 0.0.4)
-      ruby_ami (>= 0.1.3)
-      ruby_speech (>= 0.5.1)
-      state_machine (>= 1.0.1)
-
-GIT
   remote: git://github.com/mojolingo/activeldap.git
-  revision: d44c82ce8288f4cf78f814abf523cb98790cb28d
+  revision: 4329ed0f7f7b217d9ab096018e947c2fc57d9650
   specs:
     activeldap (3.1.2)
       activemodel (~> 3.1)
@@ -87,27 +51,33 @@ GEM
       i18n (~> 0.6)
       multi_json (~> 1.0)
     addressable (2.2.7)
-    adhearsion (2.0.0.rc5)
+    adhearsion (2.0.0)
       activesupport (>= 3.0.10)
       adhearsion-loquacious (>= 1.9.0)
-      bundler (>= 1.0.10)
+      bundler (~> 1.0)
       celluloid (>= 0.10.0)
       countdownlatch
       deep_merge
       ffi (>= 1.0.11)
-      future-resource (>= 0.0.2)
+      future-resource (~> 1.0)
       girl_friday
-      has-guarded-handlers (>= 1.1.0)
-      i18n (>= 0.5.0)
-      json
+      has-guarded-handlers (~> 1.1)
       logging (>= 1.6.1)
       pry
-      punchblock (>= 0.12.0)
+      punchblock (~> 1.0)
       rake
-      ruby_speech (>= 0.4.0)
+      ruby_speech (~> 1.0)
       thor
       uuid
     adhearsion-loquacious (1.9.2)
+    adhearsion-reporter (2.0.0)
+      adhearsion (~> 2.0)
+      toadhopper (>= 1.3.0)
+    adhearsion-xmpp (1.0.0)
+      activesupport (>= 3.0.10)
+      adhearsion (~> 2.0)
+      blather (>= 0.5.7)
+      i18n (>= 0.5.0)
     airbrake (3.0.9)
       activesupport
       builder
@@ -287,6 +257,16 @@ GEM
       coderay (~> 1.0.5)
       method_source (~> 0.7.1)
       slop (>= 2.4.4, < 3)
+    punchblock (1.0.0)
+      activesupport (>= 2.1.0)
+      blather (>= 0.5.12)
+      celluloid (>= 0.9.0)
+      future-resource (>= 0.0.2)
+      has-guarded-handlers (>= 0.1.0)
+      niceogiri (>= 0.0.4)
+      ruby_ami (>= 0.1.3)
+      ruby_speech (>= 0.5.1)
+      state_machine (>= 1.0.1)
     rack (1.4.1)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -400,9 +380,9 @@ PLATFORMS
 
 DEPENDENCIES
   activeldap!
-  adhearsion (= 2.0.0.rc5)
-  adhearsion-reporter!
-  adhearsion-xmpp!
+  adhearsion (~> 2.0)
+  adhearsion-reporter (~> 2.0)
+  adhearsion-xmpp (~> 1.0)
   airbrake
   blather!
   bson_ext (~> 1.4)
@@ -430,7 +410,6 @@ DEPENDENCIES
   launchy
   mocha
   mongoid (~> 2.3)
-  punchblock!
   rails (~> 3.2)
   rspec-rails
   rspec-rails-mocha
