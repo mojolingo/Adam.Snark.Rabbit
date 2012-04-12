@@ -2,7 +2,7 @@ class ExtensionController < Adhearsion::CallController
   def run
     answer
 
-    match = @call.variables[:to].match /^<sip:(\d+)@/
+    match = call.to.match /^<sip:(\d+)@/
     get_destinations match[0]
   end
 
