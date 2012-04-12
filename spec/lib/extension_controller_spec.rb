@@ -14,8 +14,8 @@ describe ExtensionController do
     m.telephone_number = "4044754840"
     m
   end
-  
-  
+
+
   it 'should default the account to "mojolingo"' do
     pending
     extension = 101
