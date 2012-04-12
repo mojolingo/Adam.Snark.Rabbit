@@ -61,7 +61,7 @@ group :development do
   gem 'ruby_parser'
 end
 
-group :test do
+group :development, :test do
   gem 'rspec-rails'
   gem 'mocha'
   gem 'rspec-rails-mocha', :require => false
