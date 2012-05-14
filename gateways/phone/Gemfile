@@ -7,6 +7,7 @@ gem 'adhearsion-xmpp', '~> 1.0'
 gem 'blather', :git => 'git://github.com/sprsquish/blather.git', :branch => :develop
 
 gem 'httparty'
+gem 'horde_rpc'
 
 group :development do
   gem 'debugger'

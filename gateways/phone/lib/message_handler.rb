@@ -74,15 +74,15 @@ class MessageHandler
       return 'I could not process that request.  Please enter time in the format:
 enter 2 hours for SampleClient: I fixed all their problems.' if (client_name.nil? || hours.nil? || description.nil?)
 
-      client = Wisecrack.get_client_by_name client_name
+      client = Wisecrack.first_client_for_company client_name
       return "I could not find a client by that name: #{client_name}" if client.nil?
 
-      Wisecrack.record_time 'date' => Date.today,
-                            'client' => client['id'],
-                            'type' => 1,
-                            'hours' => hours.to_f,
-                            'description' => description,
-                            'employee' => message.from.stripped.to_s
+      Wisecrack.record_time :date         => Date.today,
+                            :client       => client['id'],
+                            :type         => 1,
+                            :hours        => hours.to_f,
+                            :description  => description,
+                            :employee     => message.from.stripped.to_s
 
       "Time recorded. Get back to work!"
     rescue XMLRPC::FaultException => e

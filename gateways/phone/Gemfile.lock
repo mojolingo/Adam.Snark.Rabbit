@@ -69,6 +69,7 @@ GEM
       guard (>= 0.10.0)
     has-guarded-handlers (1.2.0)
       uuid
+    horde_rpc (0.2.0)
     httparty (0.8.3)
       multi_json (~> 1.0)
       multi_xml
@@ -142,6 +143,7 @@ DEPENDENCIES
   debugger
   guard
   guard-rspec
+  horde_rpc
   httparty
   mocha
   rspec
