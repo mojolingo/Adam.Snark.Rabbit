@@ -5,9 +5,6 @@ require 'rspec/rails'
 require 'rspec/rails/mocha'
 require 'rspec/autorun'
 
-init = Adhearsion::Initializer.new
-init.load_lib_folder
-
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
