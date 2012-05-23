@@ -5,10 +5,6 @@ gem 'rails', '~> 3.2'
 gem 'mongoid',  '~> 2.3'
 gem 'bson_ext', '~> 1.4'
 
-# Needed to look up extensions
-gem 'activeldap', :git => 'git://github.com/mojolingo/activeldap.git'
-gem 'ruby-ldap'
-
 gem 'airbrake'
 
 # Gems used only for assets and not required
