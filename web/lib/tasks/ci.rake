@@ -1,1 +1,1 @@
-task :ci => ['assets:precompile', :spec, :cucumber]
+task :ci => ['assets:precompile', :spec]
