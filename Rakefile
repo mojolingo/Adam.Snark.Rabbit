@@ -1,8 +1,8 @@
 #!/usr/bin/env rake
 
 ruby_components = %w{
+  api
   gateways/phone
-  web
 }
 
 task :setup do

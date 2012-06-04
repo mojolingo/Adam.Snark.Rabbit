@@ -1,2 +1,2 @@
 #!/bin/bash
-cd web && bundle exec rails server -p $PORT
+cd web && batman server -p $PORT
