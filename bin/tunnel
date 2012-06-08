@@ -1,2 +1,0 @@
-#!/bin/bash
-ssh -nNt -g -R :$TUNNEL_PORT:0.0.0.0:$(($PORT-100)) $TUNNEL_URI

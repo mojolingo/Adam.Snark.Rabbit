@@ -1,5 +1,4 @@
 api: bin/api
-web_tunnel: bin/tunnel
 web: bin/web
 phone: bin/phone
 mongo: mongod
