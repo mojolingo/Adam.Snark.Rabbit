@@ -5,7 +5,7 @@ class User
   devise :omniauthable, :registerable, :rememberable, :trackable
 
   ## Database authenticatable
-  field :email, type: String, null: false, default: ""
+  field :email, type: String, default: ""
 
   ## Rememberable
   field :remember_created_at, type: Time

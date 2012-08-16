@@ -2,8 +2,7 @@ source :rubygems
 
 gem 'rails', '~> 3.2'
 
-gem 'mongoid',  '~> 2.3'
-gem 'bson_ext', '~> 1.4'
+gem 'mongoid',  '~> 3.0'
 
 gem 'airbrake'
 
@@ -49,11 +48,10 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'guard-rails-assets'
   gem 'guard-jasmine-headless-webkit'
-  gem 'ruby_gntp'
+  gem 'terminal-notifier-guard'
 end
 
 group :test do
-  gem 'mocha'
   gem 'rspec-rails-mocha', :require => false
   gem 'factory_girl_rails'
   gem 'database_cleaner'
