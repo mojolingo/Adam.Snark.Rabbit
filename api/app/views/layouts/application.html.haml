@@ -22,10 +22,15 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          %a.brand(href="#") ASR
+          %a.brand(href="/") ASR
+          - if current_user
+            %a.brand(href="#")= "Logged in as #{current_user.name} (#{current_user.github_username ? "#{current_user.github_username} on github" : "No Github Link"})"
           .container.nav-collapse
             %ul.nav
-              %li#signup= link_to "Signup", signup_path
+              - if current_user
+                %li#signup= link_to "Logout", destroy_user_session_path
+              - else
+                %li#signup= link_to "Login with Github", omniauth_authorize_path(:user, :github)
 
     .container
       = render :partial => "shared/flash_messages", :locals => {:flash => flash}
@@ -50,4 +55,3 @@
       \==================================================
     / Placed at the end of the document so the pages load faster
     = javascript_include_tag "application"
-

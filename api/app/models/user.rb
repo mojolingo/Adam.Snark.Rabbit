@@ -1,8 +1,10 @@
 class User
   include Mongoid::Document
+  include Mongoid::Timestamps
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :omniauthable, :registerable, :rememberable, :trackable
+  devise :omniauthable, :rememberable, :trackable
 
   ## Database authenticatable
   field :email, type: String, default: ""
@@ -19,11 +21,22 @@ class User
 
   field :name, type: String, default: ''
 
-  def self.find_for_github_oauth(oauth_data)
-    info = oauth_data.extra.info
-    return user if user = where(email: info.email).first
-    # else
-      create! email: info.email, name: info.name
-    # end
+  embeds_one :github_grant
+  accepts_nested_attributes_for :github_grant
+  after_initialize { build_github_grant if github_grant.nil? }
+
+  def self.find_or_create_for_github_oauth(oauth_data)
+    user = find_by_github_user_id oauth_data.uid
+    return user if user
+    info = oauth_data.info
+    create! email: info.email, name: info.name, github_grant_attributes: oauth_data
+  end
+
+  def self.find_by_github_user_id(user_id)
+    where('github_grant.uid' => user_id).first
+  end
+
+  def github_username
+    github_grant.username
   end
 end

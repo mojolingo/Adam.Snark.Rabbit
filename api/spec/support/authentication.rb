@@ -3,10 +3,23 @@ OmniAuth.config.test_mode = true
 module GithubMock
   class << self
     def mock
-      OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new credentials: Hashie::Mash.new(expires: false, token: "c64a09df7c2257be39aaf7e59ad254b1b98ccebc"),
-        extra: Hashie::Mash.new(raw_info: raw_info, info: info),
-        provider: "github",
-        uid: 10221
+      OmniAuth.config.mock_auth[:github] = data
+    end
+
+    def data
+      OmniAuth::AuthHash.new provider: "github",
+        uid: 210221,
+        info: info,
+        extra: Hashie::Mash.new(raw_info: raw_info),
+        credentials: Hashie::Mash.new(expires: false,
+          token: "c64a09df7c2257be39aaf7e59ad254b1b98ccebc")
+    end
+
+    def info
+      OmniAuth::AuthHash::InfoHash.new email: "ben@langfeld.me",
+        name: "Ben Langfeld",
+        nickname: "benlangfeld",
+        urls: Hashie::Mash.new(Blog: "langfeld.me", GitHub: "https://github.com/benlangfeld")
     end
 
     def raw_info
@@ -35,13 +48,6 @@ module GithubMock
         total_private_repos: 5,
         type: "User",
         url: "https://api.github.com/users/benlangfeld"
-    end
-
-    def info
-      OmniAuth::AuthHash::InfoHash.new email: "ben@langfeld.me",
-        name: "Ben Langfeld",
-        nickname: "benlangfeld",
-        urls: Hashie::Mash.new(Blog: "langfeld.me", GitHub: "https://github.com/benlangfeld")
     end
   end
 end
