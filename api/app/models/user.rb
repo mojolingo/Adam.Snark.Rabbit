@@ -25,6 +25,10 @@ class User
   accepts_nested_attributes_for :github_grant
   after_initialize { build_github_grant if github_grant.nil? }
 
+  embeds_one :twitter_grant
+  accepts_nested_attributes_for :twitter_grant
+  after_initialize { build_twitter_grant if twitter_grant.nil? }
+
   def self.find_or_create_for_github_oauth(oauth_data)
     user = find_by_github_user_id oauth_data.uid
     return user if user
@@ -32,11 +36,27 @@ class User
     create! email: info.email, name: info.name, github_grant_attributes: oauth_data
   end
 
+  def self.find_or_create_for_twitter_oauth(oauth_data)
+    user = find_by_twitter_user_id oauth_data.uid
+    return user if user
+    info = oauth_data.info
+    oauth_data[:extra].delete :access_token
+    create! name: info.name, twitter_grant_attributes: oauth_data
+  end
+
   def self.find_by_github_user_id(user_id)
     where('github_grant.uid' => user_id).first
   end
 
+  def self.find_by_twitter_user_id(user_id)
+    where('twitter_grant.uid' => user_id.to_i).first
+  end
+
   def github_username
     github_grant.username
+  end
+
+  def twitter_username
+    twitter_grant.username
   end
 end

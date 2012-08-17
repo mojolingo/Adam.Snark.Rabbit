@@ -24,13 +24,14 @@
             %span.icon-bar
           %a.brand(href="/") ASR
           - if current_user
-            %a.brand(href="#")= "Logged in as #{current_user.name} (#{current_user.github_username ? "#{current_user.github_username} on github" : "No Github Link"})"
+            %a.brand(href="#")= "Logged in as #{current_user.name} (#{user_auth_source_string(current_user)})"
           .container.nav-collapse
             %ul.nav
               - if current_user
                 %li#signup= link_to "Logout", destroy_user_session_path
               - else
                 %li#signup= link_to "Login with Github", omniauth_authorize_path(:user, :github)
+                %li#signup= link_to "Login with Twitter", omniauth_authorize_path(:user, :twitter)
 
     .container
       = render :partial => "shared/flash_messages", :locals => {:flash => flash}
