@@ -1,0 +1,12 @@
+[submodule "dev_environment/cookbooks/apt"]
+	path = dev_environment/cookbooks/apt
+	url = https://github.com/opscode-cookbooks/apt.git
+[submodule "dev_environment/cookbooks/motd-tail"]
+	path = dev_environment/cookbooks/motd-tail
+	url = https://github.com/opscode-cookbooks/motd-tail
+[submodule "dev_environment/cookbooks/git"]
+	path = dev_environment/cookbooks/git
+	url = https://github.com/opscode-cookbooks/git.git
+[submodule "dev_environment/cookbooks/rbenv"]
+	path = dev_environment/cookbooks/rbenv
+	url = https://github.com/RiotGames/rbenv-cookbook.git
