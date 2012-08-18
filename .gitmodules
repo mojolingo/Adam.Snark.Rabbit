@@ -10,3 +10,6 @@
 [submodule "dev_environment/cookbooks/rbenv"]
 	path = dev_environment/cookbooks/rbenv
 	url = https://github.com/RiotGames/rbenv-cookbook.git
+[submodule "dev_environment/cookbooks/mongodb"]
+	path = dev_environment/cookbooks/mongodb
+	url = https://github.com/edelight/chef-mongodb.git
