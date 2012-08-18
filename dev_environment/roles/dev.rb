@@ -7,4 +7,5 @@ run_list "recipe[apt]",
   "recipe[mongodb::10gen_repo]",
   "recipe[adam::apt-update]",
   "recipe[mongodb::default]",
+  "recipe[rabbitmq]",
   "recipe[adam]"
