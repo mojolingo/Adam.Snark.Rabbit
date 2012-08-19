@@ -17,7 +17,21 @@ Vagrant::Config.run do |config|
 
     chef.add_role "dev"
 
-    chef.json = { rbenv: { group_users: 'vagrant' } }
+    chef.json = {
+      'rbenv' => {
+        'user_installs' => [
+          { 'user'    => 'vagrant',
+            'rubies'  => ['1.9.3-p194'],
+            'global'  => '1.9.3-p194',
+            'gems'    => {
+              '1.9.3-p194' => [
+                { 'name' => 'bundler' }
+              ]
+            }
+          }
+        ]
+      }
+    }
 
     chef.log_level = :debug
   end

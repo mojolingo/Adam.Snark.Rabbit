@@ -9,7 +9,7 @@
 	url = https://github.com/opscode-cookbooks/git.git
 [submodule "dev_environment/cookbooks/rbenv"]
 	path = dev_environment/cookbooks/rbenv
-	url = https://github.com/RiotGames/rbenv-cookbook.git
+	url = https://github.com/fnichol/chef-rbenv.git
 [submodule "dev_environment/cookbooks/mongodb"]
 	path = dev_environment/cookbooks/mongodb
 	url = https://github.com/edelight/chef-mongodb.git
@@ -19,3 +19,6 @@
 [submodule "dev_environment/cookbooks/erlang"]
 	path = dev_environment/cookbooks/erlang
 	url = https://github.com/opscode-cookbooks/erlang.git
+[submodule "dev_environment/cookbooks/ruby_build"]
+	path = dev_environment/cookbooks/ruby_build
+	url = https://github.com/fnichol/chef-ruby_build.git
