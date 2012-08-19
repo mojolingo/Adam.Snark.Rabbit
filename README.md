@@ -29,7 +29,7 @@ Adam has several components, which use various libraries and various package dep
 * Internal/External communications systems
   * XMPP server: Adam's XMPP and Rayo clients connect here, and this system is federated with global XMPP servers for routing client requests.
 
-Many of Adam's dependencies may be installed by invoking `bin/setup`.
+A full Vagrant development environment for Adam is included in the dev_environment directory. Check out its README for setup instructions.
 
 ## Production deployment
 
