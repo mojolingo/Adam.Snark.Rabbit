@@ -7,6 +7,7 @@ Vagrant::Config.run do |config|
   end
 
   config.vm.network :hostonly, "192.168.33.100"
+  config.vm.forward_port 3000, 3000
 
   config.vm.share_folder "adam", "/home/vagrant/adam", "..", nfs: true
 
