@@ -13,13 +13,13 @@ feature "Authentication" do
         page.should have_content 'Welcome, Ben Langfeld'
         new_user = User.first
         expect(new_user.name).to eq("Ben Langfeld")
-        expect(new_user.github_username).to eq(GithubMock.data.info.nickname)
+        expect(new_user.social_usernames).to eq(github: GithubMock.data.info.nickname)
       end
     end
 
     context "with an existing account" do
       background do
-        new_user = User.find_or_create_for_github_oauth GithubMock.data
+        new_user = User.find_or_create_for_oauth GithubMock.data
         User.first.should be == new_user
         new_user.sign_in_count.should be == 0
       end
@@ -47,13 +47,13 @@ feature "Authentication" do
         page.should have_content 'Welcome, Ben Langfeld'
         new_user = User.first
         expect(new_user.name).to eq("Ben Langfeld")
-        expect(new_user.twitter_username).to eq(TwitterMock.data.info.nickname)
+        expect(new_user.social_usernames).to eq(twitter: TwitterMock.data.info.nickname)
       end
     end
 
     context "with an existing account" do
       background do
-        new_user = User.find_or_create_for_twitter_oauth TwitterMock.data
+        new_user = User.find_or_create_for_oauth TwitterMock.data
         User.first.should be == new_user
         new_user.sign_in_count.should be == 0
       end

@@ -1,11 +1,9 @@
 module UserHelper
   def user_auth_source_string(user)
-    if user.github_username
-      "#{user.github_username} on github"
-    elsif user.twitter_username
-      "#{user.twitter_username} on twitter"
-    else
-      'auth source unknown'
-    end
+    usernames = user.social_usernames
+    return 'auth source unknown' if usernames.empty?
+    usernames.inject([]) do |a, (provider, username)|
+      a << "#{username} on #{provider}"
+    end.join ','
   end
 end

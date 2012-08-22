@@ -21,42 +21,29 @@ class User
 
   field :name, type: String, default: ''
 
-  embeds_one :github_grant
-  accepts_nested_attributes_for :github_grant
-  after_initialize { build_github_grant if github_grant.nil? }
+  has_many :auth_grants
 
-  embeds_one :twitter_grant
-  accepts_nested_attributes_for :twitter_grant
-  after_initialize { build_twitter_grant if twitter_grant.nil? }
-
-  def self.find_or_create_for_github_oauth(oauth_data)
-    user = find_by_github_user_id oauth_data.uid
-    return user if user
-    info = oauth_data.info
-    create! email: info.email, name: info.name, github_grant_attributes: oauth_data
-  end
-
-  def self.find_or_create_for_twitter_oauth(oauth_data)
-    user = find_by_twitter_user_id oauth_data.uid
-    return user if user
-    info = oauth_data.info
-    oauth_data[:extra].delete :access_token
-    create! name: info.name, twitter_grant_attributes: oauth_data
+  def self.find_or_create_for_oauth(oauth_data)
+    AuthGrant.find_or_create_for_oauth(oauth_data).user
   end
 
   def self.find_by_github_user_id(user_id)
-    where('github_grant.uid' => user_id).first
+    find_by_provider_and_uid :github, user_id
   end
 
   def self.find_by_twitter_user_id(user_id)
-    where('twitter_grant.uid' => user_id.to_i).first
+    find_by_provider_and_uid :twitter, user_id
   end
 
-  def github_username
-    github_grant.username
+  def self.find_by_provider_and_uid(provider, uid)
+    grant = AuthGrant.find_by_provider_and_uid provider, uid
+    grant.user if grant
   end
 
-  def twitter_username
-    twitter_grant.username
+  def social_usernames
+    auth_grants.inject({}) do |h, g|
+      h[g.provider] = g.username
+      h
+    end
   end
 end

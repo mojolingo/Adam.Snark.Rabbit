@@ -1,22 +1,18 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def github
-    user = User.find_or_create_for_github_oauth request.env["omniauth.auth"]
-
-    if user.persisted?
-      flash[:notice] = I18n.t "devise.omniauth_callbacks.success", kind: "Github", name: user.name
-      sign_in_and_redirect user, :event => :authentication
-    else
-      flash[:error] = "An error ocurred while trying to log you in. Please try later."
-      redirect_to root_url
-    end
+    create
   end
 
   def twitter
-    user = User.find_or_create_for_twitter_oauth request.env["omniauth.auth"]
+    create
+  end
 
-    if user.persisted?
-      flash[:notice] = I18n.t "devise.omniauth_callbacks.success", kind: "Twitter", name: user.name
-      sign_in_and_redirect user, :event => :authentication
+  def create
+    auth_grant = AuthGrant.find_or_create_for_oauth request.env["omniauth.auth"]
+
+    if auth_grant.persisted?
+      flash[:notice] = I18n.t "devise.omniauth_callbacks.success", kind: auth_grant.provider, name: auth_grant.user.name
+      sign_in_and_redirect auth_grant.user, :event => :authentication
     else
       flash[:error] = "An error ocurred while trying to log you in. Please try later."
       redirect_to root_url
