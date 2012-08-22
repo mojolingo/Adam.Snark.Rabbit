@@ -19,9 +19,11 @@ class User
   field :current_sign_in_ip, type: String
   field :last_sign_in_ip,    type: String
 
-  field :name, type: String, default: ''
-
   has_many :auth_grants
+
+  has_one :profile
+  accepts_nested_attributes_for :profile
+  after_initialize { build_profile if profile.nil? }
 
   def self.find_or_create_for_oauth(oauth_data)
     AuthGrant.find_or_create_for_oauth(oauth_data).user
@@ -45,5 +47,9 @@ class User
       h[g.provider] = g.username
       h
     end
+  end
+
+  def name
+    profile.name
   end
 end

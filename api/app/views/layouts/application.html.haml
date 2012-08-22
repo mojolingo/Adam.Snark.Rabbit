@@ -28,10 +28,11 @@
           .container.nav-collapse
             %ul.nav
               - if current_user
-                %li#signup= link_to "Logout", destroy_user_session_path
+                %li#profile= link_to "My Profile", my_profile_path
+                %li#logout= link_to "Logout", destroy_user_session_path
               - else
-                %li#signup= link_to "Login with Github", omniauth_authorize_path(:user, :github)
-                %li#signup= link_to "Login with Twitter", omniauth_authorize_path(:user, :twitter)
+                %li#login_github= link_to "Login with Github", omniauth_authorize_path(:user, :github)
+                %li#login_twitter= link_to "Login with Twitter", omniauth_authorize_path(:user, :twitter)
 
     .container
       = render :partial => "shared/flash_messages", :locals => {:flash => flash}

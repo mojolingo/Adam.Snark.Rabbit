@@ -1,5 +1,11 @@
 OmniAuth.config.test_mode = true
 
+def logged_in_with_github
+  GithubMock.mock
+  visit root_url
+  click_link 'Login with Github'
+end
+
 module GithubMock
   class << self
     def mock
