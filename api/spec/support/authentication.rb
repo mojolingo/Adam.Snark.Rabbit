@@ -1,9 +1,17 @@
 OmniAuth.config.test_mode = true
 
-def logged_in_with_github
-  GithubMock.mock
+def logged_in_with(provider)
   visit root_url
-  click_link 'Login with Github'
+  case provider
+  when :github
+    GithubMock.mock
+    click_link 'Login with Github'
+  when :twitter
+    TwitterMock.mock
+    click_link 'Login with Twitter'
+  else
+    raise ArgumentError, "Invalid provider"
+  end
 end
 
 module GithubMock

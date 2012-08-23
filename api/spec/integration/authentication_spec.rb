@@ -11,26 +11,26 @@ feature "Authentication" do
         visit root_url
         click_link 'Login with Github'
         page.should have_content 'Welcome, Ben Langfeld'
+        page.should have_content 'Logged in as Ben Langfeld (benlangfeld on github)'
         new_user = User.first
-        expect(new_user.name).to eq("Ben Langfeld")
         expect(new_user.social_usernames).to eq(github: GithubMock.data.info.nickname)
       end
     end
 
     context "with an existing account" do
       background do
-        new_user = User.find_or_create_for_oauth GithubMock.data
-        User.first.should be == new_user
-        new_user.sign_in_count.should be == 0
+        logged_in_with :github
+        click_link 'Logout'
+        User.first.sign_in_count.should be == 1
       end
 
       scenario "it should use the original account and log the user in" do
         visit root_url
         click_link 'Login with Github'
         page.should have_content 'Welcome, Ben Langfeld'
-        new_user = User.first
-        new_user.name.should be == "Ben Langfeld"
-        new_user.sign_in_count.should be == 1
+        page.should have_content 'Logged in as Ben Langfeld (benlangfeld on github)'
+        User.count.should be 1
+        User.first.sign_in_count.should be == 2
       end
     end
   end
@@ -45,26 +45,26 @@ feature "Authentication" do
         visit root_url
         click_link 'Login with Twitter'
         page.should have_content 'Welcome, Ben Langfeld'
+        page.should have_content 'Logged in as Ben Langfeld (benlangfeld on twitter)'
         new_user = User.first
-        expect(new_user.name).to eq("Ben Langfeld")
         expect(new_user.social_usernames).to eq(twitter: TwitterMock.data.info.nickname)
       end
     end
 
     context "with an existing account" do
       background do
-        new_user = User.find_or_create_for_oauth TwitterMock.data
-        User.first.should be == new_user
-        new_user.sign_in_count.should be == 0
+        logged_in_with :twitter
+        click_link 'Logout'
+        User.first.sign_in_count.should be == 1
       end
 
       scenario "it should use the original account and log the user in" do
         visit root_url
         click_link 'Login with Twitter'
         page.should have_content 'Welcome, Ben Langfeld'
-        new_user = User.first
-        new_user.name.should be == "Ben Langfeld"
-        new_user.sign_in_count.should be == 1
+        page.should have_content 'Logged in as Ben Langfeld (benlangfeld on twitter)'
+        User.count.should be 1
+        User.first.sign_in_count.should be == 2
       end
     end
   end

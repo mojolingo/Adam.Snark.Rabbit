@@ -9,7 +9,7 @@ feature 'Profile' do
   end
 
   context 'when logged in' do
-    background { logged_in_with_github }
+    background { logged_in_with :github }
 
     scenario 'viewing my profile' do
       click_link 'My Profile'

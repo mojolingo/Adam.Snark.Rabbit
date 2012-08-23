@@ -1,6 +1,16 @@
 require 'spec_helper'
 
 describe Profile do
+  subject { FactoryGirl.build :profile }
+
+  it { should be_valid }
+
+  context "without a name" do
+    subject { FactoryGirl.build :profile, name: '' }
+
+    it { should be_invalid }
+  end
+
   describe "#email_addresses" do
     it "starts off empty" do
       subject.email_addresses.should == []
@@ -12,7 +22,7 @@ describe Profile do
     end
 
     context "when it has an email address on creation" do
-      subject { Profile.create email_addresses_attributes: [{address: 'foo@bar.com'}] }
+      subject { FactoryGirl.build :profile, email_addresses_attributes: [{address: 'foo@bar.com'}] }
 
       it "has an email address" do
         subject.email_addresses.map(&:address).should == ['foo@bar.com']

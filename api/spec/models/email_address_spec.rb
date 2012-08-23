@@ -1,5 +1,13 @@
 require 'spec_helper'
 
 describe EmailAddress do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject { FactoryGirl.build :email_address }
+
+  it { should be_valid }
+
+  context "without an address" do
+    subject { FactoryGirl.build :email_address, address: '' }
+
+    it { should be_invalid }
+  end
 end

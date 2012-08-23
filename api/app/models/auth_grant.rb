@@ -14,13 +14,16 @@ class AuthGrant
   def self.find_or_create_for_oauth(oauth_data)
     grant = find_by_provider_and_uid oauth_data.provider, oauth_data.uid
     return grant if grant
+
     oauth_data[:extra].delete :access_token
-    oauth_data[:user_attributes] = {
-      profile_attributes: {
-        name: oauth_data.info.name,
-        email_addresses_attributes: [{address: oauth_data.info.email}]
-      }
-    }
+    oauth_data[:user_attributes] = {}
+    oauth_data[:user_attributes][:profile_attributes] = { name: oauth_data.info.name }
+    if oauth_data.info.email
+      oauth_data[:user_attributes][:profile_attributes][:email_addresses_attributes] = [
+        {address: oauth_data.info.email}
+      ]
+    end
+
     create! oauth_data
   end
 
