@@ -6,9 +6,6 @@ class User
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :omniauthable, :rememberable, :trackable
 
-  ## Database authenticatable
-  field :email, type: String, default: ""
-
   ## Rememberable
   field :remember_created_at, type: Time
 

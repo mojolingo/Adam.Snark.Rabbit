@@ -16,7 +16,6 @@ class AuthGrant
     return grant if grant
     oauth_data[:extra].delete :access_token
     oauth_data[:user_attributes] = {
-      email: oauth_data.info.email,
       profile_attributes: {
         name: oauth_data.info.name,
         email_addresses_attributes: [{address: oauth_data.info.email}]
