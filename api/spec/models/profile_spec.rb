@@ -19,6 +19,7 @@ describe Profile do
     it "can have addresses added" do
       subject.email_addresses.build address: 'foo@bar.com'
       subject.email_addresses.map(&:address).should == ['foo@bar.com']
+      subject.email_addresses.map(&:confirmed?).should == [false]
     end
 
     context "when it has an email address on creation" do

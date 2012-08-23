@@ -22,6 +22,8 @@ class User
   accepts_nested_attributes_for :profile
   after_initialize { build_profile if profile.nil? }
 
+  attr_accessible :profile_attributes
+
   def self.find_or_create_for_oauth(oauth_data)
     AuthGrant.find_or_create_for_oauth(oauth_data).user
   end

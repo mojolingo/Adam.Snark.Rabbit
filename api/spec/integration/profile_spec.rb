@@ -24,7 +24,7 @@ feature 'Profile' do
       page.should have_content 'Joe Bloggs'
     end
 
-    scenario 'replacing email address' do
+    scenario 'adding an email address' do
       click_link 'My Profile'
       page.should have_content 'ben@langfeld.me'
       page.should_not have_content 'foo@bar.com'
@@ -35,6 +35,10 @@ feature 'Profile' do
       click_button 'Update Profile'
       page.should have_content 'foo@bar.com'
       page.should_not have_content 'ben@langfeld.me'
+
+      new_address = Profile.first.email_addresses.first
+      new_address.address.should == 'foo@bar.com'
+      new_address.should_not be_confirmed
     end
   end
 end

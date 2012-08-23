@@ -5,6 +5,8 @@
   %b Email Addresses:
   %ul
     - @profile.email_addresses.each do |email_address|
-      %li= email_address.address
+      %li
+        = email_address.address
+        = "unconfirmed" unless email_address.confirmed?
 
 = link_to '(edit)', edit_profile_path(@profile)

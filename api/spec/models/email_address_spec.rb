@@ -16,4 +16,6 @@ describe EmailAddress do
 
     it { should be_invalid }
   end
+
+  it { should_not be_confirmed }
 end

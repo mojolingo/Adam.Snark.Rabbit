@@ -11,6 +11,8 @@ class AuthGrant
   belongs_to :user
   accepts_nested_attributes_for :user
 
+  attr_accessible :uid, :provider, :info, :extra, :credentials, :user_attributes
+
   def self.find_or_create_for_oauth(oauth_data)
     grant = find_by_provider_and_uid oauth_data.provider, oauth_data.uid
     return grant if grant
