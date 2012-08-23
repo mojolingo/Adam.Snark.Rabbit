@@ -10,4 +10,10 @@ describe EmailAddress do
 
     it { should be_invalid }
   end
+
+  context "with an address that is not of the correct format" do
+    subject { FactoryGirl.build :email_address, address: 'foobar' }
+
+    it { should be_invalid }
+  end
 end

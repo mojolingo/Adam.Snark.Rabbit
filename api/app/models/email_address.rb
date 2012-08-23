@@ -6,4 +6,5 @@ class EmailAddress
   embedded_in :profile
 
   validates_presence_of :address
+  validates_format_of :address, with: Devise.email_regexp
 end
