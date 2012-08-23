@@ -7,7 +7,7 @@ ASR::Application.routes.draw do
     get 'signout', :to => 'devise/sessions#destroy', :as => :destroy_user_session
   end
 
-  resources :profiles, actions: [:show, :edit, :update]
+  resources :profiles, only: [:show, :edit, :update]
   get '/profile', to: 'profiles#show', as: :my_profile
 
   root :to => 'static#home'

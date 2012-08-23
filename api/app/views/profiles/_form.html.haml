@@ -3,6 +3,10 @@
 
   .inputs
     = f.input :name
+    = f.simple_fields_for :email_addresses do |builder|
+      = render 'email_address_fields', f: builder
+    .links
+      = link_to_add_association 'Add Email Address', f, :email_addresses
 
   .actions
     = f.button :submit

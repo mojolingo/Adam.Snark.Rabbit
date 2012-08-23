@@ -2,7 +2,7 @@ source :rubygems
 
 gem 'rails', '~> 3.2'
 
-gem 'mongoid',  '~> 3.0'
+gem 'mongoid', '~> 3.0'
 
 gem 'airbrake'
 
@@ -27,6 +27,7 @@ gem 'haml-rails'
 gem 'inherited_resources'
 gem 'simple-navigation'
 gem 'simple_form'
+gem 'cocoon'
 
 # Use unicorn as the web server
 # gem 'unicorn'

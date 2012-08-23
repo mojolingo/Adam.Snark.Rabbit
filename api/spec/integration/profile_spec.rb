@@ -23,5 +23,18 @@ feature 'Profile' do
       click_button 'Update Profile'
       page.should have_content 'Joe Bloggs'
     end
+
+    scenario 'replacing email address' do
+      click_link 'My Profile'
+      page.should have_content 'ben@langfeld.me'
+      page.should_not have_content 'foo@bar.com'
+      click_link '(edit)'
+      click_link 'remove address'
+      click_link 'Add Email Address'
+      fill_in 'Address', with: 'foo@bar.com'
+      click_button 'Update Profile'
+      page.should have_content 'foo@bar.com'
+      page.should_not have_content 'ben@langfeld.me'
+    end
   end
 end
