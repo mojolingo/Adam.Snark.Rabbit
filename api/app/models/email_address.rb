@@ -1,6 +1,5 @@
 class EmailAddress
   include Mongoid::Document
-  include Devise::Models::Confirmable
 
   field :address, type: String
   field :confirmed_at, type: DateTime
@@ -14,23 +13,52 @@ class EmailAddress
   validates_presence_of :address
   validates_format_of :address, with: Devise.email_regexp
 
-  def self.generate_token(type = nil)
-    SecureRandom.uuid
+  before_create :generate_confirmation_token
+  after_create  :send_confirmation_instructions
+  before_update :handle_address_change, if: :address_changed?
+  after_update  :send_confirmation_instructions, if: :reconfirmation_required?
+
+  def confirmed?
+    !!confirmed_at
   end
 
-  def self.reconfirmable
-    false
+  # Confirm a record by setting it's confirmed_at to actual time. If the record
+  # is already confirmed, add an error to address field. If the record is invalid
+  # add errors
+  def confirm!
+    pending_any_confirmation do
+      self.confirmation_token = nil
+      self.confirmed_at = Time.now.utc
+      save
+    end
   end
 
-  def send_devise_notification(notification)
-    # Devise.mailer.send(notification, self).deliver
+  private
+
+  def generate_confirmation_token
+    self.confirmation_token = SecureRandom.uuid
   end
 
-  def email_changed?
-    address_changed?
+  def pending_any_confirmation
+    if confirmed?
+      self.errors.add(:address, :already_confirmed)
+      false
+    else
+      yield
+    end
   end
 
-  def email
-    address
+  def send_confirmation_instructions
+    ConfirmationMailer.instructions(self).deliver
+  end
+
+  def handle_address_change
+    @reconfirmation_required = true
+    generate_confirmation_token
+    self.confirmed_at = nil
+  end
+
+  def reconfirmation_required?
+    @reconfirmation_required
   end
 end

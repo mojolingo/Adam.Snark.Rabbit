@@ -9,6 +9,7 @@ ASR::Application.routes.draw do
 
   resources :profiles, only: [:show, :edit, :update]
   get '/profile', to: 'profiles#show', as: :my_profile
+  get '/profile/confirm/:id', to: 'confirmations#show', as: :my_profile_confirm
 
   root :to => 'static#home'
 end

@@ -39,6 +39,12 @@ feature 'Profile' do
       new_address = Profile.first.email_addresses.first
       new_address.address.should == 'foo@bar.com'
       new_address.should_not be_confirmed
+
+      open_email 'foo@bar.com'
+      current_email.click_link 'confirm'
+
+      new_address.reload
+      new_address.should be_confirmed
     end
   end
 end
