@@ -7,6 +7,10 @@
       = render 'email_address_fields', f: builder
     .links
       = link_to_add_association 'Add Email Address', f, :email_addresses
+    = f.simple_fields_for :jids do |builder|
+      = render 'jid_fields', f: builder
+    .links
+      = link_to_add_association 'Add JID', f, :jids
 
   .actions
     = f.button :submit

@@ -1,4 +1,4 @@
-class EmailAddress < ContactDetails
+class Jid < ContactDetails
   embedded_in :profile
 
   validates_format_of :address, with: Devise.email_regexp
@@ -10,6 +10,5 @@ class EmailAddress < ContactDetails
   end
 
   def send_confirmation_instructions
-    ConfirmationMailer.instructions(self).deliver
   end
 end

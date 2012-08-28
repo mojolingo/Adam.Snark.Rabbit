@@ -8,5 +8,12 @@
       %li
         = email_address.address
         = "unconfirmed" unless email_address.confirmed?
+  %br
+  %b JIDs:
+  %ul
+    - @profile.jids.each do |jid|
+      %li
+        = jid.address
+        = "unconfirmed" unless jid.confirmed?
 
 = link_to '(edit)', edit_profile_path(@profile)

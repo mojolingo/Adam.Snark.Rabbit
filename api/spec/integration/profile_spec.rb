@@ -46,5 +46,26 @@ feature 'Profile' do
       new_address.reload
       new_address.should be_confirmed
     end
+
+    scenario 'adding a JID' do
+      profile = Profile.first
+      profile.jids.create address: 'foo@jabber.org'
+
+      click_link 'My Profile'
+      page.should have_content 'ben@langfeld.me'
+      page.should have_content 'foo@jabber.org'
+      click_link '(edit)'
+      click_link 'remove JID'
+      click_link 'Add JID'
+      fill_in 'JID', with: 'doo@jabber.org'
+      click_button 'Update Profile'
+      page.should_not have_content 'foo@jabber.org'
+      page.should have_content 'doo@jabber.org'
+      page.should have_content 'ben@langfeld.me'
+
+      new_address = Profile.first.jids.first
+      new_address.address.should == 'doo@jabber.org'
+      new_address.should_not be_confirmed
+    end
   end
 end
