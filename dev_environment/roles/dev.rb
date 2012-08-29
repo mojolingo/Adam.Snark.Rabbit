@@ -9,4 +9,5 @@ run_list "recipe[apt]",
   "recipe[adam::apt-update]",
   "recipe[mongodb::default]",
   "recipe[rabbitmq]",
+  "recipe[ejabberd]",
   "recipe[adam]"

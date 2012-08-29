@@ -22,3 +22,6 @@
 [submodule "dev_environment/cookbooks/ruby_build"]
 	path = dev_environment/cookbooks/ruby_build
 	url = https://github.com/fnichol/chef-ruby_build.git
+[submodule "dev_environment/cookbooks/ejabberd"]
+	path = dev_environment/cookbooks/ejabberd
+	url = git@github.com:mojolingo/ejabberd.git

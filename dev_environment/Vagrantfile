@@ -19,6 +19,7 @@ Vagrant::Config.run do |config|
     chef.add_role "dev"
 
     chef.json = {
+      jabber_domain: 'adamrabbit.com',
       'rbenv' => {
         'user_installs' => [
           { 'user'    => 'vagrant',
