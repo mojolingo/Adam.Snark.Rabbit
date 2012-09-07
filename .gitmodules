@@ -25,3 +25,6 @@
 [submodule "dev_environment/cookbooks/ejabberd"]
 	path = dev_environment/cookbooks/ejabberd
 	url = git@github.com:mojolingo/ejabberd.git
+[submodule "dev_environment/cookbooks/chef-solo-search"]
+	path = dev_environment/cookbooks/chef-solo-search
+	url = https://github.com/edelight/chef-solo-search.git
