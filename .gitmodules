@@ -15,7 +15,7 @@
 	url = https://github.com/edelight/chef-mongodb.git
 [submodule "dev_environment/cookbooks/rabbitmq"]
 	path = dev_environment/cookbooks/rabbitmq
-	url = https://github.com/opscode-cookbooks/rabbitmq.git
+	url = https://github.com/mojolingo/rabbitmq.git
 [submodule "dev_environment/cookbooks/erlang"]
 	path = dev_environment/cookbooks/erlang
 	url = https://github.com/opscode-cookbooks/erlang.git
