@@ -1,6 +1,6 @@
 Vagrant::Config.run do |config|
   config.vm.box       = "precise64"
-  config.vm.host_name = "dev.adam.local"
+  config.vm.host_name = "adam.local"
 
   config.vm.customize do |vm|
     vm.name = "Adam Snark Rabbit Development Environment"
