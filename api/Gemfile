@@ -34,6 +34,8 @@ gem 'cocoon'
 
 gem "twitter-bootstrap-rails"
 
+gem 'bunny'
+
 group :development do
   gem 'debugger'
 

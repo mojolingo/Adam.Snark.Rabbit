@@ -13,7 +13,7 @@ class ContactDetails
   before_create :generate_confirmation_token
   after_create  :send_confirmation_instructions
   before_update :handle_address_change, if: :address_changed?
-  after_update  :send_confirmation_instructions, if: :reconfirmation_required?
+  after_update  :send_updated_confirmation_instructions, if: :reconfirmation_required?
 
   def confirmed?
     !!confirmed_at
@@ -53,5 +53,9 @@ class ContactDetails
 
   def reconfirmation_required?
     @reconfirmation_required
+  end
+
+  def send_updated_confirmation_instructions
+    send_confirmation_instructions
   end
 end

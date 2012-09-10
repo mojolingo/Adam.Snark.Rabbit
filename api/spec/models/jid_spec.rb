@@ -12,22 +12,29 @@ describe Jid do
 
   it_should_behave_like 'contact details'
 
-  # it 'should send a confirmation email on creation' do
-  #   assert_email_sent to: ['doo@dah.com'], subject: 'Adam needs to confirm your email address' do
-  #     FactoryGirl.create :email_address, address: 'doo@dah.com'
-  #   end
-  # end
+  it 'should publish a jid.created event on creation' do
+    payload = {jid: 'doo@dah.com'}.to_json
+    AMQPConnection.instance.should_receive(:publish).once.with(payload, content_type: 'application/json', key: 'jid.created')
+    FactoryGirl.create :jid, address: 'doo@dah.com'
+  end
 
-  # it 'should not send confirmation when trying to save an invalid record' do
-  #   assert_email_not_sent do
-  #     expect { FactoryGirl.create :email_address, address: '' }.to raise_error
-  #   end
-  # end
+  it 'should not publish a jid.updated event when trying to save an invalid record' do
+    AMQPConnection.instance.should_receive(:publish).never
+    expect { FactoryGirl.create :jid, address: '' }.to raise_error(Mongoid::Errors::Validations)
+  end
 
-  # it 'should send confirmation instructions by email after changing email' do
-  #   subject.confirm!.should be_true
-  #   assert_email_sent to: ['new_test@example.com'], subject: 'Adam needs to confirm your email address' do
-  #     subject.update_attributes(address: 'new_test@example.com')
-  #   end
-  # end
+  it 'should publish a jid.changed event after changing JID' do
+    old_jid = subject.address
+    subject.confirm!.should be_true
+    payload = {old_jid: old_jid, new_jid: 'new_test@example.com'}.to_json
+    AMQPConnection.instance.should_receive(:publish).once.with(payload, content_type: 'application/json', key: 'jid.updated')
+    subject.update_attributes(address: 'new_test@example.com')
+  end
+
+  it 'should publish a jid.removed event on creation' do
+    jid = FactoryGirl.create :jid, address: 'doo@dah.com'
+    payload = {jid: 'doo@dah.com'}.to_json
+    AMQPConnection.instance.should_receive(:publish).once.with(payload, content_type: 'application/json', key: 'jid.removed')
+    jid.destroy
+  end
 end
