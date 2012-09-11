@@ -3,6 +3,7 @@
 ruby_components = %w{
   api
   gateways/phone
+  gateways/xmpp
 }
 
 task :setup do

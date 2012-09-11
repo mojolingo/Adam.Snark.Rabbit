@@ -1,0 +1,2 @@
+#!/bin/bash
+cd gateways/xmpp && bundle exec ruby app.rb -D
