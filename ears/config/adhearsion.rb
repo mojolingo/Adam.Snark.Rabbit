@@ -16,31 +16,31 @@ Adhearsion.router do
   end
 end
 
-Adhearsion::XMPP.register_handlers do
-  when_ready do
-    client.write(Blather::Stanza::Presence::MUC.new.tap do |j|
-      j.to = "internal-discuss@conference.mojolingo.com/arabbit"
-    end)
-  end
+# Adhearsion::XMPP.register_handlers do
+#   when_ready do
+#     client.write(Blather::Stanza::Presence::MUC.new.tap do |j|
+#       j.to = "internal-discuss@conference.mojolingo.com/arabbit"
+#     end)
+#   end
 
-  presence { |p| Roster.update_presence_for p.from, p.state }
+#   presence { |p| Roster.update_presence_for p.from, p.state }
 
-  subscription :request? do |s|
-    if s.from.domain =~ /mojolingo\.(com|net)/
-      logger.info "Approving XMPP subscription for #{s.from}"
-      client.write s.approve!
-    end
-  end
+#   subscription :request? do |s|
+#     if s.from.domain =~ /mojolingo\.(com|net)/
+#       logger.info "Approving XMPP subscription for #{s.from}"
+#       client.write s.approve!
+#     end
+#   end
 
-  message [:chat?, :groupchat?], :body, :delay => nil do |m|
-    response = MessageHandler.respond_to m
-    client.write response unless response.nil?
-  end
+#   message [:chat?, :groupchat?], :body, :delay => nil do |m|
+#     response = MessageHandler.respond_to m
+#     client.write response unless response.nil?
+#   end
 
-  muc_user_message :invite?, :from => /@conference.mojolingo.com/ do |muc_user|
-    logger.info "Received an invite to #{muc_user.from} from #{muc_user.invite.from} with reason #{muc_user.invite.reason}."
-    client.write(Blather::Stanza::Presence::MUC.new.tap do |j|
-      j.to = [muc_user.from, 'arabbit'].join '/'
-    end)
-  end
-end
+#   muc_user_message :invite?, :from => /@conference.mojolingo.com/ do |muc_user|
+#     logger.info "Received an invite to #{muc_user.from} from #{muc_user.invite.from} with reason #{muc_user.invite.reason}."
+#     client.write(Blather::Stanza::Presence::MUC.new.tap do |j|
+#       j.to = [muc_user.from, 'arabbit'].join '/'
+#     end)
+#   end
+# end
