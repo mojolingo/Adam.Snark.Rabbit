@@ -1,2 +1,0 @@
-#!/bin/bash
-cd api && bundle exec rails server -p $PORT

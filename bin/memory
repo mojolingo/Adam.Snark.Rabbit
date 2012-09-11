@@ -1,0 +1,2 @@
+#!/bin/bash
+cd memory && bundle exec rails server -p $PORT

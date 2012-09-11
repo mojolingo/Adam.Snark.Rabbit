@@ -1,0 +1,2 @@
+#!/bin/bash
+cd ears && bundle exec ahn start .

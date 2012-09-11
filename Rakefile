@@ -1,9 +1,9 @@
 #!/usr/bin/env rake
 
 ruby_components = %w{
-  api
-  gateways/phone
-  gateways/xmpp
+  memory
+  ears
+  fingers
 }
 
 task :setup do

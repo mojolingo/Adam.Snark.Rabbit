@@ -1,3 +1,3 @@
-api: bin/api
-phone: bin/phone
-xmpp: bin/xmpp
+memory: bin/memory
+ears: bin/ears
+fingers: bin/fingers
