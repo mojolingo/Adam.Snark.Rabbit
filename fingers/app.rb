@@ -55,10 +55,10 @@ class AMQPHandler
 end
 
 AMQP.logging = true
-Blather.logger.level = Logger::DEBUG if ENV['ADAM_XMPP_DEBUG']
+Blather.logger.level = Logger::DEBUG if ENV['ADAM_FINGERS_DEBUG']
 
 xmpp = XMPPHandler.new
-xmpp.setup ENV['ADAM_XMPP_JID'], ENV['ADAM_XMPP_PASSWORD']
+xmpp.setup ENV['ADAM_FINGERS_JID'], ENV['ADAM_FINGERS_PASSWORD']
 
 amqp = AMQPHandler.new "amqp://#{ENV['ADAM_FINGERS_AMQP_USERNAME']}:#{ENV['ADAM_FINGERS_AMQP_PASSWORD']}@#{ENV['ADAM_FINGERS_AMQP_HOST']}"
 
