@@ -6,53 +6,8 @@ Bundler.require
 require 'blather/client/dsl'
 require 'json'
 
-class XMPPHandler
-  include Blather::DSL
-
-  def initialize
-    super
-    subscription :request? do |s|
-      write_to_stream s.approve!
-    end
-  end
-
-  def run
-    Blather.logger.info "Connecting as #{jid}"
-    client.run
-  end
-
-  def add_to_roster(jid)
-    my_roster << jid
-    subscribe jid
-  end
-
-  def remove_from_roster(jid)
-    my_roster.remove jid
-  end
-
-  def subscribe(jid)
-    presence = Blather::Stanza::Presence.new
-    presence.to   = jid
-    presence.type = :subscribe
-    write_to_stream presence
-  end
-end
-
-class AMQPHandler
-  def initialize(uri)
-    @uri = uri
-  end
-
-  def run
-    connection  = AMQP.connect @uri
-    @channel    = AMQP::Channel.new connection
-  end
-
-  def work_queue(queue_name, &block)
-    queue = @channel.queue queue_name, auto_delete: true
-    queue.subscribe &block
-  end
-end
+require_relative 'lib/xmpp_handler'
+require_relative 'lib/amqp_handler'
 
 AMQP.logging = true
 Blather.logger.level = Logger::DEBUG if ENV['ADAM_FINGERS_DEBUG']

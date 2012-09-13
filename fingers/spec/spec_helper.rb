@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+require 'bundler/setup'
+Bundler.require
 require 'rspec/autorun'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
