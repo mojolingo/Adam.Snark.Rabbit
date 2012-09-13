@@ -19,6 +19,7 @@ end
     errors = []
     ruby_components.each do |project|
       system(%(cd #{project} && #{$0} #{task_name})) || errors << project
+      puts "Running rake #{task_name} for #{project}..."
     end
     fail "\n#{'*' * 30}\nErrors in #{errors.join(', ')}\n#{'*' * 30}" unless errors.empty?
   end
