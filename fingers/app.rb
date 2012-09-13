@@ -45,7 +45,7 @@ class AMQPHandler
 
   def run
     connection  = AMQP.connect @uri
-    @channel     = AMQP::Channel.new connection
+    @channel    = AMQP::Channel.new connection
   end
 
   def work_queue(queue_name, &block)
