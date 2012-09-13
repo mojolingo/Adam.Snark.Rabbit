@@ -2,3 +2,10 @@ source "http://rubygems.org"
 
 gem 'blather'
 gem 'amqp'
+
+group :development, :test do
+  gem 'rspec'
+  gem 'guard'
+  gem 'guard-rspec'
+  gem 'ruby_gntp'
+end

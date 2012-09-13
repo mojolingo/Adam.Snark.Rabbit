@@ -1,0 +1,4 @@
+guard 'rspec', :version => 2, :cli => '--format documentation' do
+  watch('spec/spec_helper.rb')  { "spec" }
+  watch(%r{^spec/.+_spec\.rb$})
+end
