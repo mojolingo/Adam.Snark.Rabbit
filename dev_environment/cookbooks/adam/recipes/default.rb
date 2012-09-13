@@ -9,3 +9,15 @@ rabbitmq_user "rails" do
   permissions '".*" ".*" ".*"'
   action :set_permissions
 end
+
+rabbitmq_user "fingers" do
+  password "password"
+  action :add
+  notifies :restart, "service[rabbitmq-server]"
+end
+
+rabbitmq_user "fingers" do
+  vhost "/"
+  permissions '".*" ".*" ".*"'
+  action :set_permissions
+end
