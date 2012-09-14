@@ -21,3 +21,15 @@ rabbitmq_user "fingers" do
   permissions '".*" ".*" ".*"'
   action :set_permissions
 end
+
+rabbitmq_user "brain" do
+  password "password"
+  action :add
+  notifies :restart, "service[rabbitmq-server]"
+end
+
+rabbitmq_user "brain" do
+  vhost "/"
+  permissions '".*" ".*" ".*"'
+  action :set_permissions
+end

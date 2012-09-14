@@ -5,6 +5,7 @@ ruby_components = %w{
   memory
   ears
   fingers
+  brain
 }
 
 task :setup do

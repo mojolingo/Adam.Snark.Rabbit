@@ -1,5 +1,3 @@
-require_relative 'message_handler'
-
 class XMPPHandler
   include Blather::DSL
 
