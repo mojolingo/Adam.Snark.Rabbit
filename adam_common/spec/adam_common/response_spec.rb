@@ -1,8 +1,6 @@
 require 'spec_helper'
 
-require_relative '../../lib/response'
-
-describe Response do
+describe AdamCommon::Response do
   let(:target_type)     { :xmpp }
   let(:target_address)  { 'foo@bar.com' }
   let(:body)            { 'Hello there' }

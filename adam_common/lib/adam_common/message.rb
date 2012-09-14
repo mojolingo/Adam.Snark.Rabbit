@@ -1,6 +1,7 @@
 require 'json'
+require 'virtus'
 
-class Message
+class AdamCommon::Message
   include Virtus::ValueObject
 
   attribute :source_type, Symbol

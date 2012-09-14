@@ -34,12 +34,12 @@ EM.run do
   end
 
   amqp.work_queue 'message' do |payload|
-    puts "Message was received: #{Message.from_json(payload)}"
-    MessageHandler.new(Message.from_json(payload)).handle { |r| amqp.default_publish 'response', r.to_json }
+    puts "Message was received: #{AdamCommon::Message.from_json(payload)}"
+    MessageHandler.new(AdamCommon::Message.from_json(payload)).handle { |r| amqp.default_publish 'response', r.to_json }
   end
 
   amqp.work_queue 'response' do |payload|
-    puts "Response was received: #{Response.from_json(payload)}"
-    xmpp.process_message_response Response.from_json(payload)
+    puts "Response was received: #{AdamCommon::Response.from_json(payload)}"
+    xmpp.process_message_response AdamCommon::Response.from_json(payload)
   end
 end

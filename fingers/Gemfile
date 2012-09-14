@@ -3,11 +3,10 @@ source "http://rubygems.org"
 gem 'blather'
 gem 'eventmachine', '0.12.10'
 gem 'amqp'
-gem 'virtus'
+gem 'adam_common', path: '../adam_common'
 
 group :development, :test do
   gem 'rspec'
   gem 'guard'
   gem 'guard-rspec'
-  gem 'ruby_gntp'
 end

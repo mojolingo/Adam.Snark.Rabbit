@@ -1,12 +1,10 @@
-require_relative 'response'
-
 class MessageHandler
   def initialize(message)
     @message = message
   end
 
   def response
-    @response ||= Response.new(target_type: @message.source_type, target_address: @message.source_address, body: response_body)
+    @response ||= AdamCommon::Response.new(target_type: @message.source_type, target_address: @message.source_address, body: response_body)
   end
 
   def handle

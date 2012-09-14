@@ -1,6 +1,7 @@
 require 'json'
+require 'virtus'
 
-class Response
+class AdamCommon::Response
   include Virtus::ValueObject
 
   attribute :target_type, Symbol

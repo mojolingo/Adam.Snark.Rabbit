@@ -1,8 +1,6 @@
 require 'spec_helper'
 
-require_relative '../../lib/message'
-
-describe Message do
+describe AdamCommon::Message do
   let(:source_type)     { :xmpp }
   let(:source_address)  { 'foo@bar.com' }
   let(:body)            { 'Hello there' }

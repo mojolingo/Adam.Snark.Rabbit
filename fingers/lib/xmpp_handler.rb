@@ -1,4 +1,3 @@
-require_relative 'message'
 require_relative 'message_handler'
 
 class XMPPHandler
@@ -13,7 +12,7 @@ class XMPPHandler
 
     message :body do |m|
       send_typing m.from
-      @amqp_handler.default_publish 'message', Message.new(body: m.body, source_address: m.from, source_type: :xmpp).to_json
+      @amqp_handler.default_publish 'message', AdamCommon::Message.new(body: m.body, source_address: m.from, source_type: :xmpp).to_json
     end
   end
 
