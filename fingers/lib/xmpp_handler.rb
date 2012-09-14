@@ -11,6 +11,7 @@ class XMPPHandler
     end
 
     message :body do |m|
+      send_typing m.from
       message = Message.new body: m.body, source_address: m.from, source_type: :xmpp
       MessageHandler.new(message).handle &method(:process_message_response)
     end
@@ -21,8 +22,17 @@ class XMPPHandler
     client.run
   end
 
+  def send_typing(jid)
+    message = Blather::Stanza::Message.new
+    message.to = jid
+    message.chat_state = :composing
+    write_to_stream message
+  end
+
   def process_message_response(message, response)
-    say message.respond_to, response
+    EM.add_timer 0.5 do
+      say message.respond_to, response
+    end
   end
 
   def add_to_roster(jid)
