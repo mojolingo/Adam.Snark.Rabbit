@@ -14,4 +14,10 @@ describe MessageHandler do
   subject { described_class.new message }
 
   its(:response) { should == "Why hello there!" }
+
+  context "with a message that we don't understand" do
+    let(:message_body) { "Lorem ipsum" }
+
+    its(:response) { should == "Sorry, I don't understand." }
+  end
 end
