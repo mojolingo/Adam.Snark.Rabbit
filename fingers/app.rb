@@ -18,8 +18,8 @@ xmpp.setup ENV['ADAM_FINGERS_JID'], ENV['ADAM_FINGERS_PASSWORD']
 amqp = AMQPHandler.new "amqp://#{ENV['ADAM_FINGERS_AMQP_USERNAME']}:#{ENV['ADAM_FINGERS_AMQP_PASSWORD']}@#{ENV['ADAM_FINGERS_AMQP_HOST']}"
 
 EM.run do
-  xmpp.run
-  amqp.run
+  xmpp.run amqp
+  amqp.run xmpp
 
   amqp.work_queue 'jid.created' do |payload|
     payload = JSON.parse payload
@@ -31,5 +31,15 @@ EM.run do
     payload = JSON.parse payload
     puts "JID was removed: #{payload['jid']}. Removing from roster."
     xmpp.remove_from_roster payload['jid']
+  end
+
+  amqp.work_queue 'message' do |payload|
+    puts "Message was received: #{Message.from_json(payload)}"
+    MessageHandler.new(Message.from_json(payload)).handle { |r| amqp.default_publish 'response', r.to_json }
+  end
+
+  amqp.work_queue 'response' do |payload|
+    puts "Response was received: #{Response.from_json(payload)}"
+    xmpp.process_message_response Response.from_json(payload)
   end
 end

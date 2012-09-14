@@ -1,16 +1,16 @@
 require 'spec_helper'
 
-require_relative '../../lib/message'
+require_relative '../../lib/response'
 
-describe Message do
-  let(:source_type)     { :xmpp }
-  let(:source_address)  { 'foo@bar.com' }
+describe Response do
+  let(:target_type)     { :xmpp }
+  let(:target_address)  { 'foo@bar.com' }
   let(:body)            { 'Hello there' }
 
-  subject { described_class.new source_type: source_type, source_address: source_address, body: body }
+  subject { described_class.new target_type: target_type, target_address: target_address, body: body }
 
-  its(:source_type)     { should == source_type }
-  its(:source_address)  { should == source_address }
+  its(:target_type)     { should == target_type }
+  its(:target_address)  { should == target_address }
   its(:body)            { should == body }
 
   it "should be able to encode to and decode from JSON" do
@@ -26,13 +26,13 @@ describe Message do
 
     context "with attributes set the same" do
       it "should be equal" do
-        described_class.new(source_type: :xmpp).should eql(described_class.new(source_type: :xmpp))
+        described_class.new(target_type: :xmpp).should eql(described_class.new(target_type: :xmpp))
       end
     end
 
     context "with attributes set differently" do
       it "should be equal" do
-        described_class.new(source_type: :email).should_not eql(described_class.new(source_type: :xmpp))
+        described_class.new(target_type: :email).should_not eql(described_class.new(target_type: :xmpp))
       end
     end
   end

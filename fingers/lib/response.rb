@@ -1,10 +1,10 @@
 require 'json'
 
-class Message
+class Response
   include Virtus::ValueObject
 
-  attribute :source_type, Symbol
-  attribute :source_address, String
+  attribute :target_type, Symbol
+  attribute :target_address, String
   attribute :body, String
 
   def self.from_json(json)

@@ -6,18 +6,20 @@ class XMPPHandler
 
   def initialize
     super
+
     subscription :request? do |s|
       write_to_stream s.approve!
     end
 
     message :body do |m|
       send_typing m.from
-      message = Message.new body: m.body, source_address: m.from, source_type: :xmpp
-      MessageHandler.new(message).handle &method(:process_message_response)
+      @amqp_handler.default_publish 'message', Message.new(body: m.body, source_address: m.from, source_type: :xmpp).to_json
     end
   end
 
-  def run
+  def run(amqp_handler)
+    @amqp_handler = amqp_handler
+
     Blather.logger.info "Connecting as #{jid}"
     client.run
   end
@@ -29,9 +31,9 @@ class XMPPHandler
     write_to_stream message
   end
 
-  def process_message_response(message, response)
+  def process_message_response(response)
     EM.add_timer 0.5 do
-      say message.respond_to, response
+      say response.target_address, response.body
     end
   end
 
