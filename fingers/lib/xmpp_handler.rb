@@ -9,7 +9,6 @@ class XMPPHandler
     end
 
     message :body do |m|
-      send_typing m.from
       @amqp_handler.default_publish 'message', AdamCommon::Message.new(body: m.body, source_address: m.from, source_type: :xmpp).to_json
     end
   end
@@ -29,6 +28,7 @@ class XMPPHandler
   end
 
   def process_message_response(response)
+    send_typing response.target_address
     EM.add_timer 0.5 do
       say response.target_address, response.body
     end
