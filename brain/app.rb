@@ -9,5 +9,6 @@ require_relative 'lib/amqp_handler'
 EM.run do
   AMQP.connect "amqp://#{ENV['ADAM_BRAIN_AMQP_USERNAME']}:#{ENV['ADAM_BRAIN_AMQP_PASSWORD']}@#{ENV['ADAM_BRAIN_AMQP_HOST']}" do |connection|
     AMQPHandler.new.listen
+    puts "Connected and listening for messages"
   end
 end
