@@ -5,7 +5,7 @@ require_relative '../lib/amqp_handler'
 describe "AMQP handling" do
   include EventedSpec::AMQPSpec
 
-  default_options host: 'adam.local'
+  default_options host: 'adam.local', vhost: '/test'
 
   it "should respond to messages on the 'message' queue by publishing matching responses on the 'response' queue" do
     channel = AMQP::Channel.new
