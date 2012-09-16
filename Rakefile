@@ -27,4 +27,10 @@ end
   end
 end
 
+desc "Setup an app checkout and run all specs"
+task :ci do
+  system 'cd dev_environment && vagrant destroy -f && vagrant up && vagrant ssh -c "cd adam && rake setup && rake spec"'
+  exit $?.exitstatus
+end
+
 task :default => :spec
