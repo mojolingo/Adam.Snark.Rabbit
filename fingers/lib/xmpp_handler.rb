@@ -9,7 +9,9 @@ class XMPPHandler
     end
 
     message :body do |m|
-      @amqp_handler.default_publish 'message', AdamCommon::Message.new(body: m.body, source_address: m.from, source_type: :xmpp).to_json
+      EM.next_tick do
+        @amqp_handler.default_publish 'message', AdamCommon::Message.new(body: m.body, source_address: m.from, source_type: :xmpp).to_json
+      end
     end
   end
 
