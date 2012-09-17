@@ -1,6 +1,6 @@
 source "http://rubygems.org"
 
-gem 'blather', github: 'adhearsion/blather'
+gem 'blather'
 gem 'amqp'
 gem 'adam_common', path: '../adam_common'
 
