@@ -5,7 +5,7 @@ require_relative '../lib/amqp_handler'
 describe "AMQP handling" do
   include EventedSpec::AMQPSpec
 
-  default_options host: 'adam.local', vhost: '/test'
+  default_options host: 'local.adamrabbit.net', vhost: '/test'
 
   let(:brain) { Brain.new }
 

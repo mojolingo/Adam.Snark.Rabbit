@@ -1,8 +1,6 @@
 Vagrant::Config.run do |config|
   config.vm.box       = "precise64"
-  config.vm.host_name = "adam.local"
-
-  config.vm.customize ['modifyvm', :id, '--natdnshostresolver1', 'on']
+  config.vm.host_name = "local.adamrabbit.net"
 
   config.vm.network :hostonly, "192.168.33.100"
 
@@ -16,7 +14,7 @@ Vagrant::Config.run do |config|
     chef.add_role "dev"
 
     chef.json = {
-      jabber_domain: 'adam.local',
+      jabber_domain: 'local.adamrabbit.net',
       'rbenv' => {
         'user_installs' => [
           { 'user'    => 'vagrant',

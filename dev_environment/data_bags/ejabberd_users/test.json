@@ -1,6 +1,6 @@
 {
   "id": "test",
   "node": "test",
-  "domain": "adam.local",
+  "domain": "local.adamrabbit.net",
   "password": "abc123"
 }
