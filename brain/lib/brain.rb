@@ -32,11 +32,19 @@ class Brain
     AdamCommon::Response.new target_type: message.source_type, target_address: message.source_address, body: response_body(message)
   end
 
+  #
+  # Retrieve the body of any response from the best matching neuron for
+  #
   def response_body(message)
-    matching_neuron_for_message(message).reply(message)
+    matching_neurons_for_message(message).last.reply(message)
   end
 
-  def matching_neuron_for_message(message)
-    @neurons.find { |neuron| neuron.confidence(message) == 1 }
+  #
+  # Sort neurons by their confidence in matching a message, with least confident first
+  #
+  def matching_neurons_for_message(message)
+    @neurons.map { |neuron| [neuron, neuron.confidence(message)] }
+      .sort { |(_,c1), (_,c2)| c1 <=> c2 }
+      .map { |neuron, confidence| neuron }
   end
 end

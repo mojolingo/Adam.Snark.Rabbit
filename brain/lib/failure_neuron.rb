@@ -1,6 +1,6 @@
 class FailureNeuron
   def confidence(message)
-    1
+    0.2
   end
 
   def reply(message)

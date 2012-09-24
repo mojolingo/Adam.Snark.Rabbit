@@ -58,5 +58,44 @@ describe Brain do
         response.should == response_with_body("Foo to you too")
       end
     end
+
+    context "when multiple neurons have some confidence they will match a single message" do
+      let :neuron_class_1 do
+        Class.new do
+          def confidence(message)
+            message.body =~ /foo/ ? 0.5 : 0
+          end
+
+          def reply(message)
+            "Foo one"
+          end
+        end
+      end
+
+      let :neuron_class_2 do
+        Class.new do
+          def confidence(message)
+            message.body =~ /foo/ ? 0.8 : 0
+          end
+
+          def reply(message)
+            "Foo two"
+          end
+        end
+      end
+
+      before do
+        subject.add_neuron neuron_class_1.new
+        subject.add_neuron neuron_class_2.new
+      end
+
+      let(:message_body) { 'foo' }
+
+      it "invokes the neuron with the higher confidence" do
+        response = nil
+        subject.handle(message) { |r| response = r }
+        response.should == response_with_body("Foo two")
+      end
+    end
   end
 end
