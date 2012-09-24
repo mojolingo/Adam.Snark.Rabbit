@@ -3,11 +3,7 @@ require 'spec_helper'
 require_relative '../../lib/failure_neuron'
 
 describe FailureNeuron do
-  it "should have 20% confidence of matching any message" do
-    subject.confidence(nil).should eq(0.2)
-  end
+  include NeuronMatchers
 
-  it "should always respond with 'Sorry, I don't understand.'" do
-    subject.reply(nil).should == "Sorry, I don't understand."
-  end
+  it { should handle_message(nil).with_confidence(0.2).and_respond_with("Sorry, I don't understand.") }
 end

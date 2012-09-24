@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'evented-spec'
 require_relative '../lib/amqp_handler'
-require_relative '../lib/hello_neuron'
+require_relative '../lib/humanity_neuron'
 
 describe "AMQP handling" do
   include EventedSpec::AMQPSpec
@@ -52,7 +52,7 @@ describe "AMQP handling" do
     end
 
     before do
-      brain.add_neuron HelloNeuron.new
+      brain.add_neuron HumanityNeuron.new
       brain.add_neuron neuron_class.new
     end
 
