@@ -38,12 +38,20 @@ describe "AMQP handling" do
   end
 
   context "with a custom neuron defined" do
-    before do
-      brain.add_neuron do |message|
-        if message.body =~ /foo/
+    let :neuron_class do
+      Class.new do
+        def confidence(message)
+          message.body =~ /foo/ ? 1 : 0
+        end
+
+        def reply(message)
           "Foo to you too"
         end
       end
+    end
+
+    before do
+      brain.add_neuron neuron_class.new
     end
 
     it "should respond to messages on the 'message' queue by publishing matching responses on the 'response' queue" do

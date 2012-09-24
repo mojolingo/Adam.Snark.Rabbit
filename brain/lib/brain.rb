@@ -1,9 +1,10 @@
+require_relative 'hello_neuron'
+require_relative 'failure_neuron'
+
 class Brain
   def initialize
-    @neurons = []
-    add_neuron do |message|
-      "Why hello there!" if message.body =~ /hello|hi/i
-    end
+    @neurons = [FailureNeuron.new]
+    add_neuron HelloNeuron.new
   end
 
   #
@@ -19,14 +20,10 @@ class Brain
   end
 
   #
-  # Add a neuron to the brain
+  # Add a neuron to the brain. Should follow the standard Neuron API.
   #
-  # @yield [message] process an incoming message
-  # @yieldparam [AdamCommon::Message] message the message received from a user
-  # @yieldreturn [String, nil] a response body if the neuron can handle the message. Otherwise nil.
-  #
-  def add_neuron(&block)
-    @neurons << block
+  def add_neuron(neuron)
+    @neurons.insert -2, neuron
   end
 
   private
@@ -36,8 +33,10 @@ class Brain
   end
 
   def response_body(message)
-    body = nil
-    @neurons.find { |neuron| body = neuron.call message }
-    body ||= "Sorry, I don't understand."
+    matching_neuron_for_message(message).reply(message)
+  end
+
+  def matching_neuron_for_message(message)
+    @neurons.find { |neuron| neuron.confidence(message) == 1 }
   end
 end
