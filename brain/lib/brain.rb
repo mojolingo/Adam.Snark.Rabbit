@@ -1,10 +1,8 @@
-require_relative 'hello_neuron'
 require_relative 'failure_neuron'
 
 class Brain
   def initialize
     @neurons = [FailureNeuron.new]
-    add_neuron HelloNeuron.new
   end
 
   #

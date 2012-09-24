@@ -1,6 +1,7 @@
 require 'spec_helper'
 require 'evented-spec'
 require_relative '../lib/amqp_handler'
+require_relative '../lib/hello_neuron'
 
 describe "AMQP handling" do
   include EventedSpec::AMQPSpec
@@ -32,7 +33,7 @@ describe "AMQP handling" do
     publish_message channel, 'foo@bar.com', 'Hello'
 
     done 1 do
-      expected_response = response :xmpp, 'foo@bar.com', 'Why hello there!'
+      expected_response = response :xmpp, 'foo@bar.com', "Sorry, I don't understand."
       responses.should eql([expected_response.to_json])
     end
   end
@@ -51,6 +52,7 @@ describe "AMQP handling" do
     end
 
     before do
+      brain.add_neuron HelloNeuron.new
       brain.add_neuron neuron_class.new
     end
 

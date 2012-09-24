@@ -17,12 +17,6 @@ describe Brain do
   end
 
   describe "handling a message" do
-    it "should yield the response to the passed block" do
-      response = nil
-      subject.handle(message) { |r| response = r }
-      response.should == response_with_body("Why hello there!")
-    end
-
     context "with a message that we don't understand" do
       let(:message_body) { "Lorem ipsum" }
 
