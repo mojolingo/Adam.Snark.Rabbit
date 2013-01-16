@@ -1,0 +1,11 @@
+source "http://rubygems.org"
+
+gem 'blather'
+gem 'amqp'
+gem 'adam_common', path: '../adam_common'
+
+group :development, :test do
+  gem 'rspec'
+  gem 'guard'
+  gem 'guard-rspec'
+end

@@ -1,0 +1,1 @@
+# Adam XMPP Gateway

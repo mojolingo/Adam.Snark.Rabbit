@@ -1,0 +1,16 @@
+source :rubygems
+
+gem 'adhearsion', '~> 2.1'
+gem 'adhearsion-reporter', '~> 2.0'
+
+gem 'httparty'
+gem 'horde_rpc'
+
+group :development, :test do
+  gem 'rspec'
+  gem 'mocha'
+
+  gem 'guard'
+  gem 'guard-rspec'
+  gem 'ruby_gntp'
+end

@@ -1,2 +1,4 @@
-web: bundle exec rails server -p $PORT
-ahn: bundle exec ahn start .
+memory: bin/memory
+ears: bin/ears
+fingers: bin/fingers
+brain: bin/brain
