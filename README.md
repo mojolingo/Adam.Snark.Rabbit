@@ -10,7 +10,7 @@ tasks, from announcing conference bridge participants and CI build status to tri
 Best of all, he's yours! Find him here:
 
   * [The Web](http://adamrabbit.com)
-  * [Jabber](xmpp:me@adamrabbit.com.com)
+  * [Jabber](xmpp:me@adamrabbit.com)
   * [E-Mail](mailto:me@adamrabbit.com)
   * [SIP](sip:hello@adamrabbit.com)
   * the PSTN: +1(404) 475-4840
