@@ -2,3 +2,4 @@
 .foreman
 .tags
 .tags_sorted_by_file
+dev_environment/deploy_key

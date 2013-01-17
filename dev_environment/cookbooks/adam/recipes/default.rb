@@ -49,3 +49,21 @@ rabbitmq_user "guest" do
   permissions '".*" ".*" ".*"'
   action :set_permissions
 end
+
+user "adam" do
+  system true
+  comment "Adam User"
+  home "/home/adam"
+  supports :manage_home => true
+end
+
+application "adam" do
+  path "/srv/adam"
+  owner "adam"
+  group "adam"
+
+  repository node['adam']['app_repo_url']
+  revision node['adam']['app_repo_ref']
+
+  deploy_key node['adam']['deploy_key']
+end

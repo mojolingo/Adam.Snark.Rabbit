@@ -30,6 +30,9 @@ Vagrant::Config.run do |config|
             }
           }
         ]
+      },
+      'adam' => {
+        'deploy_key' => File.read('deploy_key')
       }
     }
 

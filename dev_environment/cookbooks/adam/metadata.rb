@@ -13,6 +13,12 @@ end
 
 supports "mac_os_x", ">= 10.6.0"
 
-%w{ git rbenv }.each do |cb|
+%w{
+  ssh_known_hosts
+  git
+  rbenv
+  application
+  application_ruby
+}.each do |cb|
   depends cb
 end
