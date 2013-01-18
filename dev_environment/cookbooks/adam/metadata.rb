@@ -18,7 +18,6 @@ supports "mac_os_x", ">= 10.6.0"
   git
   rbenv
   application
-  application_ruby
 }.each do |cb|
   depends cb
 end

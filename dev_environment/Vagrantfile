@@ -7,7 +7,7 @@ Vagrant::Config.run do |config|
 
   config.vm.network :hostonly, "192.168.33.100"
 
-  config.vm.share_folder "adam", "/home/vagrant/adam", "..", nfs: true
+  config.vm.share_folder "adam", "/srv/adam/current", "..", nfs: true unless ENV['STANDALONE_DEPLOYMENT']
 
   config.vm.provision :chef_solo do |chef|
     chef.roles_path = "roles"
@@ -18,21 +18,19 @@ Vagrant::Config.run do |config|
     chef.json = {
       jabber_domain: 'local.adamrabbit.net',
       'rbenv' => {
-        'user_installs' => [
-          { 'user'    => 'vagrant',
-            'rubies'  => ['1.9.3-p194'],
-            'global'  => '1.9.3-p194',
-            'gems'    => {
-              '1.9.3-p194' => [
-                { 'name' => 'bundler' },
-                { 'name' => 'foreman' }
-              ]
-            }
-          }
-        ]
+        "default_ruby"  => "1.9.3-p374",
+        "rubies"        => ["1.9.3-p374"],
+        "gems" => {
+          "1.9.3-p374" => [
+            {"name" => "rake"},
+            {"name" => "bundler"},
+            {"name" => "foreman"}
+          ]
+        }
       },
       'adam' => {
-        'deploy_key' => File.read('deploy_key')
+        'standalone_deployment' => ENV['STANDALONE_DEPLOYMENT'].present?,
+        'deploy_key' => ENV['STANDALONE_DEPLOYMENT'] ? File.read('deploy_key') : nil
       }
     }
 

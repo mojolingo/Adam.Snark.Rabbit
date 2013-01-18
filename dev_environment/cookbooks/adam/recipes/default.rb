@@ -57,13 +57,43 @@ user "adam" do
   supports :manage_home => true
 end
 
-application "adam" do
-  path "/srv/adam"
-  owner "adam"
-  group "adam"
+if node[:adam][:standalone_deployment]
+  application "adam" do
+    path node['adam']['deployment_path']
+    owner "adam"
+    group "adam"
 
-  repository node['adam']['app_repo_url']
-  revision node['adam']['app_repo_ref']
+    repository node['adam']['app_repo_url']
+    revision node['adam']['app_repo_ref']
 
-  deploy_key node['adam']['deploy_key']
+    deploy_key node['adam']['deploy_key']
+
+    before_restart do
+      rbenv_script "app_dependencies" do
+        code "rake setup"
+        cwd File.join(node['adam']['deployment_path'], 'current')
+        user 'adam'
+      end
+
+      rbenv_script "setup app services" do
+        code "foreman export upstart /etc/init -a adam"
+        cwd File.join(node['adam']['deployment_path'], 'current')
+        user 'adam'
+      end
+    end
+
+    restart_command "service adam restart"
+  end
+else
+  rbenv_script "app_dependencies" do
+    code "rake setup"
+    cwd File.join(node['adam']['deployment_path'], 'current')
+    user 'adam'
+  end
+
+  rbenv_script "setup app services" do
+    code "foreman export upstart /etc/init -a adam"
+    cwd File.join(node['adam']['deployment_path'], 'current')
+    user 'adam'
+  end
 end
