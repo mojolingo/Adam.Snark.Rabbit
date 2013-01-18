@@ -17,17 +17,6 @@ Vagrant::Config.run do |config|
 
     chef.json = {
       jabber_domain: 'local.adamrabbit.net',
-      'rbenv' => {
-        "default_ruby"  => "1.9.3-p374",
-        "rubies"        => ["1.9.3-p374"],
-        "gems" => {
-          "1.9.3-p374" => [
-            {"name" => "rake"},
-            {"name" => "bundler"},
-            {"name" => "foreman"}
-          ]
-        }
-      },
       'adam' => {
         'standalone_deployment' => ENV['STANDALONE_DEPLOYMENT'].present?,
         'deploy_key' => ENV['STANDALONE_DEPLOYMENT'] ? File.read('deploy_key') : nil

@@ -1,15 +1,7 @@
 name "dev"
 description "Development Environment for Adam"
-run_list "recipe[apt]",
-  "recipe[motd-tail]",
-  "recipe[git]",
-  "recipe[ssh_known_hosts]",
-  "recipe[ruby_build]",
-  "recipe[rbenv::system]",
-  "recipe[mongodb::10gen_repo]",
-  "recipe[adam::apt-update]",
-  "recipe[mongodb::default]",
-  "recipe[rabbitmq]",
-  "recipe[rabbitmq::mgmt_console]",
-  "recipe[ejabberd]",
-  "recipe[adam]"
+run_list "role[base]",
+  "role[amqp]",
+  "role[xmpp]",
+  "role[mongo]",
+  "role[app]"
