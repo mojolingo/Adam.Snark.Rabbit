@@ -72,13 +72,11 @@ if node[:adam][:standalone_deployment]
       rbenv_script "app_dependencies" do
         code "rake setup"
         cwd File.join(node['adam']['deployment_path'], 'current')
-        user 'adam'
       end
 
       rbenv_script "setup app services" do
         code "foreman export upstart /etc/init -a adam"
         cwd File.join(node['adam']['deployment_path'], 'current')
-        user 'adam'
       end
     end
 
@@ -88,12 +86,10 @@ else
   rbenv_script "app_dependencies" do
     code "rake setup"
     cwd File.join(node['adam']['deployment_path'], 'current')
-    user 'adam'
   end
 
   rbenv_script "setup app services" do
     code "foreman export upstart /etc/init -a adam"
     cwd File.join(node['adam']['deployment_path'], 'current')
-    user 'adam'
   end
 end
