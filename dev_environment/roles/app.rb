@@ -7,8 +7,8 @@ run_list "role[base]",
   "recipe[rbenv::system]",
   "recipe[adam]"
 override_attributes 'rbenv' => {
-  "default_ruby"  => "1.9.3-p374",
-  "rubies"        => ["1.9.3-p374"],
+  "global"  => "1.9.3-p374",
+  "rubies"  => ["1.9.3-p374"],
   "gems" => {
     "1.9.3-p374" => [
       {"name" => "rake"},
