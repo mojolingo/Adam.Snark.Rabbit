@@ -11,8 +11,6 @@ recipe            "apt-update", "Updates apt repositories"
   supports os
 end
 
-supports "mac_os_x", ">= 10.6.0"
-
 %w{
   ssh_known_hosts
   git
