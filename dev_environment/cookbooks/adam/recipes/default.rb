@@ -78,6 +78,11 @@ if node[:adam][:standalone_deployment]
         code "foreman export upstart /etc/init -a adam"
         cwd File.join(node['adam']['deployment_path'], 'current')
       end
+
+      service 'adam' do
+        action :enable
+        provider Chef::Provider::Service::Upstart
+      end
     end
 
     restart_command "service adam restart"
@@ -91,5 +96,10 @@ else
   rbenv_script "setup app services" do
     code "foreman export upstart /etc/init -a adam"
     cwd File.join(node['adam']['deployment_path'], 'current')
+  end
+
+  service 'adam' do
+    action :enable
+    provider Chef::Provider::Service::Upstart
   end
 end
