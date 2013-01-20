@@ -36,15 +36,16 @@ A full Vagrant development environment for Adam is included in the dev_environme
 1. Create a precise64 box
 2. Copy `bootstrap.sh` and give it `+x` perms
 3. Create a dna.json similar to the following:
-  ```json
-  {
-    "run_list":"role[dev]",
-    "jabber_domain":"local.adamrabbit.net",
-    "adam": {
-      "deploy_key":"-----BEGIN RSA PRIVATE KEY-----ncenneccikiejwcoej-----END RSA PRIVATE KEY-----"
-    }
+```json
+{
+  "run_list":"role[dev]",
+  "jabber_domain":"local.adamrabbit.net",
+  "adam": {
+    "deploy_key":"-----BEGIN RSA PRIVATE KEY-----ncenneccikiejwcoej-----END RSA PRIVATE KEY-----"
   }
-  ```
+}
+```
+
 4. Execute `boostrap.sh`, providing Mojo Lingo CI creds.
 
 ## Legal
