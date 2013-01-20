@@ -33,4 +33,13 @@ task :ci do
   exit $?.exitstatus
 end
 
+desc "Create chef solo config for deployment environments"
+task :deployment_config do
+  system "rm -rf build && rm -rf tmp && mkdir build && mkdir tmp"
+  system "cd dev_environment && berks install --path ../tmp/cookbooks"
+  system "cd tmp && tar zcvf ../build/cookbooks.tgz cookbooks"
+  system "cd dev_environment && tar zcvf ../build/standalone-databags.tgz data_bags"
+  system "cd dev_environment && tar zcvf ../build/roles.tgz roles"
+end
+
 task :default => :spec
