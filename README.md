@@ -33,6 +33,22 @@ A full Vagrant development environment for Adam is included in the dev_environme
 
 ## Production deployment
 
+1. Create a precise64 box
+2. Copy `bootstrap.sh` and give it `+x` perms
+3. Create a dna.json similar to the following:
+
+```json
+{
+  "run_list":"role[dev]",
+  "jabber_domain":"local.adamrabbit.net",
+  "adam": {
+    "deploy_key":"-----BEGIN RSA PRIVATE KEY-----ncenneccikiejwcoej-----END RSA PRIVATE KEY-----"
+  }
+}
+```
+
+4. Execute `boostrap.sh`, providing Mojo Lingo CI creds.
+
 ## Legal
 
 Adam Rabbit is copyright Mojo Lingo LLC, 2012. He is not open-source and is proprietary software. Sharing of his source-code is not allowed. Some components of Adam may be extracted into open-source libraries and shared elsewhere.
