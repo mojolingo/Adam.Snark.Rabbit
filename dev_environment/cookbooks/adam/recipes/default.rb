@@ -93,7 +93,12 @@ if node[:adam][:standalone_deployment]
       end
     end
 
-    restart_command "sudo service adam restart"
+    restart_command do
+      service 'adam' do
+        action :restart
+        provider Chef::Provider::Service::Upstart
+      end
+    end
   end
 else
   rbenv_script "app_dependencies" do
