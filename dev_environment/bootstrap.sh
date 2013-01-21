@@ -2,11 +2,8 @@
 #
 #  Chef-Solo bootstrap script for a new Adam Snark Rabbit server
 
-echo "Type your Mojo Lingo CI username, followed by [ENTER]:"
-read username
-
-echo "Type your Mojo Lingo CI API key, followed by [ENTER]:"
-read password
+username=blangfeld
+password=d2j29jd902kok2k
 
 apt-get install curl -y
 curl -L http://www.opscode.com/chef/install.sh | bash

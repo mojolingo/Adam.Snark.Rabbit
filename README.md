@@ -34,7 +34,7 @@ A full Vagrant development environment for Adam is included in the dev_environme
 ## Production deployment
 
 1. Create a precise64 box
-2. Copy `bootstrap.sh` and give it `+x` perms
+2. Copy `bootstrap.sh` and give it `+x` perms. Edit the placeholder username and password (CI API key).
 3. Create a dna.json similar to the following:
 ```json
 {
@@ -46,7 +46,8 @@ A full Vagrant development environment for Adam is included in the dev_environme
 }
 ```
 
-4. Execute `boostrap.sh`, providing Mojo Lingo CI creds.
+4. Execute `boostrap.sh`.
+5. Add a cron entry to execute `bootstrap.sh` hourly.
 
 ## Legal
 
