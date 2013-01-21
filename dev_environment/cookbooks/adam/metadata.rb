@@ -12,7 +12,6 @@ recipe            "apt-update", "Updates apt repositories"
 end
 
 %w{
-  ssh_known_hosts
   git
   rbenv
   application

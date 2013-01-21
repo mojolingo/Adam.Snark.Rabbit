@@ -39,15 +39,30 @@ A full Vagrant development environment for Adam is included in the dev_environme
 ```json
 {
   "run_list":"role[dev]",
-  "jabber_domain":"local.adamrabbit.net",
+  "jabber_domain":"staging.adamrabbit.net",
   "adam": {
-    "deploy_key":"-----BEGIN RSA PRIVATE KEY-----ncenneccikiejwcoej-----END RSA PRIVATE KEY-----"
+    "root_domain":"staging.adamrabbit.net",
+    "deploy_key":"-----BEGIN RSA PRIVATE KEY-----ncenneccikiejwcoej-----END RSA PRIVATE KEY-----",
+    "github_key":"changeme",
+    "github_secret":"changeme",
+    "twitter_key":"changeme",
+    "twitter_secret":"changeme"
   }
 }
 ```
 
-4. Execute `boostrap.sh`.
-5. Add a cron entry to execute `bootstrap.sh` hourly.
+4. Create /var/chef/data_bags/ejabberd_users/adam.json from the following template:
+```json
+{
+  "id": "adam",
+  "node": "adam",
+  "domain": "staging.adamrabbit.net",
+  "password": "abc123"
+}
+```
+
+5. Execute `boostrap.sh`.
+6. Add a cron entry to execute `bootstrap.sh` hourly.
 
 ## Legal
 

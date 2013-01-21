@@ -2,7 +2,6 @@ name "app"
 description "Application Instance"
 run_list "role[base]",
   "recipe[git]",
-  "recipe[ssh_known_hosts]",
   "recipe[ruby_build]",
   "recipe[rbenv::system]",
   "recipe[adam]"

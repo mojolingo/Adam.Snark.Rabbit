@@ -18,6 +18,7 @@ Vagrant::Config.run do |config|
     chef.json = {
       jabber_domain: 'local.adamrabbit.net',
       'adam' => {
+        'root_domain' => 'local.adamrabbit.net',
         'standalone_deployment' => ENV['STANDALONE_DEPLOYMENT'].present?,
         'deploy_key' => ENV['STANDALONE_DEPLOYMENT'] ? File.read('deploy_key') : nil
       }
