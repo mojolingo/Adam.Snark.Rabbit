@@ -10,9 +10,11 @@ curl -L http://www.opscode.com/chef/install.sh | bash
 
 mkdir /var/chef
 
+rm roles.tgz
 wget --auth-no-challenge --http-user="$username" --http-password="$password" http://ci.mojolingo.com/job/Adam.Snark.Rabbit/lastBuild/artifact/build/roles.tgz
 tar -xf roles.tgz --directory /var/chef
 
+rm cookbooks.tgz
 wget --auth-no-challenge --http-user="$username" --http-password="$password" http://ci.mojolingo.com/job/Adam.Snark.Rabbit/lastBuild/artifact/build/cookbooks.tgz
 tar -xf cookbooks.tgz --directory /var/chef
 
