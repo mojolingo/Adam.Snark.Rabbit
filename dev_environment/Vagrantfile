@@ -24,10 +24,6 @@ Vagrant::Config.run do |config|
       }
     }
 
-    p chef.json
-    p ENV
-    p File.read('deploy_key')
-
     chef.log_level = :debug
   end
 
