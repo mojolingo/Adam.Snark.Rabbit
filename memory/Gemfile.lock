@@ -1,6 +1,6 @@
 GIT
-  remote: git://github.com/p0deje/action_mailer_cache_delivery.git
-  revision: 1bcf1000cee9eefba57d759db9e270e07a70e212
+  remote: git://github.com/benlangfeld/action_mailer_cache_delivery.git
+  revision: b580aacfcd646b7033b35cee04fede13f87c1e9b
   specs:
     action_mailer_cache_delivery (0.3.3)
       actionmailer (~> 3.0)
