@@ -49,7 +49,9 @@ A full Vagrant development environment for Adam is included in the dev_environme
     "github_key":"changeme",
     "github_secret":"changeme",
     "twitter_key":"changeme",
-    "twitter_secret":"changeme"
+    "twitter_secret":"changeme",
+    "bing_translate_key":"changeme",
+    "bing_translate_secret":"changeme"
   }
 }
 ```
@@ -73,6 +75,7 @@ Adam uses many third party services to access data or perform actions. Each of t
 
 * [Twitter](https://dev.twitter.com/apps)
 * [Github](https://github.com/settings/applications)
+* [Bing Translate](http://go.microsoft.com/?linkid=9782667)
 
 These credentials must then be provided to Chef in the DNA template above.
 
