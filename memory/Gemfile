@@ -61,6 +61,6 @@ group :test do
   gem 'launchy'
   gem 'capybara'
   gem 'capybara-email'
-  gem 'action_mailer_cache_delivery'
+  gem 'action_mailer_cache_delivery', github: 'p0deje/action_mailer_cache_delivery'
   gem 'poltergeist'
 end
