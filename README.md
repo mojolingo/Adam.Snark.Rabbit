@@ -67,6 +67,15 @@ A full Vagrant development environment for Adam is included in the dev_environme
 5. Execute `boostrap.sh`.
 6. Add a cron entry to execute `bootstrap.sh` hourly.
 
+### Third-party integrations
+
+Adam uses many third party services to access data or perform actions. Each of these requires authentication, and for each separate deployment, keys must be obtained. You can do this here:
+
+* [Twitter](https://dev.twitter.com/apps)
+* [Github](https://github.com/settings/applications)
+
+These credentials must then be provided to Chef in the DNA template above.
+
 ## Legal
 
 Adam Rabbit is copyright Mojo Lingo LLC, 2012. He is not open-source and is proprietary software. Sharing of his source-code is not allowed. Some components of Adam may be extracted into open-source libraries and shared elsewhere.
