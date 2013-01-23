@@ -70,6 +70,7 @@ if node[:adam][:standalone_deployment]
 
     nginx_load_balancer do
       application_port 3000
+      application_server_role 'app'
     end
 
     before_restart do
