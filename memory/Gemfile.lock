@@ -1,13 +1,8 @@
-GIT
-  remote: git://github.com/benlangfeld/action_mailer_cache_delivery.git
-  revision: b580aacfcd646b7033b35cee04fede13f87c1e9b
-  specs:
-    action_mailer_cache_delivery (0.3.3)
-      actionmailer (~> 3.0)
-
 GEM
   remote: http://rubygems.org/
   specs:
+    action_mailer_cache_delivery (0.3.3)
+      actionmailer (~> 3.0)
     actionmailer (3.2.11)
       actionpack (= 3.2.11)
       mail (~> 2.4.4)
@@ -297,7 +292,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  action_mailer_cache_delivery!
+  action_mailer_cache_delivery
   airbrake
   bunny
   capybara
