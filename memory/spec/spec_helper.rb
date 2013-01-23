@@ -19,7 +19,7 @@ RSpec.configure do |config|
   # rspec-rails.
   config.infer_base_class_for_anonymous_controllers = false
 
-  before(:suite) do
+  config.before(:suite) do
     cache_dir = "#{Rails.root}/tmp/cache/"
     FileUtils.mkdir_p(cache_dir) unless File.directory?(cache_dir)
   end
