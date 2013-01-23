@@ -71,6 +71,7 @@ if node[:adam][:standalone_deployment]
     nginx_load_balancer do
       application_port 3000
       application_server_role 'app'
+      proxy_pass node['adam']['root_domain']
     end
 
     before_restart do

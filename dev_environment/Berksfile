@@ -11,5 +11,6 @@ cookbook 'ruby-build',        github: 'fnichol/chef-ruby_build'
 cookbook 'rbenv',             github: 'fnichol/chef-rbenv'
 cookbook 'ejabberd',          github: 'mojolingo/ejabberd'
 cookbook 'rabbitmq',          github: 'mojolingo/rabbitmq'
+cookbook 'application_nginx', github: 'mojolingo/application_nginx'
 
 cookbook 'adam', path: 'cookbooks/adam'
