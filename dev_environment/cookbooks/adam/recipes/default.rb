@@ -68,6 +68,10 @@ if node[:adam][:standalone_deployment]
 
     deploy_key node['adam']['deploy_key']
 
+    nginx_load_balancer do
+      application_port 3000
+    end
+
     before_restart do
       template File.join(node['adam']['deployment_path'], 'current', '.env') do
         source "env.erb"

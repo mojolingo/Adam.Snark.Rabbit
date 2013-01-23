@@ -15,6 +15,7 @@ end
   git
   rbenv
   application
+  application_nginx
 }.each do |cb|
   depends cb
 end
