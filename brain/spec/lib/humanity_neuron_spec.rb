@@ -12,7 +12,7 @@ describe HumanityNeuron do
       ['Hi', 'Why hello there!'],
       ['hi', 'Why hello there!'],
       ['Hi Adam', 'Why hello there!']
-    ].each do |message_body, confidence, response|
+    ].each do |message_body, response|
       it { should handle_message(message_body).with_confidence(1).and_respond_with(response) }
     end
   end
