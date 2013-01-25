@@ -60,7 +60,7 @@ end
 sudo 'adam' do
   user      'adam'
   runas     'ALL'
-  commands  ['/sbin/restart adam']
+  commands  ['/usr/sbin/service adam restart']
   nopasswd  true
 end
 
@@ -106,7 +106,7 @@ if node[:adam][:standalone_deployment]
       end
     end
 
-    restart_command "sudo restart adam"
+    restart_command "sudo service adam restart"
   end
 else
   rbenv_script "app_dependencies" do
