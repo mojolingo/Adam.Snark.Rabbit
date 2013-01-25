@@ -60,7 +60,7 @@ end
 sudo 'adam' do
   user      'adam'
   runas     'ALL'
-  commands  ['restart adam']
+  commands  ['/sbin/restart adam']
 end
 
 if node[:adam][:standalone_deployment]
