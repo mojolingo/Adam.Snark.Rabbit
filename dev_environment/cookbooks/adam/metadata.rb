@@ -16,6 +16,7 @@ end
   rbenv
   application
   application_nginx
+  sudo
 }.each do |cb|
   depends cb
 end

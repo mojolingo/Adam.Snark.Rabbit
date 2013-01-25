@@ -57,6 +57,12 @@ user "adam" do
   supports :manage_home => true
 end
 
+sudo 'adam' do
+  user      'adam'
+  runas     'ALL'
+  commands  ['restart adam']
+end
+
 if node[:adam][:standalone_deployment]
   application "adam" do
     path node['adam']['deployment_path']
@@ -99,12 +105,7 @@ if node[:adam][:standalone_deployment]
       end
     end
 
-    restart_command do
-      service 'adam' do
-        action :restart
-        provider Chef::Provider::Service::Upstart
-      end
-    end
+    restart_command "restart adam"
   end
 else
   rbenv_script "app_dependencies" do
