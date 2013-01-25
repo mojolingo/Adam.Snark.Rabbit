@@ -13,6 +13,7 @@ class TranslatorNeuron
     match = MATCHER.match message.body
     language = match[:language].capitalize
     code = ISO_639.find_by_english_name language
+    return "Sorry, I don't speak #{language}." unless code
     translation = translator.translate match[:phrase], to: code.alpha2
     translation.inspect
   end
