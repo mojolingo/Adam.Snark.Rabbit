@@ -1,5 +1,5 @@
 class TranslatorNeuron
-  MATCHER = /How do I say "(?<phrase>.*)" in (?<language>.*)\?/i
+  MATCHER = /((How do (I|you) say)|(What is)|What's) ["']?(?<phrase>[\d\w\s]*)["']? in (?<language>.*)\?/i
 
   def translator
     @translator ||= BingTranslator.new(ENV['BING_TRANSLATE_KEY'], ENV['BING_TRANSLATE_SECRET'])

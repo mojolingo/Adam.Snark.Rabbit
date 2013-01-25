@@ -15,6 +15,12 @@ describe TranslatorNeuron do
 
     [
       ['How do I say "yes please" in Portuguese?', '"Sim por favor"'],
+      ['How do I say \'yes please\' in Portuguese?', '"Sim por favor"'],
+      ['How do I say yes please in Portuguese?', '"Sim por favor"'],
+      ['How do you say "yes please" in Portuguese?', '"Sim por favor"'],
+      ['What is "yes please" in Portuguese?', '"Sim por favor"'],
+      ['What\'s "yes please" in Portuguese?', '"Sim por favor"'],
+      ['How do I say "yes please" in Portuguese?', '"Sim por favor"'],
       ['How do I say "yes please" in portuguese?', '"Sim por favor"'], # Lower case target language
       ['How do I say "yes please" in Afrikaans?', "Sorry, I don't speak Afrikaans."], # Untranslateable target language
       ['How do I say "yes please" in klingon?', "Sorry, I don't speak Klingon."], # Invalid target language
