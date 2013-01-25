@@ -11,7 +11,8 @@ class TranslatorNeuron
 
   def reply(message)
     match = MATCHER.match message.body
-    code = ISO_639.find_by_english_name match[:language]
+    language = match[:language].capitalize
+    code = ISO_639.find_by_english_name language
     translation = translator.translate match[:phrase], to: code.alpha2
     translation.inspect
   end

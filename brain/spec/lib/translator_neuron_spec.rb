@@ -13,7 +13,8 @@ describe TranslatorNeuron do
     end
 
     [
-      ['How do I say "yes please" in Portuguese?', '"Sim por favor"']
+      ['How do I say "yes please" in Portuguese?', '"Sim por favor"'],
+      ['How do I say "yes please" in portuguese?', '"Sim por favor"'], # Lower case target language
     ].each do |message_body, response|
       it { should handle_message(message_body).with_confidence(1).and_respond_with(response) }
     end
