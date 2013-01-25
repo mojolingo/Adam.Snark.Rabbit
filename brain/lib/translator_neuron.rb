@@ -16,5 +16,7 @@ class TranslatorNeuron
     return "Sorry, I don't speak #{language}." unless code
     translation = translator.translate match[:phrase], to: code.alpha2
     translation.inspect
+  rescue Nokogiri::XML::XPath::SyntaxError
+    "Sorry, I don't speak #{language}."
   end
 end
