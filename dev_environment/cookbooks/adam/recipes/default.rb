@@ -61,6 +61,7 @@ sudo 'adam' do
   user      'adam'
   runas     'ALL'
   commands  ['/sbin/restart adam']
+  nopasswd  true
 end
 
 if node[:adam][:standalone_deployment]
