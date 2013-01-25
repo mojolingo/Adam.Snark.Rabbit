@@ -51,6 +51,26 @@ describe Brain do
         subject.handle(message) { |r| response = r }
         response.should == response_with_body("Foo to you too")
       end
+
+      context "when a neuron explodes" do
+        let :neuron_class do
+          Class.new do
+            def confidence(message)
+              raise
+            end
+
+            def reply(message)
+              raise
+            end
+          end
+        end
+
+        it "should return a failure response message" do
+          response = nil
+          subject.handle(message) { |r| response = r }
+          response.should == response_with_body("Sorry, I encountered a RuntimeError")
+        end
+      end
     end
 
     context "when multiple neurons have some confidence they will match a single message" do
