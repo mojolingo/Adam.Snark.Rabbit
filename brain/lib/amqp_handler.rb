@@ -22,7 +22,7 @@ class AMQPHandler
   private
 
   def message_queue
-    @channel.queue 'message', auto_delete: true
+    @channel.queue 'message'
   end
 
   def publish_response(response)
