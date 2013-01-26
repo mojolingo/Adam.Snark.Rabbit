@@ -66,3 +66,12 @@ test:
         - 127.0.0.1:27017
       options:
         consistency: :strong
+
+production:
+  sessions:
+    default:
+      database: asr_production
+      hosts:
+        - 127.0.0.1:27017
+      options:
+        consistency: :strong
