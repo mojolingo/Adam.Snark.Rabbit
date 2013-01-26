@@ -79,7 +79,8 @@ if node[:adam][:standalone_deployment]
       application_port 3000
       application_server_role 'app'
       set_host_header true
-      static_files "/assets" => "public/assets"
+      static_files "/assets" => "memory/public/assets",
+                   "/favicon.ico" => "memory/public/favicon.ico"
     end
 
     before_restart do
