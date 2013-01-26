@@ -22,7 +22,7 @@ describe HumanityNeuron do
   end
 
   context "invalid messages" do
-    [nil, 'foo', 'highlight'].each do |message_body|
+    [nil, 'foo', 'highlight', 'What is hello in French?'].each do |message_body|
       it { should handle_message(message_body).with_confidence(0) }
     end
   end

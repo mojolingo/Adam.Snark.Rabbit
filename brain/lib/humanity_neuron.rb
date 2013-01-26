@@ -1,5 +1,5 @@
 class HumanityNeuron
-  GREETING_MATCHER = /(hello|hi)\b/i
+  GREETING_MATCHER = /^(hello|hi)\b/i
   PLEASANTRY_MATCHER = /How are you?/i
 
   def confidence(message)
