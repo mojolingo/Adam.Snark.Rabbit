@@ -56,5 +56,7 @@ module ASR
       generator.fixture_replacement :factory_girl, :dir => "spec/factories"
       generator.template_engine :haml
     end
+
+    config.logger = Logger.new(STDOUT)
   end
 end

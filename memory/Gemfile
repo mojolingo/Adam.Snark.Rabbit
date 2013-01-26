@@ -6,6 +6,8 @@ gem 'mongoid', '~> 3.0'
 
 gem 'airbrake'
 
+gem 'unicorn'
+
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-github'
