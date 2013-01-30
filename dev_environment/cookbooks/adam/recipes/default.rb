@@ -64,6 +64,11 @@ sudo 'adam' do
   nopasswd  true
 end
 
+%w{
+  libqt4-dev
+  qt4-qmake
+}.each { |p| package p }
+
 if node[:adam][:standalone_deployment]
   application "adam" do
     path node['adam']['deployment_path']
