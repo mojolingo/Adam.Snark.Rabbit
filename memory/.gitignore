@@ -2,6 +2,7 @@
 .*.swo
 .DS_STORE
 vendor/ruby
+vendor/bundle
 
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 #
