@@ -51,7 +51,8 @@ A full Vagrant development environment for Adam is included in the dev_environme
     "twitter_key":"changeme",
     "twitter_secret":"changeme",
     "bing_translate_key":"changeme",
-    "bing_translate_secret":"changeme"
+    "bing_translate_secret":"changeme",
+    "internal_password":"changeme"
   }
 }
 ```

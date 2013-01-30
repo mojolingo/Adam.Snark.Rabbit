@@ -41,6 +41,11 @@ class User
     grant.user if grant
   end
 
+  def self.find_for_message(message)
+    jid = Profile.where("jids.address" => message.source_address).first
+    jid.user if jid
+  end
+
   def social_usernames
     auth_grants.inject({}) do |h, g|
       h[g.provider] = g.username

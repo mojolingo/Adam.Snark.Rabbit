@@ -42,6 +42,8 @@ gem 'bunny'
 
 gem 'pipejump'
 
+gem 'adam_common', path: '../adam_common'
+
 group :development do
   gem 'debugger'
 

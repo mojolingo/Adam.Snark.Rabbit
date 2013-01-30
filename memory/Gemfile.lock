@@ -1,3 +1,9 @@
+PATH
+  remote: ../adam_common
+  specs:
+    adam_common (0.0.1)
+      virtus
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -36,6 +42,7 @@ GEM
       builder
       json
     arel (3.0.2)
+    backports (2.6.7)
     bcrypt-ruby (3.0.1)
     builder (3.0.4)
     bunny (0.8.0)
@@ -71,6 +78,7 @@ GEM
     debugger-linecache (1.1.2)
       debugger-ruby_core_source (>= 1.1.1)
     debugger-ruby_core_source (1.1.7)
+    descendants_tracker (0.0.1)
     devise (2.2.3)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -300,6 +308,9 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    virtus (0.5.4)
+      backports (~> 2.6.1)
+      descendants_tracker (~> 0.0.1)
     warden (1.2.1)
       rack (>= 1.0)
     webmock (1.9.0)
@@ -314,6 +325,7 @@ PLATFORMS
 
 DEPENDENCIES
   action_mailer_cache_delivery
+  adam_common!
   airbrake
   bunny
   capybara
