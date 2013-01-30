@@ -2,8 +2,11 @@ class Profile
   include Mongoid::Document
 
   field :name, type: String
+  field :futuresimple_username, type: String
+  field :futuresimple_token, type: String
+  attr_accessor :futuresimple_password
 
-  attr_accessible :name, :email_addresses_attributes, :jids_attributes
+  attr_accessible :name, :email_addresses_attributes, :jids_attributes, :futuresimple_username, :futuresimple_password
 
   belongs_to :user
 
@@ -14,6 +17,8 @@ class Profile
   accepts_nested_attributes_for :jids, allow_destroy: true
 
   validates_presence_of :name
+
+  before_save :fetch_futuresimple_token
 
   # Find an email address by its confirmation token and try to confirm it.
   # If no record is found, returns a new record with an error.
@@ -31,5 +36,13 @@ class Profile
       end
     end
     confirmable
+  end
+
+  private
+
+  def fetch_futuresimple_token
+    return unless futuresimple_username.present? && futuresimple_password.present?
+    session = Pipejump::Session.new email: futuresimple_username, password: futuresimple_password
+    self.futuresimple_token = session.token
   end
 end

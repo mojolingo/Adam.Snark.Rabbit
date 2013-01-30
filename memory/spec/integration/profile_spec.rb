@@ -67,5 +67,20 @@ feature 'Profile' do
       new_address.address.should == 'doo@jabber.org'
       new_address.should_not be_confirmed
     end
+
+    scenario 'authenticating with futuresimple' do
+      stub_request(:post, "https://sales.futuresimple.com/api/v1/authentication.json").
+         with(body: "email=benlangfeld&password=foobar").
+         to_return(status: 200, body: '{"authentication":{"token":"abudw889"}}')
+
+      click_link 'My Profile'
+      click_link '(edit)'
+      fill_in 'Futuresimple Username', with: 'benlangfeld'
+      fill_in 'Futuresimple Password', with: 'foobar'
+      click_button 'Update Profile'
+
+      page.should have_content 'Futuresimple Username: benlangfeld'
+      Profile.first.futuresimple_token.should == 'abudw889'
+    end
   end
 end

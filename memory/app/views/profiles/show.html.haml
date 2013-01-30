@@ -15,5 +15,7 @@
       %li
         = jid.address
         = "unconfirmed" unless jid.confirmed?
+  %b Futuresimple Username:
+  = @profile.futuresimple_username
 
 = link_to '(edit)', edit_profile_path(@profile)

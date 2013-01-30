@@ -40,6 +40,8 @@ gem "twitter-bootstrap-rails"
 
 gem 'bunny'
 
+gem 'pipejump'
+
 group :development do
   gem 'debugger'
 
@@ -67,4 +69,5 @@ group :test do
   gem 'capybara-email'
   gem 'action_mailer_cache_delivery'
   gem 'poltergeist'
+  gem 'webmock'
 end

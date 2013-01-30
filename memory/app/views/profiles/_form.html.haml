@@ -11,6 +11,8 @@
       = render 'jid_fields', f: builder
     .links
       = link_to_add_association 'Add JID', f, :jids
+    = f.input :futuresimple_username, label: 'Futuresimple Username'
+    = f.input :futuresimple_password, label: 'Futuresimple Password'
 
   .actions
     = f.button :submit

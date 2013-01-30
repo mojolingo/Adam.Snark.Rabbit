@@ -46,4 +46,20 @@ describe Profile do
       end
     end
   end
+
+  describe "setting futuresimple credentials" do
+    it "should save the token on save" do
+      subject.futuresimple_username = 'benlangfeld'
+      subject.futuresimple_password = 'foobar'
+
+      stub_request(:post, "https://sales.futuresimple.com/api/v1/authentication.json").
+         with(body: "email=benlangfeld&password=foobar").
+         to_return(status: 200, body: '{"authentication":{"token":"abudw889"}}')
+
+      subject.save
+
+      subject.reload
+      subject.futuresimple_token.should == 'abudw889'
+    end
+  end
 end
