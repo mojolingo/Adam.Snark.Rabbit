@@ -4,12 +4,14 @@ describe AdamCommon::Message do
   let(:source_type)     { :xmpp }
   let(:source_address)  { 'foo@bar.com' }
   let(:body)            { 'Hello there' }
+  let(:user)            { { 'profile' => {'name' => 'Ben Langfeld'} } }
 
-  subject { described_class.new source_type: source_type, source_address: source_address, body: body }
+  subject { described_class.new source_type: source_type, source_address: source_address, body: body, user: user }
 
   its(:source_type)     { should == source_type }
   its(:source_address)  { should == source_address }
   its(:body)            { should == body }
+  its(:user)            { should == { 'profile' => {'name' => 'Ben Langfeld'} } }
 
   it "should be able to encode to and decode from JSON" do
     subject.should eql(described_class.from_json(subject.to_json))

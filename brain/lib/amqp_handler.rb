@@ -1,4 +1,5 @@
 require_relative 'brain'
+require_relative 'message_processor'
 
 class AMQPHandler
   def initialize(brain = Brain.new)
@@ -12,6 +13,7 @@ class AMQPHandler
 
   def handle_message(payload)
     message = AdamCommon::Message.from_json payload
+    message = processed_message message
     puts "Message was received: #{message}"
     @brain.handle message do |r|
       puts "Sending response #{r}"
@@ -20,6 +22,10 @@ class AMQPHandler
   end
 
   private
+
+  def processed_message(message)
+    MessageProcessor.new(message).processed_message
+  end
 
   def message_queue
     @channel.queue 'message'

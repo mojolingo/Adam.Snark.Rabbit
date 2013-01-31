@@ -22,6 +22,13 @@ describe "AMQP handling" do
                             body: body
   end
 
+  before do
+    user = JSON.dump name: 'Ben'
+    stub_request(:get, 'http://internal:foobar@local.adamrabbit.com/users/find_for_message.json')
+      .with(query: hash_including)
+      .to_return(body: user, headers: {'Content-Type' => 'application/json'})
+  end
+
   it "should respond to messages on the 'message' queue by publishing matching responses on the 'response' queue" do
     channel = AMQP::Channel.new
 
@@ -73,6 +80,42 @@ describe "AMQP handling" do
           response(:xmpp, 'foo@bar.com', 'Foo to you too')
         ]
         responses.should eql(expected_responses.map(&:to_json))
+      end
+    end
+
+    context "to check user data" do
+      let :neuron_class do
+        Class.new do
+          def confidence(message)
+            1
+          end
+
+          def reply(message)
+            message.user['name']
+          end
+        end
+      end
+
+      before do
+        brain.add_neuron neuron_class.new
+      end
+
+      it "should check that user data is fetched correctly" do
+        channel = AMQP::Channel.new
+
+        AMQPHandler.new(brain).listen
+
+        responses = []
+        channel.queue('response', auto_delete: true).subscribe { |p| responses << p }
+
+        publish_message channel, 'foo@bar.com', 'doodah'
+
+        done 1 do
+          expected_responses = [
+            response(:xmpp, 'foo@bar.com', 'Ben')
+          ]
+          responses.should eql(expected_responses.map(&:to_json))
+        end
       end
     end
   end

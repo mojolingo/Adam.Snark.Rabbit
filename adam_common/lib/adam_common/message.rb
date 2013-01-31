@@ -7,6 +7,7 @@ class AdamCommon::Message
   attribute :source_type, Symbol
   attribute :source_address, String
   attribute :body, String
+  attribute :user, Hash
 
   def self.from_json(json)
     new JSON.parse(json)

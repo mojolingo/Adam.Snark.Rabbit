@@ -7,9 +7,13 @@ gem 'adam_common', path: '../adam_common'
 gem 'bing_translator'
 gem 'iso-639'
 
+gem 'faraday'
+gem 'faraday_middleware'
+
 group :development, :test do
   gem 'rspec'
   gem 'guard'
   gem 'guard-rspec'
   gem 'evented-spec'
+  gem 'webmock'
 end
