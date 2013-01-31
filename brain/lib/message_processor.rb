@@ -22,6 +22,7 @@ class MessageProcessor
     conn = Faraday.new url: "http://#{ENV['ADAM_ROOT_DOMAIN']}" do |c|
       c.basic_auth 'internal', ENV['ADAM_INTERNAL_PASSWORD']
       c.use Faraday::Adapter::NetHttp
+      c.use Faraday::Response::Logger
       c.use FaradayMiddleware::ParseJson, content_type: 'application/json'
     end
 
