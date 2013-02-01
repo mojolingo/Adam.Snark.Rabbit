@@ -44,8 +44,9 @@ class User
   end
 
   def self.find_for_message(message)
-    jid = Profile.where("jids.address" => RubyJID.new(message.source_address).bare.to_s).first
-    jid.user if jid
+    bare_jid = RubyJID.new(message.source_address).bare
+    profile = Profile.where("jids.address" => bare_jid.to_s).first
+    profile.user if profile
   end
 
   def social_usernames
