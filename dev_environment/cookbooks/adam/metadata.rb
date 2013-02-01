@@ -17,6 +17,7 @@ end
   application
   application_nginx
   sudo
+  postfix
 }.each do |cb|
   depends cb
 end

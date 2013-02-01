@@ -4,6 +4,7 @@ run_list "role[base]",
   "recipe[git]",
   "recipe[ruby_build]",
   "recipe[rbenv::system]",
+  "recipe[postfix]",
   "recipe[adam]"
 override_attributes 'rbenv' => {
   "global"  => "1.9.3-p374",
