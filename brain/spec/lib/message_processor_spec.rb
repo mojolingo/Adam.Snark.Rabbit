@@ -23,7 +23,7 @@ describe MessageProcessor do
       before do
         stub_request(:get, 'http://internal:foobar@local.adamrabbit.com/users/find_for_message.json')
           .with(query: {message: message.to_json})
-          .to_return(status: 404, body: '', headers: {'Content-Type' => 'application/json'})
+          .to_return(status: 404, body: 'null', headers: {'Content-Type' => 'application/json'})
       end
 
       it "should set nil user data on the message" do

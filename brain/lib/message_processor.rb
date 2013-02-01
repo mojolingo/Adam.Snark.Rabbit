@@ -21,12 +21,15 @@ class MessageProcessor
   def fetch_user
     conn = Faraday.new url: "http://#{ENV['ADAM_ROOT_DOMAIN']}" do |c|
       c.basic_auth 'internal', ENV['ADAM_INTERNAL_PASSWORD']
-      c.use Faraday::Adapter::NetHttp
-      c.use Faraday::Response::Logger
+      c.adapter :net_http
+      c.response :logger
       c.use FaradayMiddleware::ParseJson, content_type: 'application/json'
+      c.response :raise_error
     end
 
     response = conn.get '/users/find_for_message.json', message: @message.to_json
     response.body
+  rescue Faraday::Error::ResourceNotFound
+    nil
   end
 end

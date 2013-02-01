@@ -35,6 +35,7 @@ feature 'Users' do
       scenario 'getting user data for a message' do
         get '/users/find_for_message.json', message: message('doo@dah.com').to_json
         last_response.status.should be 404
+        last_response.body.should == 'null'
       end
     end
   end
