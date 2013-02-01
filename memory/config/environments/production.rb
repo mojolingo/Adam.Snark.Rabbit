@@ -59,4 +59,8 @@ ASR::Application.configure do
   config.active_support.deprecation = :notify
 
   config.action_mailer.default_url_options = { host: 'staging.adamrabbit.net' }
+
+  ActionMailer::Base.smtp_settings = {
+    openssl_verify_mode: 'none'
+  }
 end
