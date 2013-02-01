@@ -22,7 +22,7 @@ describe User do
     end
 
     context "with a JID" do
-      let(:jid) { 'foo@bar.com' }
+      let(:jid) { 'foo@bar.com/doo' }
       let(:message) do
         AdamCommon::Message.new source_type: :xmpp, source_address: jid
       end

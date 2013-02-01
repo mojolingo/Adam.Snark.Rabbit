@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 feature 'Users' do
-  def message(source_address = 'foo@bar.com', source_type = :xmpp)
+  def message(source_address = 'foo@bar.com/doo', source_type = :xmpp)
     AdamCommon::Message.new source_type: source_type,
                             source_address: source_address
   end

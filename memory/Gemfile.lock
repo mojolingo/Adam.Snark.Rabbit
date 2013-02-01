@@ -261,6 +261,7 @@ GEM
       rspec-core (~> 2.12.0)
       rspec-expectations (~> 2.12.0)
       rspec-mocks (~> 2.12.0)
+    ruby_jid (1.0.0)
     ruby_parser (3.1.1)
       sexp_processor (~> 4.1)
     rubyzip (0.9.9)
@@ -356,6 +357,7 @@ DEPENDENCIES
   poltergeist
   rails (~> 3.2)
   rspec-rails
+  ruby_jid
   ruby_parser
   sass-rails (~> 3.1)
   simple-navigation

@@ -1,3 +1,5 @@
+require 'ruby_jid'
+
 class User
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -42,7 +44,7 @@ class User
   end
 
   def self.find_for_message(message)
-    jid = Profile.where("jids.address" => message.source_address).first
+    jid = Profile.where("jids.address" => RubyJID.new(message.source_address).bare.to_s).first
     jid.user if jid
   end
 
