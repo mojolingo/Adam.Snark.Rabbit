@@ -58,4 +58,12 @@ class User
   def name
     profile.name
   end
+
+  def serializable_hash(options = {})
+    {
+      id: id,
+      profile: profile.serializable_hash,
+      auth_grants: auth_grants.serializable_hash
+    }
+  end
 end

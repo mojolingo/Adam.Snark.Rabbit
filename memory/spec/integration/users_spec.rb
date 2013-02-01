@@ -28,7 +28,9 @@ feature 'Users' do
     scenario 'getting user data for a message' do
       get '/users/find_for_message.json', message: message.to_json
       last_response.status.should be 200
-      last_response.body.should == User.first.to_json
+      response = JSON.parse last_response.body
+      response.should have_key("profile")
+      response.should have_key("auth_grants")
     end
 
     context "when a user doesn't exist for the message's source address" do
