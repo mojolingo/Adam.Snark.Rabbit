@@ -6,7 +6,7 @@ username=blangfeld
 password=d2j29jd902kok2k
 
 apt-get install curl -y
-curl -L http://www.opscode.com/chef/install.sh | bash
+curl -L http://www.opscode.com/chef/install.sh | bash -s -- -v 10.18.2
 
 mkdir /var/chef
 
