@@ -28,9 +28,14 @@ end
 end
 
 desc "Setup an app checkout and run all specs"
-task :ci => :deployment_config do
-  system 'gem install vagrant && gem install berkshelf && cd dev_environment && vagrant destroy -f && STANDALONE_DEPLOYMENT=true vagrant up && vagrant ssh -c "cd /srv/adam/current && sudo -u adam rake spec"'
+task :ci => [:ci_prereqs, :deployment_config] do
+  system 'cd dev_environment && vagrant destroy -f && STANDALONE_DEPLOYMENT=true vagrant up && vagrant ssh -c "cd /srv/adam/current && sudo -u adam rake spec"'
   exit $?.exitstatus
+end
+
+desc "Install prerequisites for running CI build"
+task :ci_prereqs do
+  system 'gem install vagrant; gem install berkshelf'
 end
 
 desc "Create chef solo config for deployment environments"
