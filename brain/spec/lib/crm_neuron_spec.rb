@@ -83,7 +83,7 @@ describe CRMNeuron do
     end
 
     [
-      ['Find me John Smith', "John Smith, CEO at Acme Inc\nPhone: +1 (515) 555-8765\nEmail: jsmith@acmeinc.com"],
+      ['Find me John Smith', "John Smith, CEO at Acme Inc\nPhone: +1 (515) 555-8765\nEmail: jsmith@acmeinc.com\n\nhttps://app.futuresimple.com/crm/contacts/26299451"],
     ].each do |message_body, response|
       it { should handle_message(message_body).with_confidence(1).and_respond_with(response) }
     end
