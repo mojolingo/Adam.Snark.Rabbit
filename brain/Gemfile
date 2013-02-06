@@ -7,6 +7,9 @@ gem 'adam_common', path: '../adam_common'
 gem 'bing_translator'
 gem 'iso-639'
 
+# CRM Neuron
+gem 'pipejump'
+
 gem 'faraday'
 gem 'faraday_middleware'
 
