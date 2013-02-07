@@ -28,7 +28,7 @@ module NeuronMatchers
       "expected neuron to handle #{@message} with #{@expected_confidence*100}% confidence".tap do |message|
         message << " and reply with '#{@expected_response}'" if should_match_response?
         message << " but confidence was #{actual_confidence*100}%" unless matching_confidence?
-        message << " #{matching_confidence? ? 'but' : 'and'} reply was '#{actual_reply}'" unless matching_response?
+        message << " #{matching_confidence? ? 'but' : 'and'} reply was #{actual_reply.inspect}" unless matching_response?
       end
     end
 
