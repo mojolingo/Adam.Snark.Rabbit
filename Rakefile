@@ -35,7 +35,7 @@ end
 
 desc "Install prerequisites for running CI build"
 task :ci_prereqs do
-  system 'gem install vagrant; gem install berkshelf'
+  system 'gem install vagrant; gem install berkshelf -v 1.1.4'
 end
 
 desc "Create chef solo config for deployment environments"
