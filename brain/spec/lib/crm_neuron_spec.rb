@@ -5,7 +5,7 @@ require_relative '../../lib/crm_neuron'
 describe CRMNeuron do
   include NeuronMatchers
 
-  context "requesting translation" do
+  context "requesting contact details" do
     def contact(opts = {})
       options = {
         session: mock_base_session,
@@ -110,8 +110,23 @@ describe CRMNeuron do
         "John Smith, CEO at Acme Inc\nPhone: +1 (515) 555-8765\n\nhttps://app.futuresimple.com/crm/contacts/26299451",
         {name: 'John Smith', title: 'CEO', organisation_name: 'Acme Inc', phone: '+1 (515) 555-8765', email: nil}
       ],
+      [ # With a full set of details
+        'Find John Smith',
+        "John Smith, CEO at Acme Inc\nPhone: +1 (515) 555-8765\nEmail: jsmith@acmeinc.com\n\nhttps://app.futuresimple.com/crm/contacts/26299451",
+        {name: 'John Smith', title: 'CEO', organisation_name: 'Acme Inc', phone: '+1 (515) 555-8765', email: 'jsmith@acmeinc.com'}
+      ],
+      [ # With a full set of details
+        'Who is John Smith?',
+        "John Smith, CEO at Acme Inc\nPhone: +1 (515) 555-8765\nEmail: jsmith@acmeinc.com\n\nhttps://app.futuresimple.com/crm/contacts/26299451",
+        {name: 'John Smith', title: 'CEO', organisation_name: 'Acme Inc', phone: '+1 (515) 555-8765', email: 'jsmith@acmeinc.com'}
+      ],
+      [ # With a full set of details
+        'Who is John Smith',
+        "John Smith, CEO at Acme Inc\nPhone: +1 (515) 555-8765\nEmail: jsmith@acmeinc.com\n\nhttps://app.futuresimple.com/crm/contacts/26299451",
+        {name: 'John Smith', title: 'CEO', organisation_name: 'Acme Inc', phone: '+1 (515) 555-8765', email: 'jsmith@acmeinc.com'}
+      ],
     ].each do |message_body, response, options = {}|
-      context "with option overrides #{options.inspect}" do
+      context "for message #{message_body} with option overrides #{options.inspect}" do
         let(:options) { options }
         it { should handle_message(message_body).with_confidence(1).and_respond_with(response) }
       end
