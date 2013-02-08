@@ -21,6 +21,7 @@ EOF
     futuresimple_token = message.user["profile"]["futuresimple_token"]
     session = Pipejump::Session.new token: futuresimple_token
     contact = session.contacts.all.find { |contact| contact.name == name }
+    return "Sorry, I have no record of #{name}." unless contact
     RESPONSE_TEMPLATE.result(binding).strip
   end
 end

@@ -76,6 +76,7 @@ describe CRMNeuron do
     end
 
     let(:mock_base_session) { mock 'Pipejump::Session' }
+    let(:options) { {} }
     let(:contacts) { [contact(options)] }
 
     before do
@@ -130,6 +131,11 @@ describe CRMNeuron do
         let(:options) { options }
         it { should handle_message(message_body).with_confidence(1).and_respond_with(response) }
       end
+    end
+
+    context "when the contact doesn't exist" do
+      let(:message_body) { "Find me Joe Bloggs" }
+      it { should handle_message(message_body).with_confidence(1).and_respond_with("Sorry, I have no record of Joe Bloggs.") }
     end
   end
 
