@@ -19,6 +19,7 @@ EOF
     match = MATCHER.match message.body
     name = match[:name]
     futuresimple_token = message.user["profile"]["futuresimple_token"]
+    return "Sorry, you have not configured any integrations for contact lookup." unless futuresimple_token
     session = Pipejump::Session.new token: futuresimple_token
     contact = session.contacts.all.find { |contact| contact.name == name }
     return "Sorry, I have no record of #{name}." unless contact

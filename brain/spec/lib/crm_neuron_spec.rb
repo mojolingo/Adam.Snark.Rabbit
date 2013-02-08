@@ -81,8 +81,8 @@ describe CRMNeuron do
 
     before do
       mock_base_session
-      Pipejump::Session.should_receive(:new).once.with(token: "d2390i3290if09ik").and_return mock_base_session
-      mock_base_session.should_receive(:contacts).and_return(mock("Collection", all: contacts))
+      Pipejump::Session.should_receive(:new).at_most(:once).with(token: "d2390i3290if09ik").and_return mock_base_session
+      mock_base_session.should_receive(:contacts).at_most(:once).and_return(mock("Collection", all: contacts))
     end
 
     [
@@ -136,6 +136,42 @@ describe CRMNeuron do
     context "when the contact doesn't exist" do
       let(:message_body) { "Find me Joe Bloggs" }
       it { should handle_message(message_body).with_confidence(1).and_respond_with("Sorry, I have no record of Joe Bloggs.") }
+    end
+
+    context "when the requesting user has not set futuresimple credentials" do
+      let(:message_body) { "Find me Joe Bloggs" }
+      let :user do
+        {
+          "id"  =>  "510d71c4a005b5bb45000002",
+          "profile" => {
+            "_id" => "510d71c5a005b5bb45000004",
+            "email_addresses" => [
+              {
+                "_id" => "510d71c4a005b5bb45000003",
+                "address" => "ben@langfeld.me",
+                "confirmation_sent_at" => nil,
+                "confirmation_token" => nil,
+                "confirmed_at" => "2013-02-02T20:06:47+00:00"
+              }
+            ],
+            "futuresimple_token" => nil,
+            "futuresimple_username" => nil,
+            "jids" => [
+              {
+                "_id" => "510d838ba005b521f1000001",
+                "address" => "blangfeld@mojolingo.com",
+                "confirmation_sent_at" => nil,
+                "confirmation_token" => "a3a292cc-b41a-47ff-8db0-8603325265ce",
+                "confirmed_at" => nil
+              }
+            ],
+            "name" => "Ben Langfeld",
+            "user_id" => "510d71c4a005b5bb45000002"
+          }
+        }
+      end
+
+      it { should handle_message(message_body, user).with_confidence(1).and_respond_with("Sorry, you have not configured any integrations for contact lookup.") }
     end
   end
 

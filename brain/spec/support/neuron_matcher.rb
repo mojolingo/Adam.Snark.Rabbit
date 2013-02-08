@@ -161,7 +161,7 @@ module NeuronMatchers
     end
   end
 
-  def handle_message(message)
-    MessageMatcher.new message
+  def handle_message(message, user = nil)
+    MessageMatcher.new message, user
   end
 end
