@@ -51,3 +51,4 @@ $(document).ready ->
   $('#send').bind 'click', ->
     message = $('#message').get(0).value
     sendMessage message
+    $('#message').val ''
