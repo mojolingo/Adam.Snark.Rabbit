@@ -48,7 +48,8 @@ $(document).ready ->
   connection = new Strophe.Connection(BOSH_SERVICE)
   connection.connect JID, PASS, onConnect
 
-  $('#send').bind 'click', ->
+  $('form[name=chat]').submit ->
     message = $('#message').get(0).value
     sendMessage message
     $('#message').val ''
+    return false
