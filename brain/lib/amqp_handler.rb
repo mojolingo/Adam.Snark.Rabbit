@@ -14,9 +14,7 @@ class AMQPHandler
   def handle_message(payload)
     message = AdamCommon::Message.from_json payload
     message = processed_message message
-    puts "Message was received: #{message}"
     @brain.handle message do |r|
-      puts "Sending response #{r}"
       publish_response r
     end
   end
