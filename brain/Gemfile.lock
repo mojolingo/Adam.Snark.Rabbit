@@ -5,7 +5,7 @@ PATH
       virtus
 
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   specs:
     addressable (2.3.2)
     amq-client (0.9.10)
