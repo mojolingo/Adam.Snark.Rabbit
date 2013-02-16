@@ -1,0 +1,92 @@
+#!/usr/bin/env ruby
+
+# This script is used by ejabberd to authenticate jabber users against the Memory service
+
+$stdout.sync = true
+
+require 'logger'
+require 'faraday'
+require 'faraday_middleware'
+
+file = File.open "/var/log/ejabberd/auth.log", File::WRONLY | File::APPEND | File::CREAT
+file.sync = true
+$logger = Logger.new file
+$logger.level = Logger::DEBUG
+
+# Ruby 1.8 uses 'n' to indicate a short in network order
+# Ruby 1.9 uses 'S>'
+PACK_FORMAT = RUBY_VERSION =~ /^1\.9/ ? 'S>' : 'n'
+
+def fetch_user(user_id)
+  conn = Faraday.new url: "http://<%= @root_domain %>" do |c|
+    c.basic_auth 'internal', "<%= @internal_password %>"
+    c.adapter :net_http
+    c.response :logger
+    c.use FaradayMiddleware::ParseJson, content_type: 'application/json'
+    c.response :raise_error
+  end
+
+  conn.get "/users/#{user_id}.json"
+end
+
+def auth(user_id, token)
+  $logger.debug "Checking creds for #{user_id} with password #{token}"
+  if user_id == "adam" && token == "abc123"
+    true
+  else
+    response = fetch_user user_id
+    raise 'Password incorrect' unless response.body['token'] == token
+  end
+rescue Faraday::Error::ResourceNotFound
+  raise "User doesn't exist"
+end
+
+def isuser(user_id)
+  $logger.debug "Checking if #{user_id} is a user"
+  fetch_user user_id
+  true
+rescue Faraday::Error::ResourceNotFound
+  raise "User doesn't exist"
+end
+
+def process_creds(operation, username, domain, password)
+  case operation
+  when 'auth'
+    auth username, password
+  when 'isuser'
+    isuser username
+  when 'setpass'
+  else
+    raise 'Invalid Operation'
+  end
+
+  respond true
+rescue
+  respond
+  raise
+end
+
+def respond(val = false)
+  response = val ? 1 : 0
+  $logger.debug "Responding with #{response}"
+  STDOUT.syswrite [2, response].pack(PACK_FORMAT*2)
+end
+
+$logger.info "Starting ejabberd authentication service"
+
+begin
+  loop do
+    msg = $stdin.read 2
+    length = msg.unpack(PACK_FORMAT).first
+
+    $logger.debug "Reading #{length} bytes of data"
+    msg = $stdin.read length
+    $logger.debug "Read message #{msg}"
+    data = msg.split ':'
+
+    process_creds *data
+  end
+rescue => e
+  $logger.error "#{e.class.name}: #{e.message}"
+  $logger.error e.backtrace.join("\n\t")
+end

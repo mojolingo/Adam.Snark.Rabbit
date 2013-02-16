@@ -69,6 +69,19 @@ end
   qt4-qmake
 }.each { |p| package p }
 
+rbenv_gem 'faraday'
+rbenv_gem 'faraday_middleware'
+
+template '/etc/ejabberd/ext_auth' do
+  source 'ejabberd_auth.erb'
+  user 'ejabberd'
+  group 'ejabberd'
+  mode "770"
+  variables :root_domain => node['adam']['root_domain'],
+            :internal_password => node['adam']['internal_password']
+  notifies :restart, resources(:service => "ejabberd"), :immediately
+end
+
 if node[:adam][:standalone_deployment]
   application "adam" do
     path node['adam']['deployment_path']
