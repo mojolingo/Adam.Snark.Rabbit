@@ -3,6 +3,10 @@ class UsersController < ApplicationController
 
   http_basic_authenticate_with name: 'internal', password: (ENV['ADAM_INTERNAL_PASSWORD'] || 'abc123')
 
+  def show
+    respond_with User.find(params[:id])
+  end
+
   def find_for_message
     message = AdamCommon::Message.from_json params[:message]
     user = User.find_for_message(message)

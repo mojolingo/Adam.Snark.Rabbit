@@ -8,6 +8,7 @@ ASR::Application.routes.draw do
   end
 
   get '/users/find_for_message', :to => 'users#find_for_message'
+  resources :users, only: :show
 
   resources :profiles, only: [:show, :edit, :update]
   get '/profile', to: 'profiles#show', as: :my_profile

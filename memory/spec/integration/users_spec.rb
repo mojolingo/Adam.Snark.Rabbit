@@ -14,15 +14,36 @@ feature 'Users' do
   context 'when logged in as an unprivileged user' do
     background { logged_in_with :github }
 
+    scenario 'fetching a user by ID' do
+      get "/users/#{User.first.id}.json"
+      last_response.status.should be 401
+    end
+
     scenario 'getting user data for a message' do
       get '/users/find_for_message.json', message: message.to_json
       last_response.status.should be 401
     end
   end
 
-  context 'when logging in as the internal user' do
+  context 'when logged in as the internal user' do
     background do
       authorize 'internal', (ENV['ADAM_INTERNAL_PASSWORD'] || 'abc123')
+    end
+
+    scenario 'getting user data by ID' do
+      get "/users/#{User.first.id}.json"
+      last_response.status.should be 200
+      response = JSON.parse last_response.body
+      response.should have_key("profile")
+      response.should have_key("auth_grants")
+    end
+
+    context "when a user doesn't exist for an ID" do
+      scenario 'getting user data by ID' do
+        get "/users/1.json"
+        last_response.status.should be 404
+        last_response.body.should == 'null'
+      end
     end
 
     scenario 'getting user data for a message' do
