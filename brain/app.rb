@@ -16,6 +16,9 @@ brain.add_neuron HumanityNeuron.new
 brain.add_neuron TranslatorNeuron.new
 brain.add_neuron CRMNeuron.new
 
+Logging.logger.root.appenders = [Logging.appenders.stdout('stdout')]
+Logging.logger.root.level = :info
+
 logger = Logging.logger(STDOUT)
 logger.level = :info
 
