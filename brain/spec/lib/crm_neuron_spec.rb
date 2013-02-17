@@ -39,37 +39,6 @@ describe CRMNeuron do
         last_name: "Smith",
         linkedin_display: nil,
         tags_joined_by_comma: "",
-        organisation_name: "Acme Inc",
-        organisation: {
-          "contact" => {
-            "id"              => 26308380,
-            "created_at"      => "2013-02-01T18:14:37Z",
-            "updated_at"      => "2013-02-01T18:14:37Z",
-            "account_id"      => 4472,
-            "user_id"         => 5941,
-            "name"            => "Acme Inc",
-            "mobile"          => "",
-            "phone"           => "",
-            "email"           => "",
-            "private"         => false,
-            "title"           => nil,
-            "skype"           => nil,
-            "twitter"         => nil,
-            "facebook"        => nil,
-            "linkedin"        => nil,
-            "address"         => nil,
-            "description"     => nil,
-            "is_organisation" => true,
-            "contact_id"      => nil,
-            "country"         => nil,
-            "city"            => nil,
-            "website"         => nil,
-            "industry"        => nil,
-            "fax"             => nil,
-            "zip"             => nil,
-            "region"          => nil
-          }
-        },
         custom_fields: {}
       }
       Pipejump::Contact.new options.merge(opts)
@@ -104,7 +73,7 @@ describe CRMNeuron do
       [ # With no organisation
         'Find me John Smith',
         "John Smith, CEO\nPhone: +1 (515) 555-8765\nEmail: jsmith@acmeinc.com\n\nhttps://app.futuresimple.com/crm/contacts/26299451",
-        {name: 'John Smith', title: 'CEO', organisation_name: nil, phone: '+1 (515) 555-8765', email: 'jsmith@acmeinc.com'}
+        {name: 'John Smith', title: 'CEO', phone: '+1 (515) 555-8765', email: 'jsmith@acmeinc.com'}
       ],
       [ # With no phone number
         'Find me John Smith',
