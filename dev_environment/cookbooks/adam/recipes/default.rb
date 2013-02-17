@@ -19,6 +19,14 @@ end
   qt4-qmake
 }.each { |p| package p }
 
+ruby_components = %w{
+  adam_common
+  memory
+  ears
+  fingers
+  brain
+}
+
 if node[:adam][:standalone_deployment]
   application "adam" do
     path node['adam']['deployment_path']
@@ -47,9 +55,11 @@ if node[:adam][:standalone_deployment]
         source "foreman.erb"
       end
 
-      rbenv_script "app_dependencies" do
-        code "rake setup"
-        cwd File.join(node['adam']['deployment_path'], 'current')
+      ruby_components.each do |component|
+        rbenv_script "app_#{component}_dependencies" do
+          code "bundle install"
+          cwd File.join(node['adam']['deployment_path'], 'current', component)
+        end
       end
 
       rbenv_script "setup app services" do
@@ -66,9 +76,11 @@ if node[:adam][:standalone_deployment]
     restart_command "sudo service adam restart"
   end
 else
-  rbenv_script "app_dependencies" do
-    code "rake setup"
-    cwd File.join(node['adam']['deployment_path'], 'current')
+  ruby_components.each do |component|
+    rbenv_script "app_#{component}_dependencies" do
+      code "bundle install"
+      cwd File.join(node['adam']['deployment_path'], 'current', component)
+    end
   end
 
   rbenv_script "setup app services" do

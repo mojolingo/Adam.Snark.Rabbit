@@ -8,13 +8,6 @@ ruby_components = %w{
   brain
 }
 
-task :setup do
-  system "gem install bundler"
-  ruby_components.each do |path|
-    system "cd #{path} && bundle install"
-  end
-end
-
 %w(spec).each do |task_name|
   desc "Run #{task_name} task for all projects"
   task task_name do
