@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-require_relative '../../lib/crm_neuron'
+require_relative '../../lib/contacts_neuron'
 
-describe CRMNeuron do
+describe ContactsNeuron do
   include NeuronMatchers
 
   context "requesting contact details" do

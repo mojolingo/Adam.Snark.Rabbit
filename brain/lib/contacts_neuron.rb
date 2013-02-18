@@ -2,7 +2,7 @@ require 'pipejump'
 require 'erb'
 require 'active_support/core_ext/object/blank'
 
-class CRMNeuron
+class ContactsNeuron
   MATCHER = /^((Find( me)?)|(Who is)) (?<name>[\w\s]*)\??/i
   RESPONSE_TEMPLATE = ERB.new <<-EOF
 <%= contact.name %><% if contact.title.present? %>, <%= contact.title %><% end %><% if contact.attributes.keys.include?('organisation_name') && contact.organisation_name %><% if contact.title.present? %> at<% else %> from<% end %> <%= contact.organisation_name %><% end %><% if contact.phone.present? %>
