@@ -21,7 +21,8 @@ Vagrant::Config.run do |config|
         'environment' => 'development',
         'root_domain' => 'local.adamrabbit.net',
         'standalone_deployment' => ENV['STANDALONE_DEPLOYMENT'].present?,
-        'deploy_key' => ENV['STANDALONE_DEPLOYMENT'] ? File.read('deploy_key') : nil
+        'deploy_key' => ENV['STANDALONE_DEPLOYMENT'] ? File.read('deploy_key') : nil,
+        'internal_password' => 'fj8j4893jgg9jg9'
       }
     }
 

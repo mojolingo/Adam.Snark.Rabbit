@@ -44,7 +44,8 @@ sendMessage = (body) ->
 
 setupConnection = (user) ->
   connection = new Strophe.Connection(BOSH_SERVICE)
-  connection.connect "#{user.id}@#{document.domain}", user.authentication_token, onConnect
+  jid = "#{user.id}@#{document.domain}"
+  connection.connect jid, user.authentication_token, onConnect
 
   $('form[name=chat]').submit ->
     message = $('#message').get(0).value
