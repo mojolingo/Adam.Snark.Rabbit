@@ -13,6 +13,8 @@ gem 'pipejump'
 gem 'faraday'
 gem 'faraday_middleware'
 
+gem 'logging'
+
 group :development, :test do
   gem 'rspec'
   gem 'guard'

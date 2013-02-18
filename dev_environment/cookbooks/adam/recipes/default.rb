@@ -1,54 +1,4 @@
-rabbitmq_user "rails" do
-  password "password"
-  action :add
-  notifies :restart, "service[rabbitmq-server]"
-end
-
-rabbitmq_user "rails" do
-  vhost "/"
-  permissions '".*" ".*" ".*"'
-  action :set_permissions
-end
-
-rabbitmq_user "fingers" do
-  password "password"
-  action :add
-  notifies :restart, "service[rabbitmq-server]"
-end
-
-rabbitmq_user "fingers" do
-  vhost "/"
-  permissions '".*" ".*" ".*"'
-  action :set_permissions
-end
-
-rabbitmq_user "brain" do
-  password "password"
-  action :add
-  notifies :restart, "service[rabbitmq-server]"
-end
-
-rabbitmq_user "brain" do
-  vhost "/"
-  permissions '".*" ".*" ".*"'
-  action :set_permissions
-end
-
-rabbitmq_vhost "/test" do
-  action :add
-end
-
-rabbitmq_user "guest" do
-  password "pass"
-  action :add
-  notifies :restart, "service[rabbitmq-server]"
-end
-
-rabbitmq_user "guest" do
-  vhost "/test"
-  permissions '".*" ".*" ".*"'
-  action :set_permissions
-end
+include_recipe 'adam::rabbitmq_users'
 
 user "adam" do
   system true
@@ -82,6 +32,14 @@ template '/etc/ejabberd/ext_auth' do
   notifies :restart, resources(:service => "ejabberd"), :immediately
 end
 
+ruby_components = %w{
+  adam_common
+  memory
+  ears
+  fingers
+  brain
+}
+
 if node[:adam][:standalone_deployment]
   application "adam" do
     path node['adam']['deployment_path']
@@ -110,9 +68,11 @@ if node[:adam][:standalone_deployment]
         source "foreman.erb"
       end
 
-      rbenv_script "app_dependencies" do
-        code "rake setup"
-        cwd File.join(node['adam']['deployment_path'], 'current')
+      ruby_components.each do |component|
+        rbenv_script "app_#{component}_dependencies" do
+          code "bundle install"
+          cwd File.join(node['adam']['deployment_path'], 'current', component)
+        end
       end
 
       rbenv_script "setup app services" do
@@ -129,9 +89,11 @@ if node[:adam][:standalone_deployment]
     restart_command "sudo service adam restart"
   end
 else
-  rbenv_script "app_dependencies" do
-    code "rake setup"
-    cwd File.join(node['adam']['deployment_path'], 'current')
+  ruby_components.each do |component|
+    rbenv_script "app_#{component}_dependencies" do
+      code "bundle install"
+      cwd File.join(node['adam']['deployment_path'], 'current', component)
+    end
   end
 
   rbenv_script "setup app services" do

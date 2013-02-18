@@ -1,5 +1,7 @@
 require_relative 'failure_neuron'
 
+include Logging.globally
+
 class Brain
   def initialize
     @neurons = [FailureNeuron.new]
@@ -14,7 +16,10 @@ class Brain
   # @yieldparam [AdamCommon::Response] response
   #
   def handle(message)
-    yield response(message)
+    logger.info "Message was received: #{message}"
+    reply = response message
+    logger.info "Sending response #{reply}"
+    yield reply
   end
 
   #
@@ -39,6 +44,7 @@ class Brain
   def response_body(message)
     matching_neurons_for_message(message).last.reply(message)
   rescue => e
+    logger.error e
     "Sorry, I encountered a #{e.class}"
   end
 
