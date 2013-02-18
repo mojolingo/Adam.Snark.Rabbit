@@ -4,7 +4,7 @@ require 'erb'
 class CRMNeuron
   MATCHER = /^((Find( me)?)|(Who is)) (?<name>[\w\s]*)\??/i
   RESPONSE_TEMPLATE = ERB.new <<-EOF
-<%= contact.name %><% if contact.title %>, <%= contact.title %><% if contact.respond_to?(:organisation_name) && contact.organisation_name %> at<% end %><% else %> from<% end %><% if contact.respond_to?(:organisation_name) && contact.organisation_name %> <%= contact.organisation_name %><% end %><% if contact.phone %>
+<%= contact.name %><% if contact.title %>, <%= contact.title %><% if contact.attributes.keys.include?('organisation_name') && contact.organisation_name %> at<% end %><% else %> from<% end %><% if contact.attributes.keys.include?('organisation_name') && contact.organisation_name %> <%= contact.organisation_name %><% end %><% if contact.phone %>
 Phone: <%= contact.phone %><% end %><% if contact.email %>
 Email: <%= contact.email %><% end %>
 

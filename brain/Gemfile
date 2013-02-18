@@ -8,7 +8,7 @@ gem 'bing_translator'
 gem 'iso-639'
 
 # CRM Neuron
-gem 'pipejump', github: 'mojolingo/pipejump'
+gem 'pipejump'
 
 gem 'faraday'
 gem 'faraday_middleware'
