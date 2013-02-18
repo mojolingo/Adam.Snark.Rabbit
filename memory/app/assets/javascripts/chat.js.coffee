@@ -1,6 +1,8 @@
 BOSH_SERVICE = "http://#{document.domain}:5280/http-bind"
-ADAM_JID = "adam@#{document.domain}"
 connection = null
+
+jid = (node) ->
+  "#{node}@#{document.domain}"
 
 log = (msg) ->
   $('#log').append "<div>#{msg}</div>"
@@ -38,14 +40,13 @@ onConnect = (status) ->
 
 sendMessage = (body) ->
   log body
-  msg = $msg({to: ADAM_JID, type: 'chat'})
+  msg = $msg({to: jid('adam'), type: 'chat'})
             .c('body').t(body)
   connection.send msg.tree()
 
 setupConnection = (user) ->
   connection = new Strophe.Connection(BOSH_SERVICE)
-  jid = "#{user.id}@#{document.domain}"
-  connection.connect jid, user.authentication_token, onConnect
+  connection.connect jid(user.id), user.authentication_token, onConnect
 
   $('form[name=chat]').submit ->
     message = $('#message').get(0).value
@@ -57,5 +58,4 @@ getCreds = ->
   $.get 'me.json', (current_user) ->
     setupConnection current_user if current_user
 
-$(document).ready ->
-  getCreds()
+$(document).ready getCreds
