@@ -1,7 +1,5 @@
-BOSH_SERVICE = 'http://bosh.metajack.im:5280/xmpp-httpbind'
-JID = 'adamtest@jabber.org'
-PASS = 'abcd1234'
-ADAM_JID = 'adam@staging.adamrabbit.net'
+BOSH_SERVICE = "http://#{document.domain}:5280/http-bind"
+ADAM_JID = "adam@#{document.domain}"
 connection = null
 
 log = (msg) ->
@@ -40,16 +38,23 @@ onConnect = (status) ->
 
 sendMessage = (body) ->
   log body
-  msg = $msg({to: ADAM_JID, from: JID, type: 'chat'})
+  msg = $msg({to: ADAM_JID, type: 'chat'})
             .c('body').t(body)
   connection.send msg.tree()
 
-$(document).ready ->
+setupConnection = (user) ->
   connection = new Strophe.Connection(BOSH_SERVICE)
-  connection.connect JID, PASS, onConnect
+  connection.connect "#{user.id}@#{document.domain}", user.authentication_token, onConnect
 
   $('form[name=chat]').submit ->
     message = $('#message').get(0).value
     sendMessage message
     $('#message').val ''
     return false
+
+getCreds = ->
+  $.get 'me.json', (current_user) ->
+    setupConnection current_user if current_user
+
+$(document).ready ->
+  getCreds()

@@ -6,7 +6,7 @@ class User
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :omniauthable, :rememberable, :trackable
+  devise :omniauthable, :rememberable, :trackable, :token_authenticatable
 
   ## Rememberable
   field :remember_created_at, type: Time
@@ -18,6 +18,8 @@ class User
   field :current_sign_in_ip, type: String
   field :last_sign_in_ip,    type: String
 
+  field :authentication_token, type: String
+
   has_many :auth_grants
 
   has_one :profile
@@ -25,6 +27,8 @@ class User
   after_initialize { build_profile if profile.nil? }
 
   attr_accessible :profile_attributes
+
+  before_save :ensure_authentication_token
 
   def self.find_or_create_for_oauth(oauth_data)
     AuthGrant.find_or_create_for_oauth(oauth_data).user
@@ -63,6 +67,7 @@ class User
   def serializable_hash(options = {})
     {
       id: id,
+      authentication_token: authentication_token,
       profile: profile.serializable_hash,
       auth_grants: auth_grants.serializable_hash
     }

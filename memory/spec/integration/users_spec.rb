@@ -25,6 +25,23 @@ feature 'Users' do
     end
   end
 
+  context 'when logged in as a normal user' do
+    background do
+      GithubMock.mock
+      logged_in_with :github
+    end
+
+    scenario 'getting current user data' do
+      page.driver.get '/me.json'
+      page.status_code.should be 200
+      response = JSON.parse page.source
+      response['id'].should == User.first.id.to_s
+      response['authentication_token'].should == User.first.authentication_token.to_s
+      response.should have_key("profile")
+      response.should have_key("auth_grants")
+    end
+  end
+
   context 'when logged in as the internal user' do
     background do
       authorize 'internal', (ENV['ADAM_INTERNAL_PASSWORD'] || 'abc123')

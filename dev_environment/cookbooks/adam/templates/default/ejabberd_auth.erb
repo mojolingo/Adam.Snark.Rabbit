@@ -18,8 +18,12 @@ $logger.level = Logger::DEBUG
 PACK_FORMAT = RUBY_VERSION =~ /^1\.9/ ? 'S>' : 'n'
 
 def fetch_user(user_id)
-  conn = Faraday.new url: "http://<%= @root_domain %>" do |c|
-    c.basic_auth 'internal', "<%= @internal_password %>"
+  url = "http://<%= @root_domain %>"
+  password = "<%= @internal_password %>"
+  $logger.debug "Making connection to #{url} using #{password}"
+
+  conn = Faraday.new url: url do |c|
+    c.basic_auth 'internal', password
     c.adapter :net_http
     c.response :logger
     c.use FaradayMiddleware::ParseJson, content_type: 'application/json'

@@ -1,7 +1,11 @@
 class UsersController < ApplicationController
   respond_to :json
 
-  http_basic_authenticate_with name: 'internal', password: (ENV['ADAM_INTERNAL_PASSWORD'] || 'abc123')
+  http_basic_authenticate_with name: 'internal', password: (ENV['ADAM_INTERNAL_PASSWORD'] || 'abc123'), except: :current
+
+  def current
+    respond_with current_user
+  end
 
   def show
     respond_with User.find(params[:id])

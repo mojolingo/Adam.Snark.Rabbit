@@ -14,5 +14,7 @@ ASR::Application.routes.draw do
   get '/profile', to: 'profiles#show', as: :my_profile
   get '/profile/confirm/:id', to: 'confirmations#show', as: :my_profile_confirm
 
+  get '/me', to: 'users#current'
+
   root :to => 'static#home'
 end
