@@ -75,6 +75,11 @@ describe CRMNeuron do
         "John Smith, CEO\nPhone: +1 (515) 555-8765\nEmail: jsmith@acmeinc.com\n\nhttps://app.futuresimple.com/crm/contacts/26299451",
         {name: 'John Smith', title: 'CEO', phone: '+1 (515) 555-8765', email: 'jsmith@acmeinc.com'}
       ],
+      [ # When there's no position attribute or organisation
+        'Find me John Smith',
+        "John Smith\nPhone: +1 (515) 555-8765\nEmail: jsmith@acmeinc.com\n\nhttps://app.futuresimple.com/crm/contacts/26299451",
+        {name: 'John Smith', title: nil, phone: '+1 (515) 555-8765', email: 'jsmith@acmeinc.com'}
+      ],
       [ # With no phone number
         'Find me John Smith',
         "John Smith, CEO at Acme Inc\nEmail: jsmith@acmeinc.com\n\nhttps://app.futuresimple.com/crm/contacts/26299451",
