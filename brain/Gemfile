@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'amqp'
 gem 'adam_common', path: '../adam_common'
+gem 'activesupport', require: nil
 
 # Translate Neuron
 gem 'bing_translator'

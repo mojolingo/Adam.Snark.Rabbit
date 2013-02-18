@@ -68,7 +68,7 @@ describe CRMNeuron do
       [ # When there's no position attribute
         'Find me John Smith',
         "John Smith from Acme Inc\nPhone: +1 (515) 555-8765\nEmail: jsmith@acmeinc.com\n\nhttps://app.futuresimple.com/crm/contacts/26299451",
-        {name: 'John Smith', title: nil, organisation_name: 'Acme Inc', phone: '+1 (515) 555-8765', email: 'jsmith@acmeinc.com'}
+        {name: 'John Smith', title: '', organisation_name: 'Acme Inc', phone: '+1 (515) 555-8765', email: 'jsmith@acmeinc.com'}
       ],
       [ # With no organisation
         'Find me John Smith',
@@ -78,17 +78,17 @@ describe CRMNeuron do
       [ # When there's no position attribute or organisation
         'Find me John Smith',
         "John Smith\nPhone: +1 (515) 555-8765\nEmail: jsmith@acmeinc.com\n\nhttps://app.futuresimple.com/crm/contacts/26299451",
-        {name: 'John Smith', title: nil, phone: '+1 (515) 555-8765', email: 'jsmith@acmeinc.com'}
+        {name: 'John Smith', title: '', phone: '+1 (515) 555-8765', email: 'jsmith@acmeinc.com'}
       ],
       [ # With no phone number
         'Find me John Smith',
         "John Smith, CEO at Acme Inc\nEmail: jsmith@acmeinc.com\n\nhttps://app.futuresimple.com/crm/contacts/26299451",
-        {name: 'John Smith', title: 'CEO', organisation_name: 'Acme Inc', phone: nil, email: 'jsmith@acmeinc.com'}
+        {name: 'John Smith', title: 'CEO', organisation_name: 'Acme Inc', phone: '', email: 'jsmith@acmeinc.com'}
       ],
       [ # With no email address
         'Find me John Smith',
         "John Smith, CEO at Acme Inc\nPhone: +1 (515) 555-8765\n\nhttps://app.futuresimple.com/crm/contacts/26299451",
-        {name: 'John Smith', title: 'CEO', organisation_name: 'Acme Inc', phone: '+1 (515) 555-8765', email: nil}
+        {name: 'John Smith', title: 'CEO', organisation_name: 'Acme Inc', phone: '+1 (515) 555-8765', email: ''}
       ],
       [ # With a full set of details
         'Find John Smith',
