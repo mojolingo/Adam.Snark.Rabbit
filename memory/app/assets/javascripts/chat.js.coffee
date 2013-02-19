@@ -1,8 +1,7 @@
 BOSH_SERVICE = "http://#{document.domain}:5280/http-bind"
 connection = null
 
-jid = (node) ->
-  "#{node}@#{document.domain}"
+jid = (node) -> "#{node}@#{document.domain}"
 
 log = (msg) ->
   $('#log').append "<div>#{msg.replace(/\n/g, "<br/>")}</div>"
@@ -45,6 +44,7 @@ sendMessage = (body) ->
   connection.send msg.tree()
 
 setupConnection = (user) ->
+  return unless user
   connection = new Strophe.Connection(BOSH_SERVICE)
   connection.connect jid(user.id), user.authentication_token, onConnect
 
@@ -55,7 +55,6 @@ setupConnection = (user) ->
     return false
 
 getCreds = ->
-  $.get 'me.json', (current_user) ->
-    setupConnection current_user if current_user
+  $.get 'me.json', setupConnection
 
 $(document).ready getCreds
