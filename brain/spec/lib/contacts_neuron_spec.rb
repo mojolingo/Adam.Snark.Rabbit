@@ -152,6 +152,13 @@ describe ContactsNeuron do
 
       it { should handle_message(message_body, user).with_confidence(1).and_respond_with("Sorry, you have not configured any integrations for contact lookup.") }
     end
+
+    context "when the requesting user cannot be identified" do
+      let(:message_body) { "Find me Joe Bloggs" }
+      let(:user) { nil }
+
+      it { should handle_message(message_body, user).with_confidence(1).and_respond_with("Sorry, I can only help you with that if you login.") }
+    end
   end
 
   context "invalid messages" do

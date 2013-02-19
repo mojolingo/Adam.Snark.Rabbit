@@ -1,10 +1,11 @@
 module NeuronMatchers
   class MessageMatcher
-    def initialize(message, user = nil)
+    def initialize(message, user = :default_user)
+      user = default_user if user == :default_user
       @message = if message.is_a?(AdamCommon::Message)
         message
       else
-        AdamCommon::Message.new body: message, user: (user || default_user)
+        AdamCommon::Message.new body: message, user: user
       end
       @expected_confidence = 1
     end
@@ -161,7 +162,7 @@ module NeuronMatchers
     end
   end
 
-  def handle_message(message, user = nil)
+  def handle_message(message, user = :default_user)
     MessageMatcher.new message, user
   end
 end

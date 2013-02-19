@@ -19,6 +19,7 @@ EOF
   def reply(message)
     match = MATCHER.match message.body
     name = match[:name]
+    return "Sorry, I can only help you with that if you login." unless message.user
     futuresimple_token = message.user["profile"]["futuresimple_token"]
     return "Sorry, you have not configured any integrations for contact lookup." unless futuresimple_token
     session = Pipejump::Session.new token: futuresimple_token
