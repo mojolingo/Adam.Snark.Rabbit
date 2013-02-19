@@ -35,6 +35,30 @@ describe User do
         User.find_for_message(message).should == User.first
       end
 
+      context "of the built in format" do
+        let(:jid) { "#{User.first.id}@#{ENV['ADAM_ROOT_DOMAIN']}"}
+
+        it "should find the user" do
+          User.find_for_message(message).should == User.first
+        end
+
+        context "with the wrong domain" do
+          let(:jid) { "#{User.first.id}@ddj29389j2d39.com"}
+
+          it "should not find the user" do
+            User.find_for_message(message).should be_nil
+          end
+        end
+
+        context "with a user that doesn't exist" do
+          let(:jid) { "rj93j2jko2ko9k39@#{ENV['ADAM_ROOT_DOMAIN']}"}
+
+          it "should not find the user" do
+            User.find_for_message(message).should be_nil
+          end
+        end
+      end
+
       context "for which there is no record" do
         let(:jid) { 'doo@dah.com' }
 

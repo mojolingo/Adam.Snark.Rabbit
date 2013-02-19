@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 feature 'Users' do
-  def message(source_address = 'foo@bar.com/doo', source_type = :xmpp)
+  let(:jid) { 'foo@bar.com/doo' }
+
+  def message(source_address = jid, source_type = :xmpp)
     AdamCommon::Message.new source_type: source_type,
                             source_address: source_address
   end
@@ -71,7 +73,37 @@ feature 'Users' do
       response.should have_key("auth_grants")
     end
 
+    context "with a message from the user's built in JID" do
+      let :jid do
+        user = User.first
+        "#{user.id}@#{ENV['ADAM_ROOT_DOMAIN']}"
+      end
+
+      scenario 'getting user data for the message' do
+        get '/users/find_for_message.json', message: message.to_json
+        last_response.status.should be 200
+        response = JSON.parse last_response.body
+        response.should have_key("profile")
+        response.should have_key("auth_grants")
+      end
+    end
+
+    context "with a message from the user's id@someotherdomain" do
+      let :jid do
+        user = User.first
+        "#{user.id}@diwjdiowji.com"
+      end
+
+      scenario 'getting user data for the message' do
+        get '/users/find_for_message.json', message: message.to_json
+        last_response.status.should be 404
+        last_response.body.should == 'null'
+      end
+    end
+
     context "when a user doesn't exist for the message's source address" do
+      let(:jid) { 'doo@dah.com' }
+
       scenario 'getting user data for a message' do
         get '/users/find_for_message.json', message: message('doo@dah.com').to_json
         last_response.status.should be 404

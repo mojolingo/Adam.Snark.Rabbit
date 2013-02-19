@@ -50,7 +50,12 @@ class User
   def self.find_for_message(message)
     bare_jid = RubyJID.new(message.source_address).bare
     profile = Profile.where("jids.address" => bare_jid.to_s).first
-    profile.user if profile
+    if profile
+      profile.user
+    elsif bare_jid.domain == ENV['ADAM_ROOT_DOMAIN']
+      find bare_jid.node
+    end
+  rescue Mongoid::Errors::DocumentNotFound
   end
 
   def social_usernames
