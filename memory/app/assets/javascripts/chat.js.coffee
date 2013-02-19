@@ -34,6 +34,12 @@ onConnect = (status) ->
 
     when Strophe.Status.CONNECTED
       console.log 'Strophe is connected.'
+      $('#send_message').attr('disabled', false);
+      $('form[name=chat]').submit ->
+        message = $('#message').get(0).value
+        sendMessage message
+        $('#message').val ''
+        return false
       connection.addHandler onMessage, null, 'message', null, null,  null
       sendMessage 'Hello'
 
@@ -47,12 +53,6 @@ setupConnection = (user) ->
   return unless user
   connection = new Strophe.Connection(BOSH_SERVICE)
   connection.connect jid(user.id), user.authentication_token, onConnect
-
-  $('form[name=chat]').submit ->
-    message = $('#message').get(0).value
-    sendMessage message
-    $('#message').val ''
-    return false
 
 getCreds = ->
   $.get 'me.json', setupConnection
