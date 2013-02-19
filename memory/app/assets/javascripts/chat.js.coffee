@@ -5,7 +5,7 @@ jid = (node) ->
   "#{node}@#{document.domain}"
 
 log = (msg) ->
-  $('#log').append "<div>#{msg.replace("\n", "<br/>")}</div>"
+  $('#log').append "<div>#{msg.replace(/\n/g, "<br/>")}</div>"
 
 onMessage = (msg) ->
   type = msg.getAttribute 'type'
