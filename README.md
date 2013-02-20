@@ -82,4 +82,4 @@ These credentials must then be provided to Chef in the DNA template above.
 
 ## Legal
 
-Adam Rabbit is copyright Mojo Lingo LLC, 2012. He is not open-source and is proprietary software. Sharing of his source-code is not allowed. Some components of Adam may be extracted into open-source libraries and shared elsewhere.
+Adam Rabbit is copyright Mojo Lingo LLC, 2013. He is not open-source and is proprietary software. Sharing of his source-code is not allowed. Some components of Adam may be extracted into open-source libraries and shared elsewhere.

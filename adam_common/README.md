@@ -28,4 +28,4 @@ TODO: Write usage instructions here
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
 
-Copyright (c) 2012 Mojo Lingo LLC
+Copyright (c) 2013 Mojo Lingo LLC
