@@ -1,7 +1,7 @@
 GIT
   remote: git://github.com/adhearsion/adhearsion.git
-  revision: e161bab02981d30bcf0731bda4cdaf06802d48dc
-  branch: develop
+  revision: 7ba331bcdc992a92608a0070551818e845008834
+  branch: feature/reliable_shutdown
   specs:
     adhearsion (2.2.1)
       activesupport (~> 3.0)
