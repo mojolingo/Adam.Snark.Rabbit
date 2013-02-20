@@ -42,7 +42,6 @@ class App < Adhearsion::Plugin
   end
 
   def self.connect_to_server
-    raise 'Hello There'
     run
   rescue => e
     # We only care about disconnects if the process is up or booting
