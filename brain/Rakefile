@@ -1,7 +1,10 @@
 #!/usr/bin/env rake
 
-require 'bundler'
-Bundler.require :development
+require File.expand_path('../config/environment',  __FILE__)
+
+require 'adhearsion/tasks'
 
 require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new :spec
+
+task default: :spec

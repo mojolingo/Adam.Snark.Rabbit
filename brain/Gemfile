@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'amqp'
 gem 'adam_common', path: '../adam_common'
 gem 'activesupport', require: nil
+gem 'adhearsion', github: 'adhearsion', branch: :develop
 
 # Translate Neuron
 gem 'bing_translator'
@@ -13,8 +14,6 @@ gem 'pipejump'
 
 gem 'faraday'
 gem 'faraday_middleware'
-
-gem 'logging'
 
 group :development, :test do
   gem 'rspec'
