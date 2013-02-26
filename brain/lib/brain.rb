@@ -42,7 +42,7 @@ class Brain
   def response_body(message)
     matching_neurons_for_message(message).last.reply(message)
   rescue => e
-    Events.trigger :exception, [e, logger]
+    Adhearsion::Events.trigger :exception, [e, logger]
     "Sorry, I encountered a #{e.class}"
   end
 
