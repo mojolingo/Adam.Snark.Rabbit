@@ -79,8 +79,6 @@ else
     rbenv_script "app_#{component}_dependencies" do
       code "bundle install --path vendor/ruby"
       cwd File.join(node['adam']['deployment_path'], 'current', component)
-      user "vagrant"
-      group "vagrant"
     end
   end
 
