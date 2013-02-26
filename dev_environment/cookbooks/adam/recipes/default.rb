@@ -1,19 +1,5 @@
 include_recipe 'adam::rabbitmq_users'
 
-user "adam" do
-  system true
-  comment "Adam User"
-  home "/home/adam"
-  supports :manage_home => true
-end
-
-sudo 'adam' do
-  user      'adam'
-  runas     'ALL'
-  commands  ['/usr/sbin/service adam restart']
-  nopasswd  true
-end
-
 %w{
   libqt4-dev
   qt4-qmake
@@ -70,10 +56,8 @@ if node[:adam][:standalone_deployment]
 
       ruby_components.each do |component|
         rbenv_script "app_#{component}_dependencies" do
-          code "bundle install"
+          code "bundle install --path vendor/ruby"
           cwd File.join(node['adam']['deployment_path'], 'current', component)
-          user "adam"
-          group "adam"
         end
       end
 
@@ -93,10 +77,10 @@ if node[:adam][:standalone_deployment]
 else
   ruby_components.each do |component|
     rbenv_script "app_#{component}_dependencies" do
-      code "bundle install"
+      code "bundle install --path vendor/ruby"
       cwd File.join(node['adam']['deployment_path'], 'current', component)
-      user "adam"
-      group "adam"
+      user "vagrant"
+      group "vagrant"
     end
   end
 
