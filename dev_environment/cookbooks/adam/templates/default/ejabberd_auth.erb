@@ -78,7 +78,6 @@ class Auth
     response = val ? 1 : 0
     $logger.debug "Responding with #{response}"
     data = [2, response].pack(PACK_FORMAT*2)
-    $logger.debug "Printing #{data}"
     $stdout.write data
   end
 end
@@ -89,14 +88,11 @@ auth = Auth.new
 
 begin
   loop do
-    $logger.info "Waiting for data..."
     msg = $stdin.read 2
     next unless msg
     length = msg.unpack(PACK_FORMAT).first
 
-    $logger.debug "Reading #{length} bytes of data"
     msg = $stdin.read length
-    $logger.debug "Read message #{msg}"
     data = msg.split ':'
 
     auth.process_creds *data
