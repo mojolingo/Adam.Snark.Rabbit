@@ -11,7 +11,6 @@ override_attributes 'rbenv' => {
   "rubies"  => ["2.0.0-p0"],
   "gems" => {
     "2.0.0-p0" => [
-      {"name" => "rake"},
       {"name" => "bundler"},
       {"name" => "foreman"}
     ]
