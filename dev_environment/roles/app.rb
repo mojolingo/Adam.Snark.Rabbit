@@ -7,10 +7,10 @@ run_list "role[base]",
   "recipe[postfix]",
   "recipe[adam]"
 override_attributes 'rbenv' => {
-  "global"  => "1.9.3-p374",
-  "rubies"  => ["1.9.3-p374"],
+  "global"  => "2.0.0-p0",
+  "rubies"  => ["2.0.0-p0"],
   "gems" => {
-    "1.9.3-p374" => [
+    "2.0.0-p0" => [
       {"name" => "rake"},
       {"name" => "bundler"},
       {"name" => "foreman"}
