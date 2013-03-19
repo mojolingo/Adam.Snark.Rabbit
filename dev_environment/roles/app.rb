@@ -15,4 +15,6 @@ override_attributes 'rbenv' => {
       {"name" => "foreman"}
     ]
   }
+}, 'ruby_build' => {
+  'upgrade' => 'sync'
 }
