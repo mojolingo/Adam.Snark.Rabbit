@@ -1,7 +1,8 @@
 # encoding: utf-8
 
-require 'bundler/setup'
-Bundler.require
+ENV["AHN_ENV"] ||= 'test'
+require File.expand_path("../../config/environment", __FILE__)
+require 'adhearsion/rspec'
 require 'rspec/autorun'
 
 # Requires supporting ruby files with custom matchers and macros, etc,

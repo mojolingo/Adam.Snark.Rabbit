@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'adhearsion', github: 'adhearsion', branch: 'develop'
+gem 'adhearsion-reporter', '~> 2.0'
 gem 'blather'
 gem 'amqp'
 gem 'adam_common', path: '../adam_common'

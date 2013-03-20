@@ -1,2 +1,2 @@
 #!/bin/bash
-cd fingers && bundle exec ruby app.rb -D
+cd fingers && bundle exec ahn start .
