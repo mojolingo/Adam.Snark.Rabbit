@@ -1,5 +1,5 @@
-require File.expand_path('../boot', __FILE__)
+# encoding: utf-8
 
-if defined?(Bundler)
-  Bundler.require
-end
+require 'bundler'
+Bundler.setup
+Bundler.require

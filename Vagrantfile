@@ -7,7 +7,8 @@ Vagrant.configure("2") do |config|
     vb.name = "Adam-Snark-Rabbit-Dev"
   end
 
-  config.vm.network :private_network, ip: "192.168.33.100"
+  public_ip = "192.168.33.100"
+  config.vm.network :private_network, ip: public_ip
 
   config.vm.synced_folder '.', "/srv/adam/current", nfs: true unless ENV['STANDALONE_DEPLOYMENT']
 
@@ -26,6 +27,9 @@ Vagrant.configure("2") do |config|
         'standalone_deployment' => !!ENV['STANDALONE_DEPLOYMENT'],
         'deploy_key' => ENV['STANDALONE_DEPLOYMENT'] ? File.read('deploy_key') : nil,
         'internal_password' => 'fj8j4893jgg9jg9'
+      },
+      'freeswitch' => {
+        'local_ip' => public_ip
       }
     }
 
