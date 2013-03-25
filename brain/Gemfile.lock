@@ -1,26 +1,3 @@
-GIT
-  remote: git://github.com/adhearsion/adhearsion.git
-  revision: c3609cbd45d217691625d0fca7d91ac77e0c1847
-  branch: develop
-  specs:
-    adhearsion (2.2.1)
-      activesupport (~> 3.0)
-      adhearsion-loquacious (~> 1.9)
-      bundler (~> 1.0)
-      celluloid (~> 0.12, >= 0.12.1)
-      countdownlatch
-      deep_merge
-      ffi (~> 1.0)
-      future-resource (~> 1.0)
-      girl_friday
-      has-guarded-handlers (~> 1.5)
-      logging (~> 1.8)
-      pry
-      punchblock (~> 1.4)
-      rake
-      ruby_speech (~> 1.0)
-      thor
-
 PATH
   remote: ../adam_common
   specs:
@@ -34,6 +11,23 @@ GEM
       i18n (~> 0.6)
       multi_json (~> 1.0)
     addressable (2.3.2)
+    adhearsion (2.3.0)
+      activesupport (~> 3.0)
+      adhearsion-loquacious (~> 1.9)
+      bundler (~> 1.0)
+      celluloid (~> 0.13)
+      countdownlatch
+      deep_merge
+      ffi (~> 1.0)
+      future-resource (~> 1.0)
+      girl_friday
+      has-guarded-handlers (~> 1.5)
+      logging (~> 1.8)
+      pry
+      punchblock (~> 1.4)
+      rake
+      ruby_speech (~> 1.0)
+      thor
     adhearsion-loquacious (1.9.3)
     adhearsion-reporter (2.0.1)
       adhearsion (~> 2.0)
@@ -50,17 +44,16 @@ GEM
     bing_translator (3.0.0)
       json (~> 1.7.3)
       nokogiri (~> 1.5.0)
-    blather (0.8.3)
+    blather (0.8.4)
       activesupport (>= 2.3.11)
       eventmachine (>= 1.0.0)
       girl_friday
       niceogiri (~> 1.0)
       nokogiri (~> 1.5, >= 1.5.6)
-    celluloid (0.12.4)
-      facter (>= 1.6.12)
+    celluloid (0.13.0)
       timers (>= 1.0.0)
-    celluloid-io (0.12.1)
-      celluloid (~> 0.12.0)
+    celluloid-io (0.13.0)
+      celluloid (>= 0.13.0)
       nio4r (>= 0.4.0)
     coderay (1.0.9)
     connection_pool (1.0.0)
@@ -70,12 +63,11 @@ GEM
     diff-lcs (1.1.3)
     evented-spec (0.9.0)
     eventmachine (1.0.0)
-    facter (1.6.18)
     faraday (0.8.4)
       multipart-post (~> 1.1)
     faraday_middleware (0.9.0)
       faraday (>= 0.7.4, < 0.9)
-    ffi (1.4.0)
+    ffi (1.6.0)
     future-resource (1.0.0)
     girl_friday (0.11.2)
       connection_pool (~> 1.0)
@@ -106,10 +98,10 @@ GEM
       coderay (~> 1.0.5)
       method_source (~> 0.8)
       slop (~> 3.4)
-    punchblock (1.8.0)
+    punchblock (1.8.1)
       activesupport (~> 3.0)
       blather (>= 0.7.0)
-      celluloid (~> 0.12, >= 0.12.4)
+      celluloid (~> 0.13)
       future-resource (~> 1.0)
       has-guarded-handlers (~> 1.5)
       niceogiri (~> 1.1)
@@ -118,7 +110,7 @@ GEM
       ruby_fs (~> 1.0)
       ruby_speech (~> 1.0)
       state_machine (~> 1.0)
-    rake (10.0.3)
+    rake (10.0.4)
     rspec (2.11.0)
       rspec-core (~> 2.11.0)
       rspec-expectations (~> 2.11.0)
@@ -130,13 +122,13 @@ GEM
     rubinius-actor (0.0.2)
       rubinius-core-api
     rubinius-core-api (0.0.1)
-    ruby_ami (1.3.0)
-      celluloid-io (~> 0.12.0)
+    ruby_ami (1.3.2)
+      celluloid-io (~> 0.13)
       countdownlatch (~> 1.0)
       future-resource
       girl_friday
-    ruby_fs (1.0.3)
-      celluloid-io (~> 0.12.0)
+    ruby_fs (1.0.5)
+      celluloid-io (~> 0.13)
       json
     ruby_speech (1.1.0)
       activesupport (>= 3.0.7)
@@ -159,7 +151,7 @@ PLATFORMS
 DEPENDENCIES
   activesupport
   adam_common!
-  adhearsion!
+  adhearsion (~> 2.3)
   adhearsion-reporter (~> 2.0)
   amqp
   bing_translator

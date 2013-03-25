@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'amqp'
 gem 'adam_common', path: '../adam_common'
 gem 'activesupport', require: nil
-gem 'adhearsion', github: 'adhearsion', branch: 'develop'
+gem 'adhearsion', '~> 2.3'
 
 gem 'adhearsion-reporter', '~> 2.0'
 
