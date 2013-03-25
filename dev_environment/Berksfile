@@ -12,5 +12,6 @@ cookbook 'rbenv',             github: 'fnichol/chef-rbenv'
 cookbook 'ejabberd',          github: 'mojolingo/ejabberd'
 cookbook 'rabbitmq',          github: 'mojolingo/rabbitmq'
 cookbook 'application_nginx', github: 'mojolingo/application_nginx'
+cookbook 'freeswitch',        github: 'mojolingo/freeswitch-cookbook', ref: 'feature/rayo'
 
 cookbook 'adam', path: 'cookbooks/adam'
