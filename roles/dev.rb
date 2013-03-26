@@ -6,3 +6,13 @@ run_list "role[base]",
   "role[mongo]",
   "role[voip-app]",
   "role[app]"
+
+override_attributes :freeswitch => {
+  :modules => {
+    :rayo => {
+      :listeners => {
+        "$${domain}" => 5224
+      }
+    }
+  }
+}
