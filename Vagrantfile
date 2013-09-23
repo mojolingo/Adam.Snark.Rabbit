@@ -11,7 +11,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.network :private_network, ip: "192.168.33.100"
 
-  config.vm.synced_folder "..", "/srv/adam/current", nfs: true unless ENV['STANDALONE_DEPLOYMENT']
+  config.vm.synced_folder '.', "/srv/adam/current", nfs: true unless ENV['STANDALONE_DEPLOYMENT']
 
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = "cookbooks"
