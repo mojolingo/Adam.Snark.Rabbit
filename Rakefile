@@ -20,23 +20,4 @@ ruby_components = %w{
   end
 end
 
-desc "Setup an app checkout and run all specs"
-task :ci => [:ci_prereqs, :deployment_config] do
-  system 'vagrant destroy -f && STANDALONE_DEPLOYMENT=true vagrant up && vagrant ssh -c "cd /srv/adam/current && sudo -u adam rake spec"'
-  exit $?.exitstatus
-end
-
-desc "Install prerequisites for running CI build"
-task :ci_prereqs do
-  system 'vagrant plugin install vagrant-berkshelf && gem install berkshelf'
-end
-
-desc "Create chef solo config for deployment environments"
-task :deployment_config do
-  system "rm -rf build && rm -rf tmp && mkdir build && mkdir tmp"
-  system "berks install --path ../tmp/cookbooks"
-  system "cd tmp && tar zcvf ../build/cookbooks.tgz cookbooks"
-  system "tar zcvf ../build/roles.tgz roles"
-end
-
 task :default => :spec

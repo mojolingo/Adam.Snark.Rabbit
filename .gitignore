@@ -10,3 +10,4 @@ build
 # Development environment things
 .vagrant
 vagrant/
+cookbooks
