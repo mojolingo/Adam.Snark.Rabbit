@@ -13,5 +13,5 @@ run_tests_in_dev_env:
 # Create chef solo config for deployment environments
 prep_deployment_config:
 	rm -rf build && mkdir build
-	tar zcvf ../build/cookbooks.tgz cookbooks
-	tar zcvf ../build/roles.tgz roles
+	tar zcvf build/cookbooks.tgz cookbooks
+	tar zcvf build/roles.tgz roles
