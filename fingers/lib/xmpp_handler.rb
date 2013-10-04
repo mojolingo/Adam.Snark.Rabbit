@@ -1,3 +1,5 @@
+require 'blather/client/dsl'
+
 class XMPPHandler
   include Blather::DSL
 
