@@ -9,7 +9,8 @@ class App < Adhearsion::Plugin
   init :brain do
     @brain = Brain.new
 
-    @brain.add_neuron HumanityNeuron.new
+    @brain.add_neuron GreetingNeuron.new
+    @brain.add_neuron PleasantriesNeuron.new
     @brain.add_neuron TranslatorNeuron.new
     @brain.add_neuron ContactsNeuron.new
   end

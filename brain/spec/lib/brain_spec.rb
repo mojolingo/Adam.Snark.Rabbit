@@ -30,8 +30,8 @@ describe Brain do
     context "with a custom neuron defined" do
       let :neuron_class do
         Class.new do
-          def confidence(message)
-            message.body =~ /foo/ ? 1 : 0
+          def intent(message)
+            'foo'
           end
 
           def reply(message)
@@ -55,7 +55,7 @@ describe Brain do
       context "when a neuron explodes" do
         let :neuron_class do
           Class.new do
-            def confidence(message)
+            def intent(message)
               raise
             end
 
@@ -76,8 +76,8 @@ describe Brain do
     context "when multiple neurons have some confidence they will match a single message" do
       let :neuron_class_1 do
         Class.new do
-          def confidence(message)
-            message.body =~ /foo/ ? 0.5 : 0
+          def intent
+            'foo1'
           end
 
           def reply(message)
@@ -88,8 +88,8 @@ describe Brain do
 
       let :neuron_class_2 do
         Class.new do
-          def confidence(message)
-            message.body =~ /foo/ ? 0.8 : 0
+          def intent
+            'foo2'
           end
 
           def reply(message)
@@ -104,8 +104,21 @@ describe Brain do
       end
 
       let(:message_body) { 'foo' }
+      
+      let(:wit_response) do
+        {
+          "msg_id": "d953bd6c-c620-4dae-a3fc-7634b4330073",
+          "msg_body": "get me a foo 2"
+          "outcome": {
+            "intent": "foo2",
+            "entities": {},
+            "confidence": 0.6310633902098893
+          }
+        }
+      end
 
-      it "invokes the neuron with the higher confidence" do
+      it "invokes the neuron selected by Wit" do
+        Wit.should_receive(:query).once.with(message).and_return wit_response
         response = nil
         subject.handle(message) { |r| response = r }
         response.should == response_with_body("Foo two")

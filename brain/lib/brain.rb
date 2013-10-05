@@ -1,8 +1,11 @@
 require_relative 'failure_neuron'
 
 class Brain
+  MIN_CONFIDENCE = 0.4
+  DEFAULT_NEURON = 'failure'
+
   def initialize
-    @neurons = [FailureNeuron.new]
+    add_neuron FailureNeuron.new
   end
 
   #
@@ -25,9 +28,11 @@ class Brain
   #
   # #confidence(message) should return a fixnum indicating neuron's confidence that it can handle the message appropriately
   # #reply(message) should return a string indicating the neuron's response to be forwarded to the user
+  # #intent should return a string indicating a nickname for the neuron
   #
   def add_neuron(neuron)
-    @neurons.insert -2, neuron
+    @neurons ||= {}
+    @neurons[neuron.intent] = neuron
   end
 
   private
@@ -40,18 +45,22 @@ class Brain
   # Retrieve the body of any response from the best matching neuron for
   #
   def response_body(message)
-    matching_neurons_for_message(message).last.reply(message)
+    result = Wit.query message
+    find_best_neuron(result).reply(result)
   rescue => e
     Adhearsion::Events.trigger :exception, [e, logger]
     "Sorry, I encountered a #{e.class}"
   end
 
   #
-  # Sort neurons by their confidence in matching a message, with least confident first
+  # Find the most relevant neuron for a given message
   #
-  def matching_neurons_for_message(message)
-    @neurons.map { |neuron| [neuron, neuron.confidence(message)] }
-      .sort { |(_,c1), (_,c2)| c1 <=> c2 }
-      .map { |neuron, confidence| neuron }
+  def find_best_neuron(result)
+    intent, confidence = result['outcome']['intent'], result['outcome']['confidence']
+    if confidence >= MIN_CONFIDENCE && @neurons.has_key? intent
+      @neurons[intent]
+    else
+      @neurons[DEFAULT_NEURON]
+    end
   end
 end

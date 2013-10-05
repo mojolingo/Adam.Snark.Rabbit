@@ -3,7 +3,6 @@ require 'erb'
 require 'active_support/core_ext/object/blank'
 
 class ContactsNeuron
-  MATCHER = /^((Find( me)?)|(Who is)) (?<name>[\w\s]*)\??/i
   RESPONSE_TEMPLATE = ERB.new <<-EOF
 <%= contact.name %><% if contact.title.present? %>, <%= contact.title %><% end %><% if contact.attributes.keys.include?('organisation_name') && contact.organisation_name %><% if contact.title.present? %> at<% else %> from<% end %> <%= contact.organisation_name %><% end %><% if contact.phone.present? %>
 Phone: <%= contact.phone %><% end %><% if contact.email.present? %>
@@ -12,11 +11,12 @@ Email: <%= contact.email %><% end %>
 https://app.futuresimple.com/crm/contacts/<%= contact.id %>
 EOF
 
-  def confidence(message)
-    MATCHER.match(message.body).nil? ? 0 : 1
+  def intent
+    'contacts'
   end
 
   def reply(message)
+    return "Sorry, this neuron is misfiring!" # TODO
     match = MATCHER.match message.body
     name = match[:name]
     return "Sorry, I can only help you with that if you login." unless message.user
