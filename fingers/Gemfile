@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'adhearsion', github: 'adhearsion', branch: 'develop'
+gem 'adhearsion', '~> 2.4'
 gem 'adhearsion-reporter', '~> 2.0'
 gem 'blather'
 gem 'amqp'
