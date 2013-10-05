@@ -1,2 +1,2 @@
 #!/bin/bash
-cd ears && bundle exec ahn start .
+cd ears && bundle exec ahn start . --no-console
