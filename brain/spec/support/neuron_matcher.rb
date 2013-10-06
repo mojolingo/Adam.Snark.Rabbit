@@ -159,12 +159,12 @@ module NeuronMatchers
       wit_entities[key] = {'value' => entities[key], 'body' => entities[key]}
     end
     {
-      "msg_id"   => "7e7cf9a2-007d-499e-83db-49b1d0490141",
+      "msg_id" => "7e7cf9a2-007d-499e-83db-49b1d0490141",
       "msg_body" => "How do I say &quot;Hello&quot; in German?",
       "outcome" => {
         "intent" => "translation",
         "entities" => wit_entities,
-        "confidence"=>0.57
+        "confidence" => 0.57
       }
     }
   end
