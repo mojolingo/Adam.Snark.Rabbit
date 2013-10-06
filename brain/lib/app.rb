@@ -1,7 +1,8 @@
 require_relative 'brain'
 require_relative 'amqp_handler'
 
-require_relative 'humanity_neuron'
+require_relative 'greetings_neuron'
+require_relative 'pleasantries_neuron'
 require_relative 'translator_neuron'
 require_relative 'contacts_neuron'
 
