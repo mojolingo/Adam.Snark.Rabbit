@@ -108,13 +108,13 @@ describe ContactsNeuron do
     ].each do |message_body, response, options = {}|
       context "for message #{message_body} with option overrides #{options.inspect}" do
         let(:options) { options }
-        it { should handle_message(message_body).with_confidence(1).and_respond_with(response) }
+        it { should handle_message(message_body).and_respond_with(response) }
       end
     end
 
     context "when the contact doesn't exist" do
       let(:message_body) { "Find me Joe Bloggs" }
-      it { should handle_message(message_body).with_confidence(1).and_respond_with("Sorry, I have no record of Joe Bloggs.") }
+      it { should handle_message(message_body).and_respond_with("Sorry, I have no record of Joe Bloggs.") }
     end
 
     context "when the requesting user has not set futuresimple credentials" do
@@ -150,20 +150,20 @@ describe ContactsNeuron do
         }
       end
 
-      it { should handle_message(message_body, user).with_confidence(1).and_respond_with("Sorry, you have not configured any integrations for contact lookup.") }
+      it { should handle_message(message_body, user).and_respond_with("Sorry, you have not configured any integrations for contact lookup.") }
     end
 
     context "when the requesting user cannot be identified" do
       let(:message_body) { "Find me Joe Bloggs" }
       let(:user) { nil }
 
-      it { should handle_message(message_body, user).with_confidence(1).and_respond_with("Sorry, I can only help you with that if you login.") }
+      it { should handle_message(message_body, user).and_respond_with("Sorry, I can only help you with that if you login.") }
     end
   end
 
   context "invalid messages" do
     [nil, 'foo', 'highlight'].each do |message_body|
-      it { should handle_message(message_body).with_confidence(0) }
+      it { should handle_message(message_body) }
     end
   end
 end

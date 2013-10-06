@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'evented-spec'
 require_relative '../lib/amqp_handler'
-require_relative '../lib/humanity_neuron'
+require_relative '../lib/greetings_neuron'
 
 describe "AMQP handling" do
   include EventedSpec::AMQPSpec
@@ -48,8 +48,8 @@ describe "AMQP handling" do
   context "with a custom neuron defined" do
     let :neuron_class do
       Class.new do
-        def confidence(message)
-          message.body =~ /foo/ ? 1 : 0
+        def intent
+          'foo'
         end
 
         def reply(message)
@@ -59,7 +59,7 @@ describe "AMQP handling" do
     end
 
     before do
-      brain.add_neuron HumanityNeuron.new
+      brain.add_neuron GreetingsNeuron.new
       brain.add_neuron neuron_class.new
     end
 
@@ -86,8 +86,8 @@ describe "AMQP handling" do
     context "to check user data" do
       let :neuron_class do
         Class.new do
-          def confidence(message)
-            1
+          def intent
+            'name'
           end
 
           def reply(message)

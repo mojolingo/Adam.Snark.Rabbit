@@ -107,12 +107,12 @@ describe Brain do
       
       let(:wit_response) do
         {
-          "msg_id": "d953bd6c-c620-4dae-a3fc-7634b4330073",
-          "msg_body": "get me a foo 2"
-          "outcome": {
-            "intent": "foo2",
-            "entities": {},
-            "confidence": 0.6310633902098893
+          "msg_id" => "d953bd6c-c620-4dae-a3fc-7634b4330073",
+          "msg_body" => "get me a foo 2",
+          "outcome" => {
+            "intent" => "foo2",
+            "entities" => {},
+            "confidence" => 0.6310633902098893
           }
         }
       end
