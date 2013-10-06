@@ -26,7 +26,6 @@ class Brain
   #
   # Add a neuron to the brain. Should follow the standard Neuron API:
   #
-  # #confidence(message) should return a fixnum indicating neuron's confidence that it can handle the message appropriately
   # #reply(message) should return a string indicating the neuron's response to be forwarded to the user
   # #intent should return a string indicating a nickname for the neuron
   #
