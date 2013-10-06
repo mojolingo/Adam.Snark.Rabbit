@@ -10,10 +10,25 @@ tasks, from announcing conference bridge participants and CI build status to tri
 Best of all, he's yours! Find him here:
 
   * [The Web](http://adamrabbit.com)
-  * [Jabber](xmpp:me@adamrabbit.com)
-  * [E-Mail](mailto:me@adamrabbit.com)
-  * [SIP](sip:hello@adamrabbit.com)
-  * the PSTN: +1(404) 475-4840
+  * [Jabber](xmpp:adam@adamrabbit.com)
+  * [E-Mail](mailto:adam@adamrabbit.com)
+  * [SIP](sip:adam@adamrabbit.com)
+  * the PSTN: +1 (404) 475-4840
+
+Or in staging:
+
+  * [The Web](http://staging.adamrabbit.com)
+  * [Jabber](xmpp:adam@staging.adamrabbit.com)
+  * [E-Mail](mailto:adam@staging.adamrabbit.com)
+  * [SIP](sip:adam@staging.adamrabbit.com)
+  * the PSTN: +1 (404) 475-4840
+
+Or in development:
+
+  * [The Web](http://local.adamrabbit.com:3000)
+  * [Jabber](xmpp:adam@local.adamrabbit.com)
+  * [E-Mail](mailto:adam@local.adamrabbit.com)
+  * [SIP](sip:adam@local.adamrabbit.com)
 
 ## Setting up a development environment
 
