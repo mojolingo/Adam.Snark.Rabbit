@@ -147,6 +147,22 @@ module NeuronMatchers
     end
   end
 
+  def wit_response_for(message, entities = {})
+    wit_entities = {}
+    entities.keys.each do |key|
+      wit_entities[key] = {'value' => entities[key], 'body' => entities[key]}
+    end
+    {
+      "msg_id"   => "7e7cf9a2-007d-499e-83db-49b1d0490141",
+      "msg_body" => "How do I say &quot;Hello&quot; in German?",
+      "outcome" => {
+        "intent" => "translation",
+        "entities" => wit_entities,
+        "confidence"=>0.57
+      }
+    }
+  end
+
   def handle_message(message, user = :default_user)
     MessageMatcher.new message, user
   end

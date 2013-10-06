@@ -56,69 +56,59 @@ describe ContactsNeuron do
 
     [
       [ # With a full set of details
-        'Find me John Smith',
-        "John Smith, CEO at Acme Inc\nPhone: +1 (515) 555-8765\nEmail: jsmith@acmeinc.com\n\nhttps://app.futuresimple.com/crm/contacts/26299451",
-        {name: 'John Smith', title: 'CEO', organisation_name: 'Acme Inc', phone: '+1 (515) 555-8765', email: 'jsmith@acmeinc.com'}
-      ],
-      [ # With a lower case name request
-        'Find me john smith',
         "John Smith, CEO at Acme Inc\nPhone: +1 (515) 555-8765\nEmail: jsmith@acmeinc.com\n\nhttps://app.futuresimple.com/crm/contacts/26299451",
         {name: 'John Smith', title: 'CEO', organisation_name: 'Acme Inc', phone: '+1 (515) 555-8765', email: 'jsmith@acmeinc.com'}
       ],
       [ # When there's no position attribute
-        'Find me John Smith',
         "John Smith from Acme Inc\nPhone: +1 (515) 555-8765\nEmail: jsmith@acmeinc.com\n\nhttps://app.futuresimple.com/crm/contacts/26299451",
         {name: 'John Smith', title: '', organisation_name: 'Acme Inc', phone: '+1 (515) 555-8765', email: 'jsmith@acmeinc.com'}
       ],
       [ # With no organisation
-        'Find me John Smith',
         "John Smith, CEO\nPhone: +1 (515) 555-8765\nEmail: jsmith@acmeinc.com\n\nhttps://app.futuresimple.com/crm/contacts/26299451",
         {name: 'John Smith', title: 'CEO', phone: '+1 (515) 555-8765', email: 'jsmith@acmeinc.com'}
       ],
       [ # When there's no position attribute or organisation
-        'Find me John Smith',
         "John Smith\nPhone: +1 (515) 555-8765\nEmail: jsmith@acmeinc.com\n\nhttps://app.futuresimple.com/crm/contacts/26299451",
         {name: 'John Smith', title: '', phone: '+1 (515) 555-8765', email: 'jsmith@acmeinc.com'}
       ],
       [ # With no phone number
-        'Find me John Smith',
         "John Smith, CEO at Acme Inc\nEmail: jsmith@acmeinc.com\n\nhttps://app.futuresimple.com/crm/contacts/26299451",
         {name: 'John Smith', title: 'CEO', organisation_name: 'Acme Inc', phone: '', email: 'jsmith@acmeinc.com'}
       ],
       [ # With no email address
-        'Find me John Smith',
         "John Smith, CEO at Acme Inc\nPhone: +1 (515) 555-8765\n\nhttps://app.futuresimple.com/crm/contacts/26299451",
         {name: 'John Smith', title: 'CEO', organisation_name: 'Acme Inc', phone: '+1 (515) 555-8765', email: ''}
       ],
       [ # With a full set of details
-        'Find John Smith',
         "John Smith, CEO at Acme Inc\nPhone: +1 (515) 555-8765\nEmail: jsmith@acmeinc.com\n\nhttps://app.futuresimple.com/crm/contacts/26299451",
         {name: 'John Smith', title: 'CEO', organisation_name: 'Acme Inc', phone: '+1 (515) 555-8765', email: 'jsmith@acmeinc.com'}
       ],
       [ # With a full set of details
-        'Who is John Smith?',
         "John Smith, CEO at Acme Inc\nPhone: +1 (515) 555-8765\nEmail: jsmith@acmeinc.com\n\nhttps://app.futuresimple.com/crm/contacts/26299451",
         {name: 'John Smith', title: 'CEO', organisation_name: 'Acme Inc', phone: '+1 (515) 555-8765', email: 'jsmith@acmeinc.com'}
       ],
       [ # With a full set of details
-        'Who is John Smith',
         "John Smith, CEO at Acme Inc\nPhone: +1 (515) 555-8765\nEmail: jsmith@acmeinc.com\n\nhttps://app.futuresimple.com/crm/contacts/26299451",
         {name: 'John Smith', title: 'CEO', organisation_name: 'Acme Inc', phone: '+1 (515) 555-8765', email: 'jsmith@acmeinc.com'}
       ],
-    ].each do |message_body, response, options = {}|
+    ].each do |response, options = {}|
+      message_body = 'Find me John Smith'
       context "for message #{message_body} with option overrides #{options.inspect}" do
         let(:options) { options }
-        it { should handle_message(message_body).and_respond_with(response) }
+        it do
+          message = wit_response_for message_body, 'name' => 'John Smith'
+          should handle_message(message).and_respond_with(response)
+        end
       end
     end
 
     context "when the contact doesn't exist" do
-      let(:message_body) { "Find me Joe Bloggs" }
+      let(:message_body) { wit_response_for('Find me Joe Bloggs', 'name' => 'Joe Bloggs') }
       it { should handle_message(message_body).and_respond_with("Sorry, I have no record of Joe Bloggs.") }
     end
 
     context "when the requesting user has not set futuresimple credentials" do
-      let(:message_body) { "Find me Joe Bloggs" }
+      let(:message_body) { wit_response_for("Find me Joe Bloggs", 'name' => "Joe Bloggs") }
       let :user do
         {
           "id"  =>  "510d71c4a005b5bb45000002",
@@ -154,16 +144,10 @@ describe ContactsNeuron do
     end
 
     context "when the requesting user cannot be identified" do
-      let(:message_body) { "Find me Joe Bloggs" }
+      let(:message_body) { wit_response_for("Find me Joe Bloggs", 'name' => 'Joe Bloggs') }
       let(:user) { nil }
 
       it { should handle_message(message_body, user).and_respond_with("Sorry, I can only help you with that if you login.") }
-    end
-  end
-
-  context "invalid messages" do
-    [nil, 'foo', 'highlight'].each do |message_body|
-      it { should handle_message(message_body) }
     end
   end
 end

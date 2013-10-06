@@ -14,19 +14,30 @@ describe TranslatorNeuron do
     end
 
     [
-      ['How do I say "yes please" in Portuguese?', '"Sim por favor"'],
-      ['How do I say \'yes please\' in Portuguese?', '"Sim por favor"'],
-      ['How do I say yes please in Portuguese?', '"Sim por favor"'],
-      ['How do you say "yes please" in Portuguese?', '"Sim por favor"'],
-      ['What is "yes please" in Portuguese?', '"Sim por favor"'],
-      ['What\'s "yes please" in Portuguese?', '"Sim por favor"'],
-      ['How do I say "yes please" in Portuguese?', '"Sim por favor"'],
-      ['How do I say "yes please" in portuguese?', '"Sim por favor"'], # Lower case target language
-      ['How do I say "yes please" in Afrikaans?', "Sorry, I don't speak Afrikaans."], # Untranslateable target language
-      ['How do I say "yes please" in klingon?', "Sorry, I don't speak Klingon."], # Invalid target language
+      ['How do I say "yes please" in Portuguese?', 'Sim por favor'],
+      ['How do I say \'yes please\' in Portuguese?', 'Sim por favor'],
+      ['How do I say yes please in Portuguese?', 'Sim por favor'],
+      ['How do you say "yes please" in Portuguese?', 'Sim por favor'],
+      ['What is "yes please" in Portuguese?', 'Sim por favor'],
+      ['What\'s "yes please" in Portuguese?', 'Sim por favor'],
+      ['How do I say "yes please" in Portuguese?', 'Sim por favor'],
+      ['How do I say "yes please" in portuguese?', 'Sim por favor'], # Lower case target language
     ].each do |message_body, response|
-      it { should handle_message(message_body).and_respond_with(response) }
+      it do
+        message = wit_response_for message_body, 'phrase_to_translate' => 'yes please', 'language' => 'Portuguese'
+        should handle_message(message).and_respond_with(response)
+      end
     end
+
+      it "should handle an untranslateable target language" do
+        message = wit_response_for 'How do I say "yes please" in Afrikaans?', 'phrase_to_translate' => 'yes please', 'language' => 'Afrikaans'
+        should handle_message(message).and_respond_with("Sorry, I don't speak Afrikaans.")
+      end
+
+      it "should handle an invalid target language" do
+        message = wit_response_for 'How do I say "yes please" in klingon?', 'phrase_to_translate' => 'yes please', 'language' => 'Klingon'
+        should handle_message(message).and_respond_with("Sorry, I don't speak Klingon.")
+      end
   end
 
   context "invalid messages" do

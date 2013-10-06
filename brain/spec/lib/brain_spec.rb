@@ -30,7 +30,7 @@ describe Brain do
     context "with a custom neuron defined" do
       let :neuron_class do
         Class.new do
-          def intent(message)
+          def intent
             'foo'
           end
 
@@ -55,7 +55,7 @@ describe Brain do
       context "when a neuron explodes" do
         let :neuron_class do
           Class.new do
-            def intent(message)
+            def intent
               raise
             end
 
