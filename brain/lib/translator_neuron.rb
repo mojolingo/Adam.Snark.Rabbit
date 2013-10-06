@@ -9,13 +9,13 @@ class TranslatorNeuron
 
   def reply(message, interpretation)
     params = interpretation['outcome']['entities']
-    language = params['language']['value'] rescue nil
+    language = params.has_key?('language') ? params['language']['value'] : nil
     return "I can't translate that" unless language
     code = ISO_639.find_by_english_name language
     return "Sorry, I don't speak #{language}." unless code
     translation = translator.translate params['phrase_to_translate']['value'], to: code.alpha2
     translation.inspect
-    phrase = params['phrase_to_translate']['value'] rescue nil
+    phrase = params.has_key?('phrase_to_translate') ? params['phrase_to_translate']['value'] : nil
     return "What did you want me to translate?" unless phrase
   rescue Nokogiri::XML::XPath::SyntaxError
     "Sorry, I don't speak #{language}."
