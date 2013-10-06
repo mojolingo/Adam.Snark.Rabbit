@@ -10,11 +10,8 @@ require 'rspec/autorun'
 Dir[File.dirname(__FILE__) + "/support/**/*.rb"].each { |f| require f }
 
 RSpec.configure do |config|
-  config.mock_with :mocha
+  config.mock_with :rspec
 
   config.filter_run :focus => true
   config.run_all_when_everything_filtered = true
-
-  Mocha::Configuration.warn_when :stubbing_non_existent_method
-  Mocha::Configuration.warn_when :stubbing_non_public_method
 end

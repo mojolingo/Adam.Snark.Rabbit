@@ -80,6 +80,13 @@ GIT
     ejabberd (0.1.0)
 
 GIT
+  remote: https://github.com/mojolingo/freeswitch-cookbook
+  ref: feature/rayo
+  sha: da6e918da7719fad025b150ab1e65071735b80ec
+  specs:
+    freeswitch (0.1.0)
+
+GIT
   remote: https://github.com/mojolingo/rabbitmq
   ref: master
   sha: 0cea36930941cc036616718c867c234479a6a3dc
@@ -107,6 +114,7 @@ DEPENDENCIES
   chef-solo-search (>= 0)
   ejabberd (>= 0)
   erlang (>= 0)
+  freeswitch (>= 0)
   git (>= 0)
   mongodb (>= 0)
   motd-tail (>= 0)
