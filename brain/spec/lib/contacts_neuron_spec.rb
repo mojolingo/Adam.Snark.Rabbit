@@ -104,10 +104,9 @@ describe ContactsNeuron do
 
     context "when the contact doesn't exist" do
       let(:message_body) { 'Find me Joe Bloggs' }
-      it do
-        interpretation = wit_response_for message_body, 'name' => 'Joe Bloggs'
-        should handle_message(message_body, :default_user, interpretation).and_respond_with("Sorry, I have no record of Joe Bloggs.")
-      end
+      let(:interpretation) {  wit_response_for 'Find me Joe Bloggs', 'name' => 'Joe Bloggs' }
+
+      it { should handle_message(message_body, :default_user, interpretation).and_respond_with("Sorry, I have no record of Joe Bloggs.") }
     end
 
     context "when the requesting user has not set futuresimple credentials" do
