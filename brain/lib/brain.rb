@@ -57,7 +57,7 @@ class Brain
   #
   def find_best_neuron(result)
     intent, confidence = result['outcome']['intent'], result['outcome']['confidence']
-    if confidence >= MIN_CONFIDENCE && @neurons.has_key? intent
+    if confidence >= MIN_CONFIDENCE && @neurons.has_key?(intent)
       @neurons[intent]
     else
       @neurons[DEFAULT_NEURON]
