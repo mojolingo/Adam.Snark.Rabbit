@@ -170,7 +170,7 @@ module NeuronMatchers
   end
 
   def handle_message(message, user = :default_user, interpretation = nil)
-    interpretation = wit_response_for(message) if interpretation.nil?
+    interpretation ||= wit_response_for(message)
     MessageMatcher.new message, user, interpretation
   end
 end
