@@ -54,8 +54,8 @@ class Brain
   #
   # Find the most relevant neuron for a given message
   #
-  def find_best_neuron(result)
-    intent, confidence = result['outcome']['intent'], result['outcome']['confidence']
+  def find_best_neuron(interpretation)
+    intent, confidence = interpretation['outcome']['intent'], interpretation['outcome']['confidence']
     if confidence >= MIN_CONFIDENCE && @neurons.has_key?(intent)
       @neurons[intent]
     else
