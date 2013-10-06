@@ -13,10 +13,9 @@ class TranslatorNeuron
     return "I can't translate that" unless language
     code = ISO_639.find_by_english_name language
     return "Sorry, I don't speak #{language}." unless code
-    translation = translator.translate params['phrase_to_translate']['value'], to: code.alpha2
-    translation.inspect
     phrase = params.has_key?('phrase_to_translate') ? params['phrase_to_translate']['value'] : nil
     return "What did you want me to translate?" unless phrase
+    translator.translate params['phrase_to_translate']['value'], to: code.alpha2
   rescue Nokogiri::XML::XPath::SyntaxError
     "Sorry, I don't speak #{language}."
   end
