@@ -118,7 +118,7 @@ describe Brain do
       end
 
       it "invokes the neuron selected by Wit" do
-        Wit.should_receive(:query).once.with(message).and_return wit_response
+        Wit.should_receive(:query).once.with(message.body).and_return wit_response
         response = nil
         subject.handle(message) { |r| response = r }
         response.should == response_with_body("Foo two")

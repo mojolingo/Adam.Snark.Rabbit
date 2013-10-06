@@ -8,7 +8,7 @@ class TranslatorNeuron
   end
 
   def reply(message)
-    params = message['outcome']['entities']
+    params = message.body['outcome']['entities']
     language = params['language']['value']
     code = ISO_639.find_by_english_name language
     return "Sorry, I don't speak #{language}." unless code

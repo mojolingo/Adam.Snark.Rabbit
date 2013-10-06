@@ -16,12 +16,13 @@ EOF
   end
 
   def reply(message)
-    return "Sorry, this neuron is misfiring!" # TODO
-    match = MATCHER.match message.body
-    name = match[:name]
     return "Sorry, I can only help you with that if you login." unless message.user
     futuresimple_token = message.user["profile"]["futuresimple_token"]
     return "Sorry, you have not configured any integrations for contact lookup." unless futuresimple_token
+
+    params = message.body['outcome']['entities']
+    name = params['name']['value']
+
     session = Pipejump::Session.new token: futuresimple_token
     contact = session.contacts.all.find { |contact| contact.name.downcase == name.downcase }
     return "Sorry, I have no record of #{name}." unless contact
