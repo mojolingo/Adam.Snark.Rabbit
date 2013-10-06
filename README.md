@@ -75,7 +75,28 @@ This is a simple Vagrant based development environment. All the usual vagrant ru
     "twitter_secret":"changeme",
     "bing_translate_key":"changeme",
     "bing_translate_secret":"changeme",
-    "internal_password":"changeme"
+    "internal_password":"changeme",
+    "punchblock_port":"5224"
+  },
+  "freeswitch": {
+    "modules": {
+      "rayo": {
+        "listeners": [
+          {
+            "type": "c2s",
+            "port": "5224",
+            "address": "$${rayo_ip}",
+            "acl": ""
+          },
+          {
+            "type": "c2s",
+            "port": "5224",
+            "address": "127.0.0.1",
+            "acl": ""
+          }
+        ]
+      }
+    }
   }
 }
 ```

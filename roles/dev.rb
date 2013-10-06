@@ -10,9 +10,20 @@ run_list "role[base]",
 override_attributes :freeswitch => {
   :modules => {
     :rayo => {
-      :listeners => {
-        "$${domain}" => 5224
-      }
+      :listeners => [
+        {
+          :type => "c2s",
+          :port => "5224",
+          :address => "$${rayo_ip}",
+          :acl => ""
+        },
+        {
+          :type => "c2s",
+          :port => "5224",
+          :address => "127.0.0.1",
+          :acl => ""
+        }
+      ]
     }
   }
 }
