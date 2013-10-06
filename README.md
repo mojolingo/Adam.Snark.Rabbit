@@ -34,12 +34,12 @@ Or in development:
 
 Adam has several components, which use various libraries and various package dependencies. These components are interrelated but run across several processes. The major components are:
 
-* Web UI: Provides authentication/authorization and user administration.
+* Memory: Web UI; Provides authentication/authorization and user administration.
   * User database, MongoDB
 * User Gateways
-  * Phone gateway: Adhearsion application to present a phone interface to Adam via Rayo.
+  * Ears: Adhearsion application to present a phone interface to Adam via Rayo.
     * Rayo service: For connection with SIP & PSTN networks, and maintaining call sessions.
-  * XMPP gateway: Maintains an XMPP user presence for IM interaction.
+  * Fingers: Maintains an XMPP user presence for IM interaction.
 * Brain: The AI component of the system responsible for calculating responses to messages.
 * Internal/External communications systems
   * XMPP server: Adam's XMPP and Rayo clients connect here, and this system is federated with global XMPP servers for routing client requests.
