@@ -45,7 +45,7 @@ class Brain
   # Retrieve the body of any response from the best matching neuron for
   #
   def response_body(message)
-    result = Wit.query message
+    result = Wit.query message.body
     find_best_neuron(result).reply(result)
   rescue => e
     Adhearsion::Events.trigger :exception, [e, logger]
