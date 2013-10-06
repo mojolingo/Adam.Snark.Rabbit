@@ -15,7 +15,7 @@ EOF
     'contacts'
   end
 
-  def reply(message)
+  def reply(message, interpretation)
     return "Sorry, I can only help you with that if you login." unless message.user
     futuresimple_token = message.user["profile"]["futuresimple_token"]
     return "Sorry, you have not configured any integrations for contact lookup." unless futuresimple_token

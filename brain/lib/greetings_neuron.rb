@@ -3,7 +3,7 @@ class GreetingsNeuron
     'greetings'
   end
 
-  def reply(message)
+  def reply(message, interpretation)
     "Why hello there!"
   end
 end

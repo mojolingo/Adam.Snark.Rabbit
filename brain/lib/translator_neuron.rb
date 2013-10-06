@@ -7,9 +7,10 @@ class TranslatorNeuron
     @translator ||= BingTranslator.new(ENV['BING_TRANSLATE_KEY'], ENV['BING_TRANSLATE_SECRET'])
   end
 
-  def reply(message)
-    params = message.body['outcome']['entities']
-    language = params['language']['value']
+  def reply(message, interpretation)
+    params = interpretation['outcome']['entities']
+    language = params['language']['value'] rescue nil
+    return "I can't translate that" unless language
     code = ISO_639.find_by_english_name language
     return "Sorry, I don't speak #{language}." unless code
     phrase = params['phrase_to_translate']['value']

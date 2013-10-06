@@ -3,7 +3,7 @@ class PleasantriesNeuron
     'pleasantries'
   end
 
-  def reply(message)
+  def reply(message, interpretation)
     "I'm fine thanks."
   end
 end
