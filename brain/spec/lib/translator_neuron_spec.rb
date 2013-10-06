@@ -13,20 +13,9 @@ describe TranslatorNeuron do
       subject.translator.stub(:translate).with('yes please', to: 'af').and_raise(Nokogiri::XML::XPath::SyntaxError)
     end
 
-    [
-      ['How do I say "yes please" in Portuguese?', 'Sim por favor'],
-      ['How do I say \'yes please\' in Portuguese?', 'Sim por favor'],
-      ['How do I say yes please in Portuguese?', 'Sim por favor'],
-      ['How do you say "yes please" in Portuguese?', 'Sim por favor'],
-      ['What is "yes please" in Portuguese?', 'Sim por favor'],
-      ['What\'s "yes please" in Portuguese?', 'Sim por favor'],
-      ['How do I say "yes please" in Portuguese?', 'Sim por favor'],
-      ['How do I say "yes please" in portuguese?', 'Sim por favor'], # Lower case target language
-    ].each do |message_body, response|
-      it do
-        interpretation = wit_response_for message_body, 'phrase_to_translate' => 'yes please', 'language' => 'Portuguese'
-        should handle_message(message_body, :default_user, interpretation).and_respond_with(response)
-      end
+    it "should handle a properly formed request" do
+      interpretation = wit_response_for 'How do I say "yes please" in Portuguese?', 'phrase_to_translate' => 'yes please', 'language' => 'Portuguese'
+      should handle_message(message_body, :default_user, interpretation).and_respond_with('Sim por favor')
     end
 
     it "should handle an untranslateable target language" do
