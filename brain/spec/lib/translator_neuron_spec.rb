@@ -29,17 +29,17 @@ describe TranslatorNeuron do
       end
     end
 
-      it "should handle an untranslateable target language" do
-        message_body = 'How do I say "yes please" in Afrikaans?'
-        interpretation = wit_response_for message_body, 'phrase_to_translate' => 'yes please', 'language' => 'Afrikaans'
-        should handle_message(message_body, :default_user, interpretation).and_respond_with("Sorry, I don't speak Afrikaans.")
-      end
+    it "should handle an untranslateable target language" do
+      message_body = 'How do I say "yes please" in Afrikaans?'
+      interpretation = wit_response_for message_body, 'phrase_to_translate' => 'yes please', 'language' => 'Afrikaans'
+      should handle_message(message_body, :default_user, interpretation).and_respond_with("Sorry, I don't speak Afrikaans.")
+    end
 
-      it "should handle an invalid target language" do
-        message_body = 'How do I say "yes please" in klingon?'
-        interpretation = wit_response_for message_body, 'phrase_to_translate' => 'yes please', 'language' => 'Klingon'
-        should handle_message(message_body, :default_user, interpretation).and_respond_with("Sorry, I don't speak Klingon.")
-      end
+    it "should handle an invalid target language" do
+      message_body = 'How do I say "yes please" in klingon?'
+      interpretation = wit_response_for message_body, 'phrase_to_translate' => 'yes please', 'language' => 'Klingon'
+      should handle_message(message_body, :default_user, interpretation).and_respond_with("Sorry, I don't speak Klingon.")
+    end
   end
 
   context "invalid messages" do
