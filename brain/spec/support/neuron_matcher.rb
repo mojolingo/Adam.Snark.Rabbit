@@ -1,11 +1,17 @@
 module NeuronMatchers
   class MessageMatcher
-    def initialize(message, user = :default_user)
+    def initialize(message, user = :default_user, interpretation = nil)
       user = default_user if user == :default_user
       @message = if message.is_a?(AdamCommon::Message)
         message
       else
         AdamCommon::Message.new body: message, user: user
+      end
+
+      @interpretation = if interpretation.nil?
+        wit_message_for message.body
+      else
+        interpretation
       end
     end
 
@@ -143,7 +149,7 @@ module NeuronMatchers
     end
 
     def actual_reply
-      @actual_reply ||= @neuron.reply @message
+      @actual_reply ||= @neuron.reply @message, @interpretation
     end
   end
 
@@ -163,7 +169,8 @@ module NeuronMatchers
     }
   end
 
-  def handle_message(message, user = :default_user)
-    MessageMatcher.new message, user
+  def handle_message(message, user = :default_user, interpretation = nil)
+    interpretation = wit_response_for(message) if interpretation.nil?
+    MessageMatcher.new message, user, interpretation
   end
 end

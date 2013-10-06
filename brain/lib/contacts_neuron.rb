@@ -20,7 +20,7 @@ EOF
     futuresimple_token = message.user["profile"]["futuresimple_token"]
     return "Sorry, you have not configured any integrations for contact lookup." unless futuresimple_token
 
-    params = message.body['outcome']['entities']
+    params = interpretation['outcome']['entities']
     name = params['name']['value']
 
     session = Pipejump::Session.new token: futuresimple_token

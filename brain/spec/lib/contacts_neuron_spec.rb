@@ -96,19 +96,22 @@ describe ContactsNeuron do
       context "for message #{message_body} with option overrides #{options.inspect}" do
         let(:options) { options }
         it do
-          message = wit_response_for message_body, 'name' => 'John Smith'
-          should handle_message(message).and_respond_with(response)
+          interpretation = wit_response_for message_body, 'name' => 'John Smith'
+          should handle_message(message_body, :default_user, interpretation).and_respond_with(response)
         end
       end
     end
 
     context "when the contact doesn't exist" do
-      let(:message_body) { wit_response_for('Find me Joe Bloggs', 'name' => 'Joe Bloggs') }
-      it { should handle_message(message_body).and_respond_with("Sorry, I have no record of Joe Bloggs.") }
+      let(:message_body) { 'Find me Joe Bloggs' }
+      it do
+        interpretation = wit_response_for message_body, 'name' => 'Joe Bloggs'
+        should handle_message(message_body, :default_user, interpretation).and_respond_with("Sorry, I have no record of Joe Bloggs.")
+      end
     end
 
     context "when the requesting user has not set futuresimple credentials" do
-      let(:message_body) { wit_response_for("Find me Joe Bloggs", 'name' => "Joe Bloggs") }
+      let(:message_body) { "Find me Joe Bloggs" }
       let :user do
         {
           "id"  =>  "510d71c4a005b5bb45000002",
@@ -140,14 +143,20 @@ describe ContactsNeuron do
         }
       end
 
-      it { should handle_message(message_body, user).and_respond_with("Sorry, you have not configured any integrations for contact lookup.") }
+      it do
+        interpretation = wit_response_for message_body, 'name' => "Joe Bloggs"
+        should handle_message(message_body, user, interpretation).and_respond_with("Sorry, you have not configured any integrations for contact lookup.")
+      end
     end
 
     context "when the requesting user cannot be identified" do
-      let(:message_body) { wit_response_for("Find me Joe Bloggs", 'name' => 'Joe Bloggs') }
+      let(:message_body) { "Find me Joe Bloggs" }
       let(:user) { nil }
 
-      it { should handle_message(message_body, user).and_respond_with("Sorry, I can only help you with that if you login.") }
+      it do
+        interpretation = wit_response_for message_body, 'name' => 'Joe Bloggs'
+        should handle_message(message_body, user).and_respond_with("Sorry, I can only help you with that if you login.")
+      end
     end
   end
 end
