@@ -96,7 +96,7 @@ describe ContactsNeuron do
       context "for message #{message_body} with option overrides #{options.inspect}" do
         let(:options) { options }
         it do
-          interpretation = wit_response_for message_body, 'name' => 'John Smith'
+          interpretation = wit_interpretation message_body, 'contacts', 'name' => 'John Smith'
           should handle_message(message_body, :default_user, interpretation).and_respond_with(response)
         end
       end
@@ -104,7 +104,7 @@ describe ContactsNeuron do
 
     context "when the contact doesn't exist" do
       let(:message_body) { 'Find me Joe Bloggs' }
-      let(:interpretation) {  wit_response_for message_body, 'name' => 'Joe Bloggs' }
+      let(:interpretation) {  wit_interpretation message_body, 'contacts', 'name' => 'Joe Bloggs' }
 
       it { should handle_message(message_body, :default_user, interpretation).and_respond_with("Sorry, I have no record of Joe Bloggs.") }
     end
@@ -143,7 +143,7 @@ describe ContactsNeuron do
       end
 
       it do
-        interpretation = wit_response_for message_body, 'name' => "Joe Bloggs"
+        interpretation = wit_interpretation message_body, 'contacts' 'name' => "Joe Bloggs"
         should handle_message(message_body, user, interpretation).and_respond_with("Sorry, you have not configured any integrations for contact lookup.")
       end
     end
@@ -153,7 +153,7 @@ describe ContactsNeuron do
       let(:user) { nil }
 
       it do
-        interpretation = wit_response_for message_body, 'name' => 'Joe Bloggs'
+        interpretation = wit_interpretation message_body, 'contacts', 'name' => 'Joe Bloggs'
         should handle_message(message_body, user).and_respond_with("Sorry, I can only help you with that if you login.")
       end
     end
