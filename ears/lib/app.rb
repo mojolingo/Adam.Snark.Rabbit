@@ -1,6 +1,7 @@
 require 'json'
 
 require_relative 'amqp_handler'
+require_relative 'gather_input_controller'
 
 AMQP.logging = true
 
@@ -64,7 +65,8 @@ class App < Adhearsion::Plugin
         logger.info "Response was received: #{response} for #{call}"
         call.execute_controller do
           say response.body
-          hangup
+          say "Anything else?"
+          invoke GatherInputController
         end
       end
       logger.info "Connected and listening for messages"
