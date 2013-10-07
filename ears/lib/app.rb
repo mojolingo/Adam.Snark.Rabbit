@@ -62,11 +62,13 @@ class App < Adhearsion::Plugin
       amqp.work_queue 'response.phone' do |payload|
         response = AdamCommon::Response.from_json(payload)
         call = Adhearsion.active_calls[response.target_address]
-        logger.info "Response was received: #{response} for #{call}"
-        call.execute_controller do
-          say response.body
-          say "Anything else?"
-          invoke GatherInputController
+        logger.info "Response was received: #{response} for #{call || 'missing call'}"
+        if call
+          call.execute_controller do
+            say response.body
+            say "Anything else?"
+            invoke GatherInputController
+          end
         end
       end
       logger.info "Connected and listening for messages"
