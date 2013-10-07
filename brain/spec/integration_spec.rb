@@ -23,7 +23,7 @@ describe "AMQP handling" do
                             body: body
   end
 
-  let(:message_body) { 'foo' }
+  let(:message_body) { 'Hello' }
   let(:intent) { 'foo' }
   let(:entities) { {} }
 
@@ -44,7 +44,7 @@ describe "AMQP handling" do
     responses = []
     channel.queue('response', auto_delete: true).subscribe { |p| responses << p }
 
-    publish_message channel, 'foo@bar.com', 'Hello'
+    publish_message channel, 'foo@bar.com', message_body
 
     done 1 do
       expected_response = response :xmpp, 'foo@bar.com', "Sorry, I don't understand."
