@@ -17,6 +17,9 @@ gem 'pipejump'
 gem 'faraday'
 gem 'faraday_middleware'
 
+# Astricon Schedule Neuron
+gem 'blurrily'
+
 group :development, :test do
   gem 'rspec'
   gem 'guard'
