@@ -6,6 +6,9 @@ gem 'adhearsion-reporter', '~> 2.0'
 
 gem 'att_speech', github: 'emcgee/att_speech', branch: 'master'
 
+gem 'amqp'
+gem 'adam_common', path: '../adam_common'
+
 group :development, :test do
   gem 'rspec'
 
