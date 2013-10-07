@@ -3,8 +3,8 @@ connection = null
 
 jid = (node) -> "#{node}@#{document.domain}"
 
-log = (msg) ->
-  $('#log').append "<div>#{msg.replace(/\n/g, "<br/>")}</div>"
+format = (msg) ->
+  #{msg.replace(/\n/g, "<br/>")}
 
 onMessage = (msg) ->
   type = msg.getAttribute 'type'
@@ -12,7 +12,7 @@ onMessage = (msg) ->
 
   if type == "chat" && elems.length > 0
     body = elems[0]
-    log Strophe.getText(body)
+    rabbitSpeech format(Strophe.getText(body))
 
   # we must return true to keep the handler alive.
   # returning false would remove it after it finishes.
@@ -43,7 +43,7 @@ onConnect = (status) ->
       connection.addHandler onMessage, null, 'message', null, null,  null
 
 sendMessage = (body) ->
-  log body
+  callerSpeech format(body)
   msg = $msg({to: jid('adam'), type: 'chat'})
             .c('body').t(body)
   connection.send msg.tree()
