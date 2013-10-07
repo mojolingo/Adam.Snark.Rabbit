@@ -7,7 +7,6 @@ class Wit
 
   def self.query(message)
     conn = Faraday.new url: BASE_URL do |c|
-      c.basic_auth 'internal', ENV['ADAM_INTERNAL_PASSWORD']
       c.adapter :net_http
       c.response :logger
       c.use FaradayMiddleware::ParseJson, content_type: 'application/json'
@@ -24,8 +23,8 @@ class Wit
   def self.remove_encoding(message)
     message['msg_body'] = CGI.unescapeHTML message['msg_body']
     message['outcome']['entities'].keys.each do |entity|
-      message['outcome']['entities'][entity]['body'] = CGI.unescapeHTML message['outcome']['entities'][entity]['body'] 
-      message['outcome']['entities'][entity]['value'] = CGI.unescapeHTML message['outcome']['entities'][entity]['value'] 
+      message['outcome']['entities'][entity]['body'] = CGI.unescapeHTML message['outcome']['entities'][entity]['body']
+      message['outcome']['entities'][entity]['value'] = CGI.unescapeHTML message['outcome']['entities'][entity]['value']
     end
     message
   end
