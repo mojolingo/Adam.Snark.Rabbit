@@ -5,7 +5,9 @@ describe Wit do
   let(:intent) { 'thingy' }
   let(:entities) { {'groove' => 'tube'} }
   before do
+    ENV['WIT_API_KEY'] = 'abc123'
     stub_request(:get, "https://api.wit.ai/message?q=#{message_body}")
+      .with(headers: {'Authorization' => "Bearer abc123"})
       .to_return(body: wit_interpretation(message_body, intent, entities), headers: {'Content-Type' => 'application/json'})
   end
 
