@@ -48,7 +48,7 @@ class User
   end
 
   def self.find_for_message(message)
-    bare_jid = RubyJID.new(message.source_address).bare
+    bare_jid = RubyJID.new(message.auth_address).bare
     profile = Profile.where("jids.address" => bare_jid.to_s).first
     if profile
       profile.user
