@@ -95,10 +95,8 @@ describe ContactsNeuron do
       message_body = 'Find me John Smith'
       context "for message #{message_body} with option overrides #{options.inspect}" do
         let(:options) { options }
-        it do
-          interpretation = wit_interpretation message_body, 'contacts', 'name' => 'John Smith'
-          should handle_message(message_body, :default_user, interpretation).and_respond_with(response)
-        end
+        let(:interpretation) { wit_interpretation message_body, 'contacts', 'name' => 'John Smith' }
+        it { should handle_message(message_body, :default_user, interpretation).and_respond_with(response) }
       end
     end
 
@@ -141,21 +139,17 @@ describe ContactsNeuron do
           }
         }
       end
+      let(:interpretation) { wit_interpretation message_body, 'contacts' 'name' => "Joe Bloggs" }
 
-      it do
-        interpretation = wit_interpretation message_body, 'contacts' 'name' => "Joe Bloggs"
-        should handle_message(message_body, user, interpretation).and_respond_with("Sorry, you have not configured any integrations for contact lookup.")
-      end
+      it { should handle_message(message_body, user, interpretation).and_respond_with("Sorry, you have not configured any integrations for contact lookup.") }
     end
 
     context "when the requesting user cannot be identified" do
       let(:message_body) { "Find me Joe Bloggs" }
       let(:user) { nil }
+      let(:interpretation) { wit_interpretation message_body, 'contacts', 'name' => 'Joe Bloggs' }
 
-      it do
-        interpretation = wit_interpretation message_body, 'contacts', 'name' => 'Joe Bloggs'
-        should handle_message(message_body, user).and_respond_with("Sorry, I can only help you with that if you login.")
-      end
+      it { should handle_message(message_body, user).and_respond_with("Sorry, I can only help you with that if you login.") }
     end
   end
 end

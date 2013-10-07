@@ -19,12 +19,13 @@ describe Brain do
   end
 
   describe "handling a message" do
+    before { Wit.stub query: interpretation }
+
     context "with a message that we don't understand" do
       let(:message_body) { "Lorem ipsum" }
       let(:interpretation) { wit_interpretation(message_body, 'random_intent') }
 
       it "should yield a message indicating lack of understanding" do
-        Wit.should_receive(:query).and_return interpretation
         response = nil
         subject.handle(message) { |r| response = r }
         response.should == response_with_body("Sorry, I don't understand.")
@@ -53,7 +54,6 @@ describe Brain do
       let(:message_body) { 'foo' }
 
       it "should yield the message returned by the neuron" do
-        Wit.should_receive(:query).and_return interpretation
         response = nil
         subject.handle(message) { |r| response = r }
         response.should == response_with_body("Foo to you too")
@@ -75,7 +75,6 @@ describe Brain do
         let(:interpretation) { wit_interpretation(message_body, 'error_thrower') }
 
         it "should return a failure response message" do
-          Wit.should_receive(:query).and_return interpretation
           response = nil
           subject.handle(message) { |r| response = r }
           response.should == response_with_body("Sorry, I encountered a RuntimeError")
@@ -111,7 +110,6 @@ describe Brain do
       before do
         subject.add_neuron neuron_class_1.new
         subject.add_neuron neuron_class_2.new
-        Wit.should_receive(:query).once.with(message_body).and_return interpretation
       end
 
       let(:message_body) { 'foo' }
