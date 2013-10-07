@@ -9,6 +9,12 @@ GIT
       faraday (>= 0.8.1)
       hashie (>= 1.2.0)
 
+PATH
+  remote: ../adam_common
+  specs:
+    adam_common (0.0.1)
+      virtus
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -42,6 +48,14 @@ GEM
     adhearsion-reporter (2.0.1)
       adhearsion (~> 2.0)
       toadhopper (>= 1.3.0)
+    amq-client (1.0.2)
+      amq-protocol (>= 1.2.0)
+      eventmachine
+    amq-protocol (1.8.0)
+    amqp (1.0.2)
+      amq-client (~> 1.0.2)
+      amq-protocol (>= 1.3.0)
+      eventmachine
     atomic (1.1.14)
     backports (3.3.4)
     blather (0.8.8)
@@ -160,9 +174,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  adam_common!
   adhearsion (~> 2.4)
   adhearsion-asr
   adhearsion-reporter (~> 2.0)
+  amqp
   att_speech!
   guard
   guard-rspec
