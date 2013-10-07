@@ -15,7 +15,7 @@ class AMQPHandler
     message = AdamCommon::Message.from_json payload
     message = processed_message message
     @brain.handle message do |r|
-      publish_response r
+      publish_response r, message.source_type
     end
   end
 
@@ -29,7 +29,9 @@ class AMQPHandler
     @channel.queue 'message'
   end
 
-  def publish_response(response)
-    @channel.default_exchange.publish response.to_json, routing_key: 'response'
+  def publish_response(response, type)
+    key = "response.#{type}"
+    logger.debug "Publishing #{response} to #{key}"
+    @channel.default_exchange.publish response.to_json, routing_key: key
   end
 end

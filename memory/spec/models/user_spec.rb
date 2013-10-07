@@ -28,7 +28,7 @@ describe User do
     context "with a JID" do
       let(:jid) { 'foo@bar.com/doo' }
       let(:message) do
-        AdamCommon::Message.new source_type: :xmpp, source_address: jid
+        AdamCommon::Message.new source_type: :phone, source_address: 'tel:12345', auth_address: jid
       end
 
       it "should find the correct user" do
