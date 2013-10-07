@@ -14,26 +14,26 @@ describe TranslatorNeuron do
       subject.translator.stub(:translate).with('yes please', to: 'af').and_raise(Nokogiri::XML::XPath::SyntaxError)
     end
 
-    def translation_interpretation(language)
+    def translation_interpretation(message_body, language)
       wit_interpretation message_body, 'translation', 'phrase_to_translate' => phrase_to_translate, 'language' => language
     end
 
     it "should handle a properly formed request" do
-      should handle_message('How do I say "yes please" in Portuguese?',
-        :default_user, translation_interpretation('Portuguese')
-      ).and_respond_with('Sim por favor')
+      message = 'How do I say "yes please" in Portuguese?'
+      should handle_message(message, :default_user, translation_interpretation(message, 'Portuguese'))
+        .and_respond_with('Sim por favor')
     end
 
     it "should handle an untranslateable target language" do
-      should handle_message('How do I say "yes please" in Afrikaans?',
-        :default_user, translation_interpretation('Afrikaans')
-      ).and_respond_with("Sorry, I don't speak Afrikaans.")
+      message = 'How do I say "yes please" in Afrikaans?'
+      should handle_message(message, :default_user, translation_interpretation(message, 'Afrikaans'))
+        .and_respond_with("Sorry, I don't speak Afrikaans.")
     end
 
     it "should handle an invalid target language" do
-      should handle_message('How do I say "yes please" in klingon?',
-        :default_user, translation_interpretation('Klingon')
-      ).and_respond_with("Sorry, I don't speak Klingon.")
+      message = 'How do I say "yes please" in klingon?'
+      should handle_message(message, :default_user, translation_interpretation(message, 'Klingon'))
+        .and_respond_with("Sorry, I don't speak Klingon.")
     end
   end
 
