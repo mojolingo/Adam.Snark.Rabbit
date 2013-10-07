@@ -76,6 +76,8 @@ This is a simple Vagrant based development environment. All the usual vagrant ru
     "wit_api_key":"changeme",
     "bing_translate_key":"changeme",
     "bing_translate_secret":"changeme",
+    "att_asr_key":"changeme",
+    "att_asr_secret":"changeme",
     "internal_password":"changeme",
     "punchblock_port":"5224",
     "reporter":{"api_key":"changeme"}
