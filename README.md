@@ -83,6 +83,7 @@ This is a simple Vagrant based development environment. All the usual vagrant ru
     "reporter":{"api_key":"changeme"}
   },
   "freeswitch": {
+    "local_ip":"changeme",
     "modules": {
       "rayo": {
         "listeners": [
