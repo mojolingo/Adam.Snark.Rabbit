@@ -16,11 +16,29 @@ describe Brain do
                 body: body
   end
 
+  def wit_interpretation(message, intent, entities = {})
+    wit_entities = {}
+    entities.keys.each do |key|
+      wit_entities[key] = {'value' => entities[key], 'body' => entities[key]}
+    end
+    {
+      "msg_id" => "7e7cf9a2-007d-499e-83db-49b1d0490141",
+      "msg_body" => message,
+      "outcome" => {
+        "intent" => intent,
+        "entities" => wit_entities,
+        "confidence" => 0.57
+      }
+    }
+  end
+
   describe "handling a message" do
     context "with a message that we don't understand" do
       let(:message_body) { "Lorem ipsum" }
+      let(:interpretation) { wit_interpretation(message_body, 'random_intent') }
 
       it "should yield a message indicating lack of understanding" do
+        Wit.should_receive(:query).and_return interpretation
         response = nil
         subject.handle(message) { |r| response = r }
         response.should == response_with_body("Sorry, I don't understand.")
@@ -34,11 +52,13 @@ describe Brain do
             'foo'
           end
 
-          def reply(message)
+          def reply(message, interpretation)
             "Foo to you too"
           end
         end
       end
+
+      let(:interpretation) { wit_interpretation(message_body, 'foo') }
 
       before do
         subject.add_neuron neuron_class.new
@@ -47,6 +67,7 @@ describe Brain do
       let(:message_body) { 'foo' }
 
       it "should yield the message returned by the neuron" do
+        Wit.should_receive(:query).and_return interpretation
         response = nil
         subject.handle(message) { |r| response = r }
         response.should == response_with_body("Foo to you too")
@@ -56,16 +77,19 @@ describe Brain do
         let :neuron_class do
           Class.new do
             def intent
-              raise
+              'error_thrower'
             end
 
-            def reply(message)
+            def reply(message, interpretation)
               raise
             end
           end
         end
 
+        let(:interpretation) { wit_interpretation(message_body, 'error_thrower') }
+
         it "should return a failure response message" do
+          Wit.should_receive(:query).and_return interpretation
           response = nil
           subject.handle(message) { |r| response = r }
           response.should == response_with_body("Sorry, I encountered a RuntimeError")
@@ -73,14 +97,14 @@ describe Brain do
       end
     end
 
-    context "when multiple neurons have some confidence they will match a single message" do
+    context "when multiple neurons are available"  do
       let :neuron_class_1 do
         Class.new do
           def intent
             'foo1'
           end
 
-          def reply(message)
+          def reply(message, interpretation)
             "Foo one"
           end
         end
@@ -92,7 +116,7 @@ describe Brain do
             'foo2'
           end
 
-          def reply(message)
+          def reply(message, interpretation)
             "Foo two"
           end
         end
@@ -101,24 +125,13 @@ describe Brain do
       before do
         subject.add_neuron neuron_class_1.new
         subject.add_neuron neuron_class_2.new
+        Wit.should_receive(:query).once.with(message_body).and_return interpretation
       end
 
       let(:message_body) { 'foo' }
-      
-      let(:wit_response) do
-        {
-          "msg_id" => "d953bd6c-c620-4dae-a3fc-7634b4330073",
-          "msg_body" => "get me a foo 2",
-          "outcome" => {
-            "intent" => "foo2",
-            "entities" => {},
-            "confidence" => 0.6310633902098893
-          }
-        }
-      end
+      let(:interpretation) { wit_interpretation(message_body, 'foo2') }
 
       it "invokes the neuron selected by Wit" do
-        Wit.should_receive(:query).once.with(message.body).and_return wit_response
         response = nil
         subject.handle(message) { |r| response = r }
         response.should == response_with_body("Foo two")
