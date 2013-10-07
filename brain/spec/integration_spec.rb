@@ -1,10 +1,11 @@
 require 'spec_helper'
 require 'evented-spec'
 require_relative '../lib/amqp_handler'
-require_relative '../lib/humanity_neuron'
+require_relative '../lib/greetings_neuron'
 
 describe "AMQP handling" do
   include EventedSpec::AMQPSpec
+  include WitMessages
 
   default_options host: 'local.adamrabbit.net', vhost: '/test'
 
@@ -22,11 +23,17 @@ describe "AMQP handling" do
                             body: body
   end
 
+  let(:message_body) { 'Hello' }
+  let(:intent) { 'foo' }
+  let(:entities) { {} }
+
   before do
     user = JSON.dump name: 'Ben'
     stub_request(:get, 'http://internal:foobar@local.adamrabbit.com/users/find_for_message.json')
       .with(query: hash_including)
       .to_return(body: user, headers: {'Content-Type' => 'application/json'})
+    stub_request(:get, "https://api.wit.ai/message?q=#{message_body}")
+      .to_return(body: wit_interpretation(message_body, intent, entities), headers: {'Content-Type' => 'application/json'})
   end
 
   it "should respond to messages on the 'message' queue by publishing matching responses on the 'response' queue" do
@@ -37,7 +44,7 @@ describe "AMQP handling" do
     responses = []
     channel.queue('response', auto_delete: true).subscribe { |p| responses << p }
 
-    publish_message channel, 'foo@bar.com', 'Hello'
+    publish_message channel, 'foo@bar.com', message_body
 
     done 1 do
       expected_response = response :xmpp, 'foo@bar.com', "Sorry, I don't understand."
@@ -48,22 +55,27 @@ describe "AMQP handling" do
   context "with a custom neuron defined" do
     let :neuron_class do
       Class.new do
-        def confidence(message)
-          message.body =~ /foo/ ? 1 : 0
+        def intent
+          'foo'
         end
 
-        def reply(message)
+        def reply(message, interpretation)
           "Foo to you too"
         end
       end
     end
 
     before do
-      brain.add_neuron HumanityNeuron.new
+      brain.add_neuron GreetingsNeuron.new
       brain.add_neuron neuron_class.new
     end
 
     it "should respond to messages on the 'message' queue by publishing matching responses on the 'response' queue" do
+      # Extra request to Wit
+      stub_request(:get, "https://api.wit.ai/message?q=Hello")
+        .to_return(body: wit_interpretation('Hello', 'greetings', entities), headers: {'Content-Type' => 'application/json'})
+      stub_request(:get, "https://api.wit.ai/message?q=foo")
+        .to_return(body: wit_interpretation('foo', 'foo', entities), headers: {'Content-Type' => 'application/json'})
       channel = AMQP::Channel.new
 
       AMQPHandler.new(brain).listen
@@ -86,15 +98,17 @@ describe "AMQP handling" do
     context "to check user data" do
       let :neuron_class do
         Class.new do
-          def confidence(message)
-            1
+          def intent
+            'name'
           end
 
-          def reply(message)
+          def reply(message, interpretation)
             message.user['name']
           end
         end
       end
+      let(:message_body) { 'doodah' }
+      let(:intent) { 'name' }
 
       before do
         brain.add_neuron neuron_class.new
@@ -108,7 +122,7 @@ describe "AMQP handling" do
         responses = []
         channel.queue('response', auto_delete: true).subscribe { |p| responses << p }
 
-        publish_message channel, 'foo@bar.com', 'doodah'
+        publish_message channel, 'foo@bar.com', message_body
 
         done 1 do
           expected_responses = [

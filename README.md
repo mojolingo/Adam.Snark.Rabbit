@@ -73,10 +73,12 @@ This is a simple Vagrant based development environment. All the usual vagrant ru
     "github_secret":"changeme",
     "twitter_key":"changeme",
     "twitter_secret":"changeme",
+    "wit_api_key":"changeme",
     "bing_translate_key":"changeme",
     "bing_translate_secret":"changeme",
     "internal_password":"changeme",
-    "punchblock_port":"5224"
+    "punchblock_port":"5224",
+    "reporter":{"api_key":"changeme"}
   },
   "freeswitch": {
     "modules": {
@@ -120,6 +122,7 @@ Adam uses many third party services to access data or perform actions. Each of t
 
 * [Twitter](https://dev.twitter.com/apps)
 * [Github](https://github.com/settings/applications)
+* [Wit AI](http://wit.ai)
 * [Bing Translate](http://go.microsoft.com/?linkid=9782667)
 
 These credentials must then be provided to Chef in the DNA template above.
