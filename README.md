@@ -21,7 +21,7 @@ Or in staging:
   * [Jabber](xmpp:adam@staging.adamrabbit.com)
   * [E-Mail](mailto:adam@staging.adamrabbit.com)
   * [SIP](sip:adam@staging.adamrabbit.com)
-  * the PSTN: +1 (404) 475-4840
+  * the PSTN: +1 (678) 869-2048
 
 Or in development:
 
