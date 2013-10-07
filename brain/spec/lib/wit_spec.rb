@@ -12,7 +12,7 @@ describe Wit do
   end
 
   it "should return a hash of data for a given query" do
-    result = Wit.query message_body
+    result = described_class.query message_body
     result['msg_body'].should == message_body
     result['outcome']['intent'].should == intent
     result['outcome']['entities']['groove']['value'].should == 'tube'
@@ -26,7 +26,7 @@ describe Wit do
     end
 
     it "should properly handle strings containing quotes" do
-      result = Wit.query message_body
+      result = described_class.query message_body
       result['msg_body'].should == '"Hello"'
     end
   end
