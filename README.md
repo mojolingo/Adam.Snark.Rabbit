@@ -77,7 +77,8 @@ This is a simple Vagrant based development environment. All the usual vagrant ru
     "bing_translate_key":"changeme",
     "bing_translate_secret":"changeme",
     "internal_password":"changeme",
-    "punchblock_port":"5224"
+    "punchblock_port":"5224",
+    "reporter":{"api_key":"changeme"}
   },
   "freeswitch": {
     "modules": {
