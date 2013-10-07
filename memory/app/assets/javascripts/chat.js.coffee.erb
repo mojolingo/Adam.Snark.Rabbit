@@ -4,7 +4,7 @@ connection = null
 jid = (node) -> "#{node}@#{document.domain}"
 
 format = (msg) ->
-  #{msg.replace(/\n/g, "<br/>")}
+  return msg.replace(/\n/g, "<br/>")
 
 onMessage = (msg) ->
   type = msg.getAttribute 'type'
@@ -43,10 +43,10 @@ onConnect = (status) ->
       connection.addHandler onMessage, null, 'message', null, null,  null
 
 sendMessage = (body) ->
-  callerSpeech format(body)
   msg = $msg({to: jid('adam'), type: 'chat'})
             .c('body').t(body)
   connection.send msg.tree()
+  callerSpeech format(body)
 
 setupConnection = (user) ->
   return unless user
@@ -60,7 +60,7 @@ $(document).ready getCreds
 
 
 
-### Code from Mel
+# Code from Mel
 
 # Display rabbit's message.
 # Send 'null' if Adam is thinking.
@@ -114,7 +114,7 @@ callerSpeech = (message) ->
     else
 
       # Create a row since one didn't exist before, but put it at the bottom.
-      newMessage = "<div class=\"caller\"><div class=\"row\"><div class=\"span9 offset1 message\"><div class=\"triangle\"></div><div class=\"bubble big-text\"><p style=\"display:none;\">" + message + "</p></div></div><div class=\"span2 image\"><%= image_tag('ada.jpg') %></div></div></div><div class=\"row_separator\"></div>"
+      newMessage = "<div class=\"caller\"><div class=\"row\"><div class=\"span9 offset1 message\"><div class=\"triangle\"></div><div class=\"bubble big-text\"><p style=\"display:none;\">" + message + "</p></div></div><div class=\"span2 image\"><%= image_tag('ada.jpg').gsub /"/, '\\"' %></div></div></div><div class=\"row_separator\"></div>"
       $("#messages").append newMessage + "<div class=\"separator\"></div>"
       $("#messages > .caller:first .bubble p").show "slide",
         direction: "right"
@@ -133,9 +133,9 @@ row = (message) ->
   newBubbleP = null
   direction = "right"
   if adamSpokeLast
-    newMessage = "<div class=\"caller\"><div class=\"row\"><div class=\"span9 offset1 message\"><div class=\"triangle\"></div><div class=\"bubble big-text\"><p style=\"display:none;\">" + message + "</p></div></div><div class=\"span2 image\"><%= image_tag('ada.jpg') %></div></div></div><div class=\"row_separator\"></div>"
+    newMessage = "<div class=\"caller\"><div class=\"row\"><div class=\"span9 offset1 message\"><div class=\"triangle\"></div><div class=\"bubble big-text\"><p style=\"display:none;\">" + message + "</p></div></div><div class=\"span2 image\"><%= image_tag('ada.jpg').gsub /"/, '\\"' %></div></div></div><div class=\"row_separator\"></div>"
   else
-    newMessage = "<div class=\"arabbit\"><div class=\"row\"><div class=\"span2 image\"><%= image_tag('arabbit.jpeg') %></div><div class=\"span9 message\"><div class=\"triangle\"></div><div class=\"bubble big-text\"><p style=\"display: none;\">" + message + "</p></div></div></div></div><div class=\"row_separator\"></div>"
+    newMessage = "<div class=\"arabbit\"><div class=\"row\"><div class=\"span2 image\"><%= image_tag('arabbit.jpeg').gsub /"/, '\\"' %></div><div class=\"span9 message\"><div class=\"triangle\"></div><div class=\"bubble big-text\"><p style=\"display: none;\">" + message + "</p></div></div></div></div><div class=\"row_separator\"></div>"
     direction = "left"
   $("#messages").prepend newMessage + "<div class=\"separator\"></div>"
   if adamSpokeLast
