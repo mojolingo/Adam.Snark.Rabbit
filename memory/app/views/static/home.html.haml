@@ -1,6 +1,5 @@
 - title "Welcome", false
 
-%p This is a static home page
 
 #log
 
@@ -8,3 +7,34 @@
   %form{:name => 'chat'}
     %input#message{:type => 'text'}
     %input#send_message{:type => 'submit', :value => 'Send', :disabled => true}
+
+
+/ CODE FROM MEL
+
+.container
+  .row-fluid
+    #sidebar.span3
+      .image
+        = image_tag('ada.jpg')
+      .suggestions
+        %h3 Suggestions
+        %ul
+          %li Translate text to another language!
+          %li Ask what time it is.
+          %li "Tweet this message: ..."
+          %li Ask about the weather!
+          %li Perhaps you'd like a dining recommendation?
+      .past_searches
+        %h3 Past Searches
+        %ul
+          %li
+            %p Q: What is the air-speed velocity of an unladen swallow?
+            %p A: 11 m/s, or 24 mph
+            %p
+              %em This was texted to you.
+          %li
+            %p Q: How much wood can a wood-chuck chuck?
+            %p A: A wood-chuck would chuck as much wood as a wood-chuck could chuck.
+            %p
+              %em This was not texted to you.
+    #messages.span9
