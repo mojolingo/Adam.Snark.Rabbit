@@ -21,7 +21,6 @@ template '/etc/ejabberd/ext_auth' do
 end
 
 ruby_components = %w{
-  adam_common
   memory
   ears
   fingers
@@ -29,6 +28,19 @@ ruby_components = %w{
 }
 
 if node[:adam][:standalone_deployment]
+  links = {}
+  ruby_components.each do |component|
+    links["#{component}/vendor/ruby"] = "#{component}/vendor/ruby"
+  end
+
+  links.each_pair do |source_dir, symlink|
+    directory File.join(node['adam']['deployment_path'], 'shared', source_dir) do
+      recursive true
+      owner "adam"
+      group "adam"
+    end
+  end
+
   application "adam" do
     path node['adam']['deployment_path']
     owner "adam"
@@ -38,6 +50,8 @@ if node[:adam][:standalone_deployment]
     revision node['adam']['app_repo_ref']
 
     deploy_key node['adam']['deploy_key']
+
+    symlinks links
 
     nginx_load_balancer do
       application_port 3000
@@ -58,7 +72,7 @@ if node[:adam][:standalone_deployment]
 
       ruby_components.each do |component|
         rbenv_script "app_#{component}_dependencies" do
-          code "bundle install --path vendor/ruby"
+          code "bundle install --deployment --path vendor/ruby"
           cwd File.join(node['adam']['deployment_path'], 'current', component)
         end
       end
