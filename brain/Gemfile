@@ -20,6 +20,9 @@ gem 'faraday_middleware'
 # Astricon Schedule Neuron
 gem 'blurrily'
 
+# Tweet gem
+gem 'twitter'
+
 group :development, :test do
   gem 'rspec'
   gem 'guard'
