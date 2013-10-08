@@ -11,12 +11,12 @@ describe AstriconNowSpeaking do
 
   it "should find Ben's presentation during his time" do
     Timecop.travel Time.local(2013, 10, 10, 18, 50, 0)
-    subject.response(nil, nil).should =~ /Ben Klang/
+    subject.reply(nil, nil).should =~ /Ben Klang/
   end
 
   it "should find no presentations after the show ends" do
     Timecop.travel Time.local(2013, 10, 12, 18, 50, 0)
-    subject.response(nil, nil).should == "There are no sessions on right now. Try back later."
+    subject.reply(nil, nil).should == "There are no sessions on right now. Try back later."
   end
 end
 

@@ -6,7 +6,7 @@ class AstriconNowSpeaking
     'astricon_now_speaking'
   end
 
-  def response(message, interpretation)
+  def reply(message, interpretation)
     sessions = AstriconPresentations.find_by_time DateTime.now
 
     if sessions.count > 0
