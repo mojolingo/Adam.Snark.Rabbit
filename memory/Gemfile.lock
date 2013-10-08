@@ -150,6 +150,8 @@ GEM
     jquery-rails (2.2.0)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
+    jquery-ui-rails (4.0.5)
+      railties (>= 3.1.0)
     json (1.7.7)
     jwt (0.1.5)
       multi_json (>= 1.0)
@@ -346,6 +348,7 @@ DEPENDENCIES
   inherited_resources
   jasmine-rails
   jquery-rails
+  jquery-ui-rails
   launchy
   less-rails
   mongoid (~> 3.0)
