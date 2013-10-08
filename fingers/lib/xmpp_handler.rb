@@ -13,7 +13,9 @@ class XMPPHandler
     message :body do |m|
       EM.next_tick do
         send_typing m.from
-        @amqp_handler.default_publish 'message', AdamCommon::Message.new(body: m.body, source_address: m.from.to_s, source_type: :xmpp).to_json
+        message = AdamCommon::Message.new(body: m.body, source_address: m.from.to_s, auth_address: m.from.to_s, source_type: :xmpp)
+        logger.info "Publishing message #{message}"
+        @amqp_handler.default_publish 'message', message.to_json
       end
     end
   end

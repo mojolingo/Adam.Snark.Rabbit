@@ -36,13 +36,13 @@ describe "AMQP handling" do
       .to_return(body: wit_interpretation(message_body, intent, entities), headers: {'Content-Type' => 'application/json'})
   end
 
-  it "should respond to messages on the 'message' queue by publishing matching responses on the 'response' queue" do
+  it "should respond to messages on the 'message' queue by publishing matching responses on the 'response.[type]' queue" do
     channel = AMQP::Channel.new
 
     AMQPHandler.new.listen
 
     responses = []
-    channel.queue('response', auto_delete: true).subscribe { |p| responses << p }
+    channel.queue('response.xmpp', auto_delete: true).subscribe { |p| responses << p }
 
     publish_message channel, 'foo@bar.com', message_body
 
@@ -70,7 +70,7 @@ describe "AMQP handling" do
       brain.add_neuron neuron_class.new
     end
 
-    it "should respond to messages on the 'message' queue by publishing matching responses on the 'response' queue" do
+    it "should respond to messages on the 'message' queue by publishing matching responses on the 'response.[type]' queue" do
       # Extra request to Wit
       stub_request(:get, "https://api.wit.ai/message?q=Hello")
         .to_return(body: wit_interpretation('Hello', 'greetings', entities), headers: {'Content-Type' => 'application/json'})
@@ -81,7 +81,7 @@ describe "AMQP handling" do
       AMQPHandler.new(brain).listen
 
       responses = []
-      channel.queue('response', auto_delete: true).subscribe { |p| responses << p }
+      channel.queue('response.xmpp', auto_delete: true).subscribe { |p| responses << p }
 
       publish_message channel, 'foo@bar.com', 'Hello'
       publish_message channel, 'foo@bar.com', 'foo'
@@ -120,7 +120,7 @@ describe "AMQP handling" do
         AMQPHandler.new(brain).listen
 
         responses = []
-        channel.queue('response', auto_delete: true).subscribe { |p| responses << p }
+        channel.queue('response.xmpp', auto_delete: true).subscribe { |p| responses << p }
 
         publish_message channel, 'foo@bar.com', message_body
 

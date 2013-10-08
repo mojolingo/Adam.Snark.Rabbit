@@ -48,7 +48,7 @@ gem 'adam_common', path: '../adam_common'
 gem 'ruby_jid'
 
 group :development do
-#  gem 'debugger'
+  gem 'debugger'
 
   # html2haml
   gem 'hpricot'
