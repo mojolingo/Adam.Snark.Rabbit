@@ -34,6 +34,7 @@ onConnect = (status) ->
 
     when Strophe.Status.CONNECTED
       console.log 'Strophe is connected.'
+      connection.send($pres().c("priority").t("100"));
       $('#send_message').attr('disabled', false);
       $('form[name=chat]').submit ->
         message = $('#message').get(0).value
