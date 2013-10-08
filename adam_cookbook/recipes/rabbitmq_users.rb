@@ -22,6 +22,18 @@ rabbitmq_user "fingers" do
   action :set_permissions
 end
 
+rabbitmq_user "ears" do
+  password "password"
+  action :add
+  notifies :restart, "service[rabbitmq-server]"
+end
+
+rabbitmq_user "ears" do
+  vhost "/"
+  permissions '".*" ".*" ".*"'
+  action :set_permissions
+end
+
 rabbitmq_user "brain" do
   password "password"
   action :add

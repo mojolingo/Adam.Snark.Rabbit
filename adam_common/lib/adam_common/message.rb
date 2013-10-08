@@ -6,6 +6,7 @@ class AdamCommon::Message
 
   attribute :source_type, Symbol
   attribute :source_address, String
+  attribute :auth_address, String
   attribute :body, String
   attribute :user, Hash
 
