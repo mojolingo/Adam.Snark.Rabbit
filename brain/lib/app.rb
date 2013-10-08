@@ -7,6 +7,7 @@ require_relative 'translator_neuron'
 require_relative 'contacts_neuron'
 require_relative 'mirror_mirror_neuron'
 require_relative 'astricon_now_speaking'
+require_relative 'time_neuron'
 
 class App < Adhearsion::Plugin
   init :brain do
@@ -18,6 +19,7 @@ class App < Adhearsion::Plugin
     @brain.add_neuron ContactsNeuron.new
     @brain.add_neuron MirrorMirrorNeuron.new
     @brain.add_neuron AstriconNowSpeaking.new
+    @brain.add_neuron TimeNeuron.new
   end
 
   run :brain do
