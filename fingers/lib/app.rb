@@ -69,7 +69,7 @@ class App < Adhearsion::Plugin
         xmpp.remove_from_roster payload['jid']
       end
 
-      amqp.work_queue 'response.xmpp' do |payload|
+      amqp.work_topic 'responses', 'response.xmpp' do |payload|
         puts "Response was received: #{AdamCommon::Response.from_json(payload)}"
         xmpp.process_message_response AdamCommon::Response.from_json(payload)
       end
