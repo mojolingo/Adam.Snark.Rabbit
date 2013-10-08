@@ -5,15 +5,17 @@
  *= require_self
  *= require_tree . 
 */
-img { max-width: 100%; }
+img { 
+    max-width: 100%; 
+}
 
 .arabbit .image, .caller .image {
     width: 100px;
 }
 
 * {
-	font-family: 'Open Sans', Helvetica, sans-serif !important;
-	text-rendering: optimizeLegibility;
+    font-family: 'Open Sans', Helvetica, sans-serif !important;
+    text-rendering: optimizeLegibility;
 }
 
 body {
@@ -62,16 +64,16 @@ body {
 
 #messages .caller .bubble {
     float: right;
-	background-color: rgb(126, 126, 219);
-	color: white;
-	text-shadow: 1px 1px rgba(0,0,0,0.5);
+    background-color: rgb(126, 126, 219);
+    color: white;
+    text-shadow: 1px 1px rgba(0,0,0,0.5);
 }
 
 #messages .arabbit .bubble {
     float: left;
-	background-color: rgba(150, 21, 48, 0.7);
-	color: white;
-	text-shadow: 1px 1px rgba(0,0,0,0.5);
+    background-color: rgba(150, 21, 48, 0.7);
+    color: white;
+    text-shadow: 1px 1px rgba(0,0,0,0.5);
 }
 
 .caller .triangle {
@@ -98,8 +100,6 @@ body {
     height:0;
     width:0;
     top: 15px;
-    /*bottom: 27px;*/
-    /*right:19px;*/
     z-index:100;
 }
 
@@ -124,24 +124,24 @@ body {
 
 .avatar.ada {
     background-image: url(<%= image_path('ada.jpg') %>);
-	background-size: cover;
+    background-size: cover;
 }
 
 .avatar.rabbit {
-	background-image: url(<%= image_path('arabbit.jpeg') %>);
-	background-size: cover;
+    background-image: url(<%= image_path('arabbit.jpeg') %>);
+    background-size: cover;
 }
 
 #sidebar {
-	background-color: white;
-	padding: 10px;
-	border-radius: 5px;
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
 }
 
 .suggestions ul li {
-  font-size: 1.3em;
-  padding-bottom: 10px;
-  font-weight: bold;
+    font-size: 1.3em;
+    padding-bottom: 10px;
+    font-weight: bold;
 }
 
 #chat {
