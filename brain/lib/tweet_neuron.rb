@@ -1,3 +1,5 @@
+require 'twitter'
+
 class TweetNeuron
   def initialize
   end
@@ -7,7 +9,6 @@ class TweetNeuron
   end
 
   def reply(message, interpretation)
-    return message.inspect
     client = get_twitter_client(message.user)
     return "You must log in via Twitter so I can help you tweet." unless client
     entities = interpretation['outcome']['entities']
@@ -18,8 +19,9 @@ class TweetNeuron
   end
 
   def get_twitter_client(user)
-    if user['auth_grants'].select { |grant| grant[:provider] == :twitter }
-      Twitter::REST::Client.new do |config|
+    grant = user['auth_grants'].select { |grant| grant[:provider] == :twitter }.first
+    if grant
+      Twitter::Client.new do |config|
         config.consumer_key        = ENV['TWITTER_KEY']
         config.consumer_secret     = ENV['TWITTER_SECRET']
         config.access_token        = grant[:credentials]['token']

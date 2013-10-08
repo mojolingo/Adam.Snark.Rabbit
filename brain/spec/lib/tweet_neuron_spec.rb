@@ -12,7 +12,6 @@ describe TweetNeuron do
   end
 
   it "should send a tweet" do
-    pending "This needs a web mock"
     interpretation = wit_interpretation 'Tweet Hello from AstriCon', 'tweet', message: 'Hello from AstriCon'
     should handle_message('Tweet this Hello from Astricon', :default_user, interpretation)
       .and_respond_with("Message sent.")
@@ -23,9 +22,9 @@ describe TweetNeuron do
       subject.get_twitter_client('auth_grants' => []).should be nil
     end
 
-    it "should return an instance of Twitter::REST::Client if credentials are supplied" do
-      user = {'auth_grants' => [{provider: twitter, credentials: => {'token' => 'abcd', 'secret' => 'efgh'}}]}
-      subject.get_twitter_client(user).should be instance_of(Twitter::REST::Client)
+    it "should return an instance of Twitter::Client if credentials are supplied" do
+      user = {'auth_grants' => [{provider: :twitter, credentials: {'token' => 'abcd', 'secret' => 'efgh'}}]}
+      subject.get_twitter_client(user).should be_a Twitter::Client
     end
   end
 
