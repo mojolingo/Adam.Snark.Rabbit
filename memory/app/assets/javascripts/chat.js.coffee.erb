@@ -68,13 +68,18 @@ adamIsThinking = false
 animationTime = 250
 typingInterval = false
 tooNoisy = false
+curtainsCount = 0 # So we can cycle instead of random blunder through curtain call messages.
+curtainsDropped = false
 
 $(document).ready ->
   # Position the "too noisy" element.
   too_noisy_right = (0 - $('form[name=chat]').width()) + 'px'
-  console.log too_noisy_right
-  console.log $('form[name=chat]').width()
-  $('#chat').css( {right: too_noisy_right, zIndex: '99999999999'} )
+  $('#chat').css( {right: too_noisy_right, zIndex: '99999999'} )
+  # Adjust the curtains.
+  sizeCurtains()
+
+$(window).resize ->
+  sizeCurtains()
 
 $('.too-noisy').click ->
   if tooNoisy
@@ -83,6 +88,36 @@ $('.too-noisy').click ->
   else
     $('#chat').animate({ right: 0 }, 250)
     tooNoisy = true
+
+$('.curtain-caller').click ->
+  curtainCall()
+
+# Incase the screen is resized, resize the curtains.
+sizeCurtains = () ->
+  $('#curtain-call').width($(window).width()).height($(window).height())
+  unless curtainsDropped
+    $('#curtain-call').css({top: (0- $(window).height()) + 'px'}).show
+
+# Animate the curtains.
+curtainCall = () ->
+  if curtainsDropped
+    # Raise the curtains
+    $('#curtain-call').animate({top: (0 - $(window).height()) + 'px'}, 1000, 'linear').promise().done ->
+      switch curtainsCount
+        when 0
+          $('#curtain-call .rotate').html('FOR GOOD TIME CALL ADAM S. RABBIT:')
+          curtainsCount = 1
+        when 1
+          $('#curtain-call .rotate').html('CALL ME! ANY DAY OR NIGHT:')
+          curtainsCount = 2
+        when 2
+          $('#curtain-call .rotate').html('CALL ME MAYBE?')
+          curtainsCount = 0
+    curtainsDropped = false
+  else
+    # Drop the curtains
+    $('#curtain-call').css({display: 'table'}).animate({top: 0}, 1000, 'easeOutBack')
+    curtainsDropped = true
 
 
 # Display rabbit's message.
@@ -184,13 +219,3 @@ scrubSeparators = ->
     $("#messages .caller:first .separator").css display: "none"
     $("#messages .arabbit .big-text").not(":eq(0)").removeClass "big-text"
   $("p:empty").not(".typing").remove()
-
-
-
-
-
-
-
-
-
-
