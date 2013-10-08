@@ -15,7 +15,13 @@ class AMQPHandler
     queue.subscribe &block
   end
 
-  def default_publish(key, payload)
-    @channel.default_exchange.publish payload, routing_key: key
+  def work_topic(topic, routing_key, &block)
+    @channel.queue("", exclusive: true, auto_delete: true) do |queue|
+      queue.bind(@channel.topic(topic), routing_key: routing_key).subscribe &block
+    end
+  end
+
+  def publish_message(payload)
+    @channel.topic('messages').publish payload
   end
 end
