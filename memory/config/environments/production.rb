@@ -61,6 +61,7 @@ ASR::Application.configure do
   config.action_mailer.default_url_options = { host: 'staging.adamrabbit.net' }
 
   config.action_mailer.smtp_settings = {
-    openssl_verify_mode: 'none'
+    openssl_verify_mode: 'none',
+    enable_starttls_auto: false
   }
 end
