@@ -26,4 +26,5 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'evented-spec'
   gem 'webmock'
+  gem 'timecop'
 end

@@ -151,7 +151,7 @@ class AstriconPresentations
   end
 
   def find_by_room(room)
-    ROOMS[@room_map.find(room).first.first]
+    room = ROOMS[@room_map.find(room).first.first]
 
     SESSIONS.find_all do |name, data|
       data[:room] == room
@@ -159,10 +159,10 @@ class AstriconPresentations
   end
 
   def find_by_track(track)
-    TRACKS[@track_map.find(track).first.first]
+    track = TRACKS[@track_map.find(track).first.first]
 
-    TRACKS.find_all do |name, data|
-      data[:room] == track
+    SESSIONS.find_all do |name, data|
+      data[:track] == track
     end
   end
 
