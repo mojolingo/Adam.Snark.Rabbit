@@ -70,6 +70,7 @@ class Brain
   #
   def response_body(message)
     interpretation = Wit.query message.body
+    logger.debug "Wit interpretation: #{interpretation.inspect}"
     find_best_neuron(interpretation).reply(message, interpretation)
   rescue => e
     Adhearsion::Events.trigger :exception, [e, logger]
