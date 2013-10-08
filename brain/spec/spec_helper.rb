@@ -19,5 +19,5 @@ RSpec.configure do |config|
   config.before { WebMock.disable_net_connect! }
 end
 
-ENV['ADAM_ROOT_DOMAIN'] = 'local.adamrabbit.com'
+ENV['ADAM_ROOT_DOMAIN'] = 'local.adamrabbit.com:3000'
 ENV['ADAM_INTERNAL_PASSWORD'] = 'foobar'

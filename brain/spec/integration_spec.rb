@@ -11,8 +11,8 @@ describe "AMQP handling" do
 
   let(:brain) { Brain.new }
 
-  def publish_message(channel, from, body)
-    message = AdamCommon::Message.new source_type: :xmpp,
+  def publish_message(channel, from, body, type = :xmpp)
+    message = AdamCommon::Message.new source_type: type,
                 source_address: from, body: body
     channel.topic("messages").publish message.to_json
   end
@@ -28,8 +28,8 @@ describe "AMQP handling" do
   let(:entities) { {} }
 
   before do
-    user = JSON.dump name: 'Ben'
-    stub_request(:get, 'http://internal:foobar@local.adamrabbit.com/users/find_for_message.json')
+    user = JSON.dump name: 'Ben', id: "foobarid"
+    stub_request(:get, 'http://internal:foobar@local.adamrabbit.com:3000/users/find_for_message.json')
       .with(query: hash_including)
       .to_return(body: user, headers: {'Content-Type' => 'application/json'})
     stub_request(:get, "https://api.wit.ai/message?q=#{message_body}")
@@ -53,6 +53,28 @@ describe "AMQP handling" do
     done 2 do
       expected_response = response :xmpp, 'foo@bar.com', "Sorry, I don't understand."
       responses.should eql([expected_response.to_json])
+    end
+  end
+
+  context "with a message from the phone" do
+    it "should respond via XMPP to the user's built-in JID" do
+      channel = AMQP::Channel.new
+
+      AMQPHandler.new.listen
+
+      responses = []
+      channel.queue('', auto_delete: true) do |queue|
+        queue.bind(channel.topic('responses'), routing_key: 'response.xmpp').subscribe { |h, p| responses << p }
+      end
+
+      EM.add_timer 1 do # Leave time for server-named queues to be bound
+        publish_message channel, '23817492834289@rayo.adamrabbit.net', message_body, :phone
+      end
+
+      done 2 do
+        expected_response = response :xmpp, 'foobarid@local.adamrabbit.com', "Sorry, I don't understand."
+        responses.should eql([expected_response.to_json])
+      end
     end
   end
 

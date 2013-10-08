@@ -10,7 +10,7 @@ class XMPPHandler
       write_to_stream s.approve!
     end
 
-    message :body do |m|
+    message :body, type: [nil, :chat, :normal] do |m|
       EM.next_tick do
         send_typing m.from
         message = AdamCommon::Message.new(body: m.body, source_address: m.from.to_s, auth_address: m.from.to_s, source_type: :xmpp)
