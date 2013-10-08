@@ -11,9 +11,13 @@ img { max-width: 100%; }
     width: 100px;
 }
 
+* {
+	font-family: 'Open Sans', Helvetica, sans-serif !important;
+	text-rendering: optimizeLegibility;
+}
+
 body {
-    background-color: #151b20;
-    color: #6b787f;
+    background-image: url(<%= image_path('white_wall_hash.png') %>);
 }
 
 #messages {
@@ -29,16 +33,16 @@ body {
     max-width: 575px;
 }
 
-#messages .message .big-text {
+#messages .message .big-text p {
     font-size: 1.6em;
     line-height: 1.2em;
 }
 
 #messages .message .bubble .separator {
     display: block;
-    width: 21%;
+    width: 40px;
     height: 1px;
-    border-bottom: 2px groove rgba(165, 24, 54, 0.48);
+    border-bottom: 2px groove rgba(0,0,0,0.1);
     padding-bottom: 10px;
     margin-bottom: 20px;
 }
@@ -49,7 +53,7 @@ body {
 
 .row_separator{
     margin-bottom: 20px;
-    border-bottom: 2px groove #666;
+    border-bottom: 2px groove white;
     padding-bottom: 20px;
     width: 35%;
     margin-left: auto;
@@ -58,10 +62,16 @@ body {
 
 #messages .caller .bubble {
     float: right;
+	background-color: rgb(126, 126, 219);
+	color: white;
+	text-shadow: 1px 1px rgba(0,0,0,0.5);
 }
 
 #messages .arabbit .bubble {
     float: left;
+	background-color: rgba(150, 21, 48, 0.7);
+	color: white;
+	text-shadow: 1px 1px rgba(0,0,0,0.5);
 }
 
 .caller .triangle {
@@ -69,7 +79,7 @@ body {
     position: relative;
     top: 15px;
     display: block;
-    border-color: transparent transparent transparent white;
+    border-color: transparent transparent transparent rgb(126, 126, 219);
     border-style: solid;
     border-width: 10px;
     height:0;
@@ -82,7 +92,7 @@ body {
     float: left;
     display: block;
     content: "";
-    border-color: transparent white transparent transparent;
+    border-color: transparent rgba(150, 21, 48, 0.7) transparent transparent;
     border-style: solid;
     border-width: 10px;
     height:0;
@@ -105,4 +115,25 @@ body {
 .dot {
     font-size: 1.2em;
     color: #961530;
+}
+
+.avatar {
+    height: 100px;
+    width: 100px;
+}
+
+.avatar.ada {
+    background-image: url(<%= image_path('ada.jpg') %>);
+	background-size: cover;
+}
+
+.avatar.rabbit {
+	background-image: url(<%= image_path('arabbit.jpeg') %>);
+	background-size: cover;
+}
+
+#sidebar {
+	background-color: white;
+	padding: 10px;
+	border-radius: 5px;
 }
