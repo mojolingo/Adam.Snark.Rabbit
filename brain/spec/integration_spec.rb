@@ -57,7 +57,7 @@ describe "AMQP handling" do
   end
 
   context "with a message from the phone" do
-    it "should respond via XMPP to the user's built-in JID" do
+    it "should forward the message via XMPP and respond via XMPP to the user's built-in JID" do
       channel = AMQP::Channel.new
 
       AMQPHandler.new.listen
@@ -72,8 +72,9 @@ describe "AMQP handling" do
       end
 
       done 2 do
+        expected_message_copy = response :xmpp, 'foobarid@local.adamrabbit.com', "You said #{message_body}."
         expected_response = response :xmpp, 'foobarid@local.adamrabbit.com', "Sorry, I don't understand."
-        responses.should eql([expected_response.to_json])
+        responses.should eql([expected_message_copy.to_json, expected_response.to_json])
       end
     end
   end

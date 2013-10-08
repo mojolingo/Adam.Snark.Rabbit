@@ -19,9 +19,22 @@ class Brain
   #
   def handle(message)
     logger.info "Message was received: #{message}"
-    body = response_body message
-    response_targets(message).each_pair do |type, address|
-      reply = response type, address, body
+
+    response_targets = {message.source_type => message.source_address}
+
+    if message.source_type == :phone
+      internal_jid = "#{message.user['id']}@#{ENV['ADAM_ROOT_DOMAIN'].sub(/:\d*/, '')}"
+      response_targets[:xmpp] = internal_jid
+
+      forward = response :xmpp, internal_jid, "You said #{message.body}."
+      logger.info "Forwarding phone message to UI: #{forward}"
+      yield forward, :xmpp
+    end
+
+    response_body = response_body message
+
+    response_targets.each_pair do |type, address|
+      reply = response type, address, response_body
       logger.info "Sending response #{reply}"
       yield reply, type
     end
