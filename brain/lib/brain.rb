@@ -13,14 +13,31 @@ class Brain
   #
   # @param [AdamCommon::Message] message received from the user
   #
-  # @yield [response] handle the response calculated from the message
+  # @yield [response, type] handle the response calculated from the message
   # @yieldparam [AdamCommon::Response] response
+  # @yieldparam [Symbol] type The type of response. Can be :xmpp, :phone, etc. Used for routing the response to the best mode gateway.
   #
   def handle(message)
     logger.info "Message was received: #{message}"
-    reply = response message
-    logger.info "Sending response #{reply}"
-    yield reply
+
+    response_targets = {message.source_type => message.source_address}
+
+    if message.source_type == :phone
+      internal_jid = "#{message.user['id']}@#{ENV['ADAM_ROOT_DOMAIN'].sub(/:\d*/, '')}"
+      response_targets[:xmpp] = internal_jid
+
+      forward = response :xmpp, internal_jid, "You said #{message.body}."
+      logger.info "Forwarding phone message to UI: #{forward}"
+      yield forward, :xmpp
+    end
+
+    response_body = response_body message
+
+    response_targets.each_pair do |type, address|
+      reply = response type, address, response_body
+      logger.info "Sending response #{reply}"
+      yield reply, type
+    end
   end
 
   #
@@ -36,8 +53,16 @@ class Brain
 
   private
 
-  def response(message)
-    AdamCommon::Response.new target_type: message.source_type, target_address: message.source_address, body: response_body(message)
+  def response_targets(message)
+    targets = {message.source_type => message.source_address}
+    if message.source_type == :phone
+      targets[:xmpp] = "#{message.user['id']}@#{ENV['ADAM_ROOT_DOMAIN'].sub(/:\d*/, '')}"
+    end
+    targets
+  end
+
+  def response(type, address, body)
+    AdamCommon::Response.new target_type: type, target_address: address, body: body
   end
 
   #
@@ -45,6 +70,7 @@ class Brain
   #
   def response_body(message)
     interpretation = Wit.query message.body
+    logger.debug "Wit interpretation: #{interpretation.inspect}"
     find_best_neuron(interpretation).reply(message, interpretation)
   rescue => e
     Adhearsion::Events.trigger :exception, [e, logger]

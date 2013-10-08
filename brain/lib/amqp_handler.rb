@@ -8,15 +8,15 @@ class AMQPHandler
   end
 
   def listen
-    message_queue.subscribe &method(:handle_message)
+    @channel.queue("", exclusive: true, auto_delete: true) do |queue|
+      queue.bind(@channel.topic("messages")).subscribe &method(:handle_message)
+    end
   end
 
-  def handle_message(payload)
+  def handle_message(headers, payload)
     message = AdamCommon::Message.from_json payload
     message = processed_message message
-    @brain.handle message do |r|
-      publish_response r, message.source_type
-    end
+    @brain.handle message, &method(:publish_response)
   end
 
   private
@@ -25,13 +25,9 @@ class AMQPHandler
     MessageProcessor.new(message).processed_message
   end
 
-  def message_queue
-    @channel.queue 'message'
-  end
-
   def publish_response(response, type)
     key = "response.#{type}"
     logger.debug "Publishing #{response} to #{key}"
-    @channel.default_exchange.publish response.to_json, routing_key: key
+    @channel.topic('responses').publish response.to_json, routing_key: key
   end
 end
