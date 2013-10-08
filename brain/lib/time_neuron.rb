@@ -3,7 +3,7 @@ class TimeNeuron
     'the_time'
   end
 
-  def response(message, interpretation)
+  def reply(message, interpretation)
     Time.now.strftime "The time is %l:%M %p"
   end
 end
