@@ -67,6 +67,23 @@ adamSpokeLast = undefined
 adamIsThinking = false
 animationTime = 250
 typingInterval = false
+tooNoisy = false
+
+$(document).ready ->
+  # Position the "too noisy" element.
+  too_noisy_right = (0 - $('form[name=chat]').width()) + 'px'
+  console.log too_noisy_right
+  console.log $('form[name=chat]').width()
+  $('#chat').css( {right: too_noisy_right, zIndex: '99999999999'} )
+
+$('.too-noisy').click ->
+  if tooNoisy
+    $('#chat').animate({ right: (0 - $('form[name=chat]').width()) + 'px' }, 250)
+    tooNoisy = false
+  else
+    $('#chat').animate({ right: 0 }, 250)
+    tooNoisy = true
+
 
 # Display rabbit's message.
 # Send 'null' if Adam is thinking.
