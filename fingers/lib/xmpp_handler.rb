@@ -15,7 +15,7 @@ class XMPPHandler
         send_typing m.from
         message = AdamCommon::Message.new(body: m.body, source_address: m.from.to_s, auth_address: m.from.to_s, source_type: :xmpp)
         logger.info "Publishing message #{message}"
-        @amqp_handler.default_publish 'message', message.to_json
+        @amqp_handler.publish_message message.to_json
       end
     end
   end
