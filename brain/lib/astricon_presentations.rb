@@ -1,7 +1,10 @@
 require 'date'
+require 'singleton'
 require 'blurrily/map'
 
 class AstriconPresentations
+  include Singleton
+
   SESSIONS = {
     "Asterisk: Views from the Community" => { speakers: ["Phillippe Lindheimer", "Olle E. Johansson", "Alistair Cunningham", "Mark Spencer"], start: DateTime.parse('2013-10-09 9:00 EDT'), end: DateTime.parse('2013-10-09 9:45 EDT'), room: 'Grand Ballroom III & IV', track: 'Keynote' },
     "Intro to VoIP Security – They know who you are and how to find you" => { speakers: ['Eric Klein'], start: DateTime.parse('2013-10-09 10:00 EDT'), end: DateTime.parse('2013-10-09 10:35 EDT'), room: 'Chambers', track: 'Security Master Class'},
@@ -139,13 +142,37 @@ class AstriconPresentations
     TRACKS.each_index {|index| @track_map.put TRACKS[index], index }
   end
 
-  def intent
-    'astricon_presentations'
+  def find_by_speaker(speaker)
+    speaker = SPEAKERS[@speaker_map.find(speaker).first.first]
+
+    SESSIONS.find_all do |name, data|
+      data[:speakers].include? speaker
+    end
   end
 
-  def response(message, interpretation)
-    entities = interpretation['outcome']['entities']
+  def find_by_room(room)
+    ROOMS[@room_map.find(room).first.first]
 
+    SESSIONS.find_all do |name, data|
+      data[:room] == room
+    end
   end
 
+  def find_by_track(track)
+    TRACKS[@track_map.find(track).first.first]
+
+    TRACKS.find_all do |name, data|
+      data[:room] == track
+    end
+  end
+
+  def find_by_time(time)
+    SESSIONS.find_all do |name, data|
+      data[:start] <= time && data[:end] >= time
+    end
+  end
+
+  def self.method_missing(m, *args)
+    self.instance.send m, *args
+  end
 end
