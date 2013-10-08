@@ -105,10 +105,10 @@ curtainCall = () ->
     $('#curtain-call').animate({top: (0 - $(window).height()) + 'px'}, 1000, 'linear').promise().done ->
       switch curtainsCount
         when 0
-          $('#curtain-call .rotate').html('FOR GOOD TIME CALL ADAM S. RABBIT:')
+          $('#curtain-call .rotate').html('FOR GOOD TIME CALL ADAM S. RABBIT')
           curtainsCount = 1
         when 1
-          $('#curtain-call .rotate').html('CALL ME! ANY DAY OR NIGHT:')
+          $('#curtain-call .rotate').html('CALL ME! ANY DAY OR NIGHT')
           curtainsCount = 2
         when 2
           $('#curtain-call .rotate').html('CALL ME MAYBE?')
