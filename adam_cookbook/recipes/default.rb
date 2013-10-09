@@ -77,6 +77,12 @@ if node[:adam][:standalone_deployment]
         end
       end
 
+      # Just so that tests can run
+      rbenv_script "adam_common_dependencies" do
+        code "bundle install --path vendor/ruby"
+        cwd File.join(node['adam']['deployment_path'], 'current', 'adam_common')
+      end
+
       rbenv_script "setup app services" do
         code "foreman export upstart /etc/init -a adam"
         cwd File.join(node['adam']['deployment_path'], 'current')
