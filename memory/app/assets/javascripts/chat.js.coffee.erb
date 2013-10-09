@@ -89,7 +89,8 @@ $('.too-noisy').click ->
     $('#chat').animate({ right: (0 - $('form[name=chat]').width()) + 'px' }, 250)
     tooNoisy = false
   else
-    $('#chat').animate({ right: 0 }, 250)
+    $('#chat').animate({ right: 0 }, 250, 'linear').promise().done ->
+      $('input#message').focus()
     tooNoisy = true
 
 $('.curtain-caller').click ->

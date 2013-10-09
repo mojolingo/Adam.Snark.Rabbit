@@ -2,6 +2,7 @@
 
 #curtain-call
   .middle
+    %img{ src: image_path('ML_LOGO_WHITE_HIRES.png'), style: 'max-width: 75%;', class: 'curtain-caller' }
     %h1{ class: 'rotate curtain-caller' } 
     %h1 678-869-2048
 #chat
@@ -10,17 +11,18 @@
   %form{:name => 'chat'}
     %input#message{:type => 'text'}
     %input#send_message{:type => 'submit', :value => 'Send', :disabled => true}
-.container
-  .row-fluid
-    #sidebar.span3
-      .image
-        = image_tag('ada.jpg')
-      .suggestions
-        %h3 What to ask?
-        %ul
-          %li How do you say "call me" in Swedish?
-          %li What time is it?
-          %li "Tweet this message: ..."
-          %li Mirror, mirror on the wall, who is the fairest of them all?
-          %li Who is speaking right now?
-    #messages.span9
+.content
+  .container
+    .row-fluid
+      #sidebar.span3
+        .image
+          = image_tag('ML_RABBIT_RGB_HIRES.jpg')
+        .suggestions
+          %h3 What to ask?
+          %ul
+            %li How do you say "call me" in Swedish?
+            %li What time is it?
+            %li "Tweet this message: ..."
+            %li Mirror, mirror on the wall, who is the fairest of them all?
+            %li Who is speaking right now?
+      #messages.span9
