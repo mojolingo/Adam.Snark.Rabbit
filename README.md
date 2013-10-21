@@ -52,7 +52,7 @@ A full Vagrant development environment for Adam is included. It can be setup in 
 1. Install [virtualbox](https://www.virtualbox.org/wiki/Downloads)
 2. Install [vagrant](http://vagrantup.com)
 3. Add the [vagrant-berkshelf plugin](https://github.com/riotgames/vagrant-berkshelf) to your Vagrant installation by doing `vagrant plugin install vagrant-berkshelf`.
-4. Place or symlink an SSH private key to be used to clone the app repo from Github in the VM in `deploy_key`. This will be copied to the VM. It can be a deploy key on the adam repo, or a Github user's SSH key.
+4. (optional - Only required to build with `STANDALONE_DEPLOYMENT=true` or to run `make ci`) Place or symlink an SSH private key to be used to clone the app repo from Github in the VM in `deploy_key`. This will be copied to the VM. It can be a deploy key on the adam repo, or a Github user's SSH key.
 5. `vagrant up` to download, launch, and provision the VMs
 
 This is a simple Vagrant based development environment. All the usual vagrant rules apply. You will need to provide an admin password to enable NFS share setup.
