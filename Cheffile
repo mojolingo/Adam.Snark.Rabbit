@@ -15,6 +15,6 @@ cookbook 'ruby_build',        github: 'fnichol/chef-ruby_build'
 cookbook 'ejabberd',          github: 'mojolingo/ejabberd'
 cookbook 'rabbitmq',          github: 'mojolingo/rabbitmq'
 cookbook 'application_nginx', github: 'mojolingo/application_nginx'
-cookbook 'freeswitch',        github: 'mojolingo/freeswitch-cookbook', ref: 'feature/rayo'
+cookbook 'freeswitch',        github: 'mojolingo/freeswitch-cookbook', ref: 'da6e918da7719fad025b150ab1e65071735b80ec'
 
 cookbook 'adam', path: 'adam_cookbook'
