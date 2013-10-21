@@ -66,7 +66,7 @@ GIT
 GIT
   remote: https://github.com/mojolingo/application_nginx
   ref: master
-  sha: 31f6e21e7c17537abcbe1c7192ec5446a7a1ae8f
+  sha: d0e6f2b3825c8d1575becb851fe258853a12c588
   specs:
     application_nginx (2.0.1)
       application (~> 3.0)
