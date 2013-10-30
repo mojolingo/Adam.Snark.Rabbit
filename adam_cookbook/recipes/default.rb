@@ -81,6 +81,7 @@ if node[:adam][:standalone_deployment]
       rbenv_script "adam_common_dependencies" do
         code "bundle install --path vendor/ruby"
         cwd File.join(node['adam']['deployment_path'], 'current', 'adam_common')
+        environment 'NOKOGIRI_USE_SYSTEM_LIBRARIES' => 'true'
       end
 
       rbenv_script "setup app services" do
@@ -101,6 +102,7 @@ else
     rbenv_script "app_#{component}_dependencies" do
       code "bundle install --path vendor/ruby"
       cwd File.join(node['adam']['deployment_path'], 'current', component)
+      environment 'NOKOGIRI_USE_SYSTEM_LIBRARIES' => 'true'
     end
   end
 
