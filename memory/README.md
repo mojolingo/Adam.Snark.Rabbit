@@ -36,11 +36,11 @@ The JSON representation of a message will be in the format:
 
 ```json
 {
-  source_type: "xmpp",
-  source_address: "foo@bar.com",
-  auth_address: "foo@bar.com",
-  body: "Some message",
-  user: null
+  "source_type": "xmpp",
+  "source_address": "foo@bar.com",
+  "auth_address": "foo@bar.com",
+  "body": "Some message",
+  "user": null
 }
 ```
 
