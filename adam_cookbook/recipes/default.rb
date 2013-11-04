@@ -1,8 +1,6 @@
 include_recipe 'adam::rabbitmq_users'
 
 %w{
-  libqt4-dev
-  qt4-qmake
   libpcre3
   libpcre3-dev
 }.each { |p| package p }
