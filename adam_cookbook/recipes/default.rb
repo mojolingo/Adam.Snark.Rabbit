@@ -3,12 +3,30 @@
   libpcre3-dev
 }.each { |p| package p }
 
+include_recipe "git"
+include_recipe "postfix"
+include_recipe "ruby_build"
+include_recipe "rbenv::system_install"
+
 ruby_components = %w{
   memory
   ears
   fingers
   brain
 }
+
+ruby_version = '2.0.0-p0'
+
+rbenv_ruby ruby_version
+rbenv_global ruby_version
+
+rbenv_gem 'bundler' do
+  rbenv_version ruby_version
+end
+
+rbenv_gem 'foreman' do
+  rbenv_version ruby_version
+end
 
 if node[:adam][:standalone_deployment]
   links = {}
