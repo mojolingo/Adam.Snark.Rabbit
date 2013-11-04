@@ -20,7 +20,7 @@ class MessageProcessor
   private
 
   def fetch_user
-    conn = Faraday.new url: "http://#{ENV['ADAM_ROOT_DOMAIN']}" do |c|
+    conn = Faraday.new url: ENV['ADAM_MEMORY_URL'] do |c|
       c.basic_auth 'internal', ENV['ADAM_INTERNAL_PASSWORD']
       c.adapter :net_http
       c.response :logger

@@ -23,6 +23,7 @@ Vagrant.configure("2") do |config|
       jabber_domain: 'local.adamrabbit.net',
       'adam' => {
         'environment' => 'development',
+        'memory_base_url' => 'http://local.adamrabbit.net:3000',
         'root_domain' => 'local.adamrabbit.net',
         'standalone_deployment' => !!ENV['STANDALONE_DEPLOYMENT'],
         'deploy_key' => ENV['STANDALONE_DEPLOYMENT'] ? File.read('deploy_key') : nil,

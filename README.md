@@ -68,6 +68,7 @@ This is a simple Vagrant based development environment. All the usual vagrant ru
   "jabber_domain":"staging.adamrabbit.net",
   "adam": {
     "root_domain":"staging.adamrabbit.net",
+    "memory_base_url":"http://staging.adamrabbit.net:3000",
     "deploy_key":"-----BEGIN RSA PRIVATE KEY-----ncenneccikiejwcoej-----END RSA PRIVATE KEY-----",
     "github_key":"changeme",
     "github_secret":"changeme",

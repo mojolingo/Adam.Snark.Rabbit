@@ -12,7 +12,7 @@ template '/etc/ejabberd/ext_auth' do
   user 'ejabberd'
   group 'ejabberd'
   mode "770"
-  variables :root_domain => node['adam']['root_domain'],
+  variables :memory_base_url => node['adam']['memory_base_url'],
             :internal_password => node['adam']['internal_password']
   notifies :restart, resources(:service => "ejabberd"), :immediately
 end

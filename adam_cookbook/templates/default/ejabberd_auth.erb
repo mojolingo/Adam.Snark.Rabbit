@@ -19,7 +19,7 @@ PACK_FORMAT = RUBY_VERSION =~ /^1\.9/ ? 'S>' : 'n'
 
 class Auth
   def initialize
-    url = "http://<%= @root_domain %>:3000"
+    url = "<%= @memory_base_url %>"
     password = "<%= @internal_password %>"
     $logger.debug "Making connection to #{url} using #{password}"
 
