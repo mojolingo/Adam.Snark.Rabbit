@@ -1,4 +1,3 @@
-include_recipe 'adam::rabbitmq_users'
 
 %w{
   libpcre3

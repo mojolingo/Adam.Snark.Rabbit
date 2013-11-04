@@ -1,3 +1,7 @@
+include_recipe 'rabbitmq'
+include_recipe 'rabbitmq::mgmt_console'
+include_recipe 'adam::rabbitmq_users'
+
 rabbitmq_user "rails" do
   password "password"
   action :add
@@ -42,22 +46,6 @@ end
 
 rabbitmq_user "brain" do
   vhost "/"
-  permissions '".*" ".*" ".*"'
-  action :set_permissions
-end
-
-rabbitmq_vhost "/test" do
-  action :add
-end
-
-rabbitmq_user "guest" do
-  password "pass"
-  action :add
-  notifies :restart, "service[rabbitmq-server]"
-end
-
-rabbitmq_user "guest" do
-  vhost "/test"
   permissions '".*" ".*" ".*"'
   action :set_permissions
 end
