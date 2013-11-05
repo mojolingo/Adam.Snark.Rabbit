@@ -34,9 +34,6 @@ gem 'simple-navigation'
 gem 'simple_form'
 gem 'cocoon'
 
-# Use unicorn as the web server
-# gem 'unicorn'
-
 gem "twitter-bootstrap-rails"
 
 gem 'bunny'
