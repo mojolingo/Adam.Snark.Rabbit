@@ -1,2 +1,2 @@
 #!/bin/bash
-cd memory && bundle exec unicorn -c config/unicorn.rb -p $PORT
+cd memory && exec bundle exec unicorn -c config/unicorn.rb -p $PORT
