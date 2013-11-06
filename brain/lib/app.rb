@@ -66,7 +66,7 @@ class App < Adhearsion::Plugin
   def self.run
     EM.run do
       AMQP.connect "amqp://#{ENV['ADAM_BRAIN_AMQP_USERNAME']}:#{ENV['ADAM_BRAIN_AMQP_PASSWORD']}@#{ENV['ADAM_BRAIN_AMQP_HOST']}" do |connection|
-        AMQPHandler.new(@brain).listen
+        AMQPHandler.new(connection, @brain).listen
         logger.info "Connected and listening for messages"
         Adhearsion::Events.trigger :amqp_connected
       end
