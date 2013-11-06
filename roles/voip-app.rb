@@ -1,6 +1,6 @@
 name "voip-app"
 description "VoIP app server"
-run_list "role[base]",
+run_list "recipe[adam::base]",
   "recipe[freeswitch]"
 override_attributes :freeswitch => {
   :tls_only => false,

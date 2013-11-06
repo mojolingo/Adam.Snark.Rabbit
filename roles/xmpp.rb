@@ -1,6 +1,6 @@
 name "xmpp"
 description "XMPP Server"
-run_list "role[base]",
+run_list "recipe[adam::base]",
   "recipe[adam::xmpp]"
 default_attributes 'ejabberd' => {
   'auth_method' => 'external',
