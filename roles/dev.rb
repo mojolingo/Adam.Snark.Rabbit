@@ -4,7 +4,6 @@ run_list "role[amqp]",
   "role[xmpp]",
   "role[mongo]",
   "role[freeswitch]",
-  "role[dev]",
   "role[app]"
 
 override_attributes :freeswitch => {
