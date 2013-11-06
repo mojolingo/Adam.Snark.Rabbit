@@ -6,6 +6,7 @@ default[:adam][:app_repo_ref] = "master"
 
 default[:adam][:root_domain] = nil
 default[:adam][:memory_base_url] = nil
+default[:adam][:amqp_host] = 'localhost'
 
 default[:adam][:reporter][:url] = "http://errors.mojolingo.com"
 default[:adam][:reporter][:api_key] = ""
