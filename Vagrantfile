@@ -1,6 +1,6 @@
 Vagrant.configure("2") do |config|
-  config.vm.box       = "precise64"
-  config.vm.box_url   = "http://files.vagrantup.com/precise64.box"
+  config.vm.box       = 'tdb-ubuntu1204-v9'
+  config.vm.box_url   = 'http://ci.mojolingo.com/job/Telephony-Dev-Box-Base-Boxen/9/artifact/tdb-ubuntu1204.box'
   config.vm.hostname  = "local.adamrabbit.net"
 
   config.vm.provider :virtualbox do |vb|
