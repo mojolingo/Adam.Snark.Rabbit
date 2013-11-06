@@ -1,6 +1,5 @@
 include_recipe 'rabbitmq'
 include_recipe 'rabbitmq::mgmt_console'
-include_recipe 'adam::rabbitmq_users'
 
 rabbitmq_user "rails" do
   password "password"
