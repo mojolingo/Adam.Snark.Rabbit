@@ -1,5 +1,8 @@
 include_recipe "ejabberd"
 
+ruby_version = '2.0.0-p0'
+rbenv_ruby ruby_version
+rbenv_global ruby_version
 rbenv_gem 'faraday'
 rbenv_gem 'faraday_middleware'
 
