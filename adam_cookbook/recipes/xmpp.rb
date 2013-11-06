@@ -1,5 +1,8 @@
 include_recipe "ejabberd"
 
+include_recipe "ruby_build"
+include_recipe "rbenv::system_install"
+
 ruby_version = '2.0.0-p0'
 rbenv_ruby ruby_version
 rbenv_global ruby_version
