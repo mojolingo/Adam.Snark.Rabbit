@@ -81,10 +81,10 @@ unless ruby_components.empty?
 
         template File.join(node['adam']['deployment_path'], 'current', '.foreman') do
           source "foreman.erb"
-          variables memory_count: node['adam']['memory']['install'] ? 1 : 0,
-            ears_count: node['adam']['ears']['install'] ? 1 : 0,
-            fingers_count: node['adam']['fingers']['install'] ? 1 : 0,
-            brain_count: node['adam']['brain']['install'] ? 1 : 0
+          variables :memory_count => node['adam']['memory']['install'] ? 1 : 0,
+            :ears_count => node['adam']['ears']['install'] ? 1 : 0,
+            :fingers_count => node['adam']['fingers']['install'] ? 1 : 0,
+            :brain_count => node['adam']['brain']['install'] ? 1 : 0
         end
 
         ruby_components.each do |component|
