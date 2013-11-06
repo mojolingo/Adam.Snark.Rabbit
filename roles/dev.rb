@@ -3,7 +3,7 @@ description "Development Environment for Adam"
 run_list "role[amqp]",
   "role[xmpp]",
   "role[mongo]",
-  "role[voip-app]",
+  "role[freeswitch]",
   "role[dev]",
   "role[app]"
 

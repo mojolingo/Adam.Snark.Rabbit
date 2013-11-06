@@ -1,5 +1,5 @@
-name "voip-app"
-description "VoIP app server"
+name "freeswitch"
+description "FreeSWITCH Rayo server"
 run_list "recipe[adam::base]",
   "recipe[freeswitch]"
 override_attributes :freeswitch => {
