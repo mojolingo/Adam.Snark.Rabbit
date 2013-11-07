@@ -54,6 +54,18 @@ unless ruby_components.empty?
       end
     end
 
+    directory "/var/log/adam" do
+      owner "adam"
+    end
+
+    directory "/var/run/adam" do
+      owner "adam"
+    end
+
+    directory "/etc/adam" do
+      owner "adam"
+    end
+
     application "adam" do
       path node['adam']['deployment_path']
       owner "adam"
@@ -74,19 +86,34 @@ unless ruby_components.empty?
                      "/favicon.ico" => "memory/public/favicon.ico"
       end
 
+      before_deploy do
+        template '/etc/adam/environment' do
+          source "environment.erb"
+          owner "adam"
+          group "adam"
+        end
+
+        template "/etc/init/adam.conf" do
+          source "upstart/adam.conf.erb"
+          mode 0744
+        end
+
+        ruby_components.each do |component|
+          template "/etc/init/adam-#{component}.conf" do
+            source "upstart/component.conf.erb"
+            mode 0744
+            variables :component_name => component,
+              :base_directory => File.join(node['adam']['deployment_path'], 'current')
+          end
+        end
+
+        service 'adam' do
+          action :enable
+          provider Chef::Provider::Service::Upstart
+        end
+      end
+
       before_restart do
-        template File.join(node['adam']['deployment_path'], 'current', '.env') do
-          source "env.erb"
-        end
-
-        template File.join(node['adam']['deployment_path'], 'current', '.foreman') do
-          source "foreman.erb"
-          variables :memory_count => node['adam']['memory']['install'] ? 1 : 0,
-            :ears_count => node['adam']['ears']['install'] ? 1 : 0,
-            :fingers_count => node['adam']['fingers']['install'] ? 1 : 0,
-            :brain_count => node['adam']['brain']['install'] ? 1 : 0
-        end
-
         ruby_components.each do |component|
           rbenv_script "app_#{component}_dependencies" do
             code "bundle install --deployment --path vendor/ruby"
@@ -99,16 +126,6 @@ unless ruby_components.empty?
           code "bundle install --path vendor/ruby"
           cwd File.join(node['adam']['deployment_path'], 'current', 'adam_common')
           environment 'NOKOGIRI_USE_SYSTEM_LIBRARIES' => 'true'
-        end
-
-        rbenv_script "setup app services" do
-          code "foreman export upstart /etc/init -a adam"
-          cwd File.join(node['adam']['deployment_path'], 'current')
-        end
-
-        service 'adam' do
-          action :enable
-          provider Chef::Provider::Service::Upstart
         end
       end
 

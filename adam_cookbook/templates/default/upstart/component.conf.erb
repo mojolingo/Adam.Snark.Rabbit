@@ -1,0 +1,15 @@
+description "Adam's <%= @component_name %>"
+
+start on starting adam
+stop on stopping adam
+respawn
+
+setuid adam
+chdir <%= @base_directory %>
+
+env PATH=/usr/local/rbenv/shims:/usr/local/rbenv/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/sbin:/sbin:/bin
+
+script
+  . /etc/adam/environment
+  exec <%= @base_directory %>/bin/<%= @component_name %> >> /var/log/adam/<%= @component_name %>.log 2>&1
+end script
