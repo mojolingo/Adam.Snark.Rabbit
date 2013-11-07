@@ -54,16 +54,13 @@ unless ruby_components.empty?
       end
     end
 
-    directory "/var/log/adam" do
-      owner "adam"
-    end
-
-    directory "/var/run/adam" do
-      owner "adam"
-    end
-
-    directory "/etc/adam" do
-      owner "adam"
+    %w{
+      /etc/adam
+      /var/log/adam
+    }.each do |dir|
+      directory dir do
+        owner "adam"
+      end
     end
 
     application "adam" do
