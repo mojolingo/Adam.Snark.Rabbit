@@ -3,11 +3,6 @@
 
 site 'http://community.opscode.com/api/v1'
 
-cookbook 'apt'
-cookbook 'motd-tail'
-cookbook 'git'
-cookbook 'erlang'
-
 cookbook 'chef-solo-search',  github: 'edelight/chef-solo-search'
 cookbook 'mongodb',           github: 'edelight/chef-mongodb'
 cookbook 'rbenv',             github: 'fnichol/chef-rbenv', ref: 'v0.7.2'

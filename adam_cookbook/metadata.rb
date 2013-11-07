@@ -12,6 +12,8 @@ recipe            "apt-update", "Updates apt repositories"
 end
 
 %w{
+  apt
+  motd-tail
   git
   rbenv
   application
