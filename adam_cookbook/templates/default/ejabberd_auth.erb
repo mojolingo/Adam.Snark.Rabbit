@@ -19,12 +19,8 @@ PACK_FORMAT = RUBY_VERSION =~ /^1\.9/ ? 'S>' : 'n'
 
 class Auth
   def initialize
-    url = "<%= @memory_base_url %>"
-    password = "<%= @internal_password %>"
-    $logger.debug "Making connection to #{url} using #{password}"
-
-    @conn = Faraday.new url: url do |c|
-      c.basic_auth 'internal', password
+    @conn = Faraday.new url: "<%= @memory_base_url %>" do |c|
+      c.basic_auth "<%= @internal_username %>", "<%= @internal_password %>"
       c.adapter :net_http
       c.use FaradayMiddleware::ParseJson, content_type: 'application/json'
       c.response :raise_error

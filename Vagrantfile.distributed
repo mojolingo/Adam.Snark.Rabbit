@@ -28,7 +28,9 @@ Vagrant.configure("2") do |config|
           'root_domain' => 'test.adamrabbit.net',
           'standalone_deployment' => true,
           'deploy_key' => File.read('deploy_key'),
-          'internal_password' => 'fj8j4893jgg9jg9',
+          'memory' => {
+            'internal_password' => 'fj8j4893jgg9jg9'
+          }
           'amqp_host' => '192.168.33.101',
           'rayo_domain' => 'rayo.test.adamrabbit.net'
         }
@@ -63,7 +65,9 @@ Vagrant.configure("2") do |config|
           'root_domain' => 'test.adamrabbit.net',
           'standalone_deployment' => true,
           'deploy_key' => File.read('deploy_key'),
-          'internal_password' => 'fj8j4893jgg9jg9'
+          'memory' => {
+            'internal_password' => 'fj8j4893jgg9jg9'
+          }
         }
       }
 
@@ -96,7 +100,9 @@ Vagrant.configure("2") do |config|
           'root_domain' => 'test.adamrabbit.net',
           'standalone_deployment' => true,
           'deploy_key' => File.read('deploy_key'),
-          'internal_password' => 'fj8j4893jgg9jg9'
+          'memory' => {
+            'internal_password' => 'fj8j4893jgg9jg9'
+          }
         }
       }
 
@@ -129,7 +135,9 @@ Vagrant.configure("2") do |config|
           'root_domain' => 'test.adamrabbit.net',
           'standalone_deployment' => true,
           'deploy_key' => File.read('deploy_key'),
-          'internal_password' => 'fj8j4893jgg9jg9'
+          'memory' => {
+            'internal_password' => 'fj8j4893jgg9jg9'
+          }
         },
         'freeswitch' => {
           'local_ip' => public_ip,
@@ -166,7 +174,9 @@ Vagrant.configure("2") do |config|
           'root_domain' => 'test.adamrabbit.net',
           'standalone_deployment' => true,
           'deploy_key' => File.read('deploy_key'),
-          'internal_password' => 'fj8j4893jgg9jg9'
+          'memory' => {
+            'internal_password' => 'fj8j4893jgg9jg9'
+          }
         }
       }
 

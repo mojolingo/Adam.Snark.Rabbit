@@ -47,7 +47,7 @@ feature 'Users' do
 
   context 'when logged in as the internal user' do
     background do
-      authorize 'internal', (ENV['ADAM_INTERNAL_PASSWORD'] || 'abc123')
+      authorize ENV['ADAM_MEMORY_INTERNAL_USERNAME'], (ENV['ADAM_MEMORY_INTERNAL_PASSWORD'] || 'abc123')
     end
 
     scenario 'getting user data by ID' do

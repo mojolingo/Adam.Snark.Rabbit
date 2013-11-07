@@ -21,7 +21,7 @@ class MessageProcessor
 
   def fetch_user
     conn = Faraday.new url: ENV['ADAM_MEMORY_URL'] do |c|
-      c.basic_auth 'internal', ENV['ADAM_INTERNAL_PASSWORD']
+      c.basic_auth ENV['ADAM_MEMORY_INTERNAL_USERNAME'], ENV['ADAM_MEMORY_INTERNAL_PASSWORD']
       c.adapter :net_http
       c.response :logger
       c.use FaradayMiddleware::ParseJson, content_type: 'application/json'
