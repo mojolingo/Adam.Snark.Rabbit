@@ -21,7 +21,7 @@ export ADAM_BRAIN_AMQP_HOST=<%= node['adam']['amqp_host'] %>
 export ADAM_BRAIN_AMQP_USERNAME=brain
 export ADAM_BRAIN_AMQP_PASSWORD=password
 export ADAM_ROOT_DOMAIN=<%= node['adam']['root_domain'] %>
-MONGOID_HOST=<%= node['adam']['memory']['mongoid_host'] %>
+export MONGOID_HOST=<%= node['adam']['memory']['mongoid_host'] %>
 export ADAM_MEMORY_URL=<%= node['adam']['memory_base_url'] %>
 export ADAM_MEMORY_INTERNAL_USERNAME=<%= node['adam']['memory']['internal_username'] %>
 export ADAM_MEMORY_INTERNAL_PASSWORD=<%= node['adam']['memory']['internal_password'] %>
