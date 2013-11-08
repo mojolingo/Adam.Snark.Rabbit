@@ -79,6 +79,7 @@ unless ruby_components.empty?
         application_port 3000
         application_server_role 'app'
         set_host_header true
+        template 'nginx_site.erb'
         static_files "/assets" => "memory/public/assets",
                      "/favicon.ico" => "memory/public/favicon.ico"
       end

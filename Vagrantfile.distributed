@@ -32,7 +32,8 @@ Vagrant.configure("2") do |config|
           'deploy_key' => File.read('deploy_key'),
           'memory' => {
             'internal_password' => 'fj8j4893jgg9jg9',
-            'mongoid_host' => 'mongo.test.adamrabbit.net'
+            'mongoid_host' => 'mongo.test.adamrabbit.net',
+            'bosh_host' => 'xmpp.test.adamrabbit.net'
           },
           'ears' => {
             'install' => false
