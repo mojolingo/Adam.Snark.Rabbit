@@ -2,6 +2,9 @@ SITE
   remote: http://community.opscode.com/api/v1
   specs:
     application (3.0.0)
+    application_nginx (2.0.2)
+      application (~> 3.0)
+      nginx (>= 0.0.0)
     apt (2.1.1)
     build-essential (1.4.2)
     chef_handler (1.1.4)
@@ -64,15 +67,6 @@ GIT
     ruby_build (0.8.1)
 
 GIT
-  remote: https://github.com/mojolingo/application_nginx
-  ref: master
-  sha: d0e6f2b3825c8d1575becb851fe258853a12c588
-  specs:
-    application_nginx (2.0.1)
-      application (~> 3.0)
-      nginx (>= 0.0.0)
-
-GIT
   remote: https://github.com/mojolingo/ejabberd
   ref: master
   sha: 2f1f53981470d2f4cf941839cebc80fdba62f056
@@ -111,7 +105,6 @@ PATH
 
 DEPENDENCIES
   adam (>= 0)
-  application_nginx (>= 0)
   chef-solo-search (>= 0)
   ejabberd (>= 0)
   freeswitch (>= 0)
