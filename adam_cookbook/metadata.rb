@@ -14,6 +14,7 @@ end
 %w{
   apt
   motd-tail
+  mongodb
   git
   rbenv
   application
