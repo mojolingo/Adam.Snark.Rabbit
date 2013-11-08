@@ -9,7 +9,7 @@ development:
       # Provides the hosts the default session can connect to. Must be an array
       # of host:port pairs. (required)
       hosts:
-        - <%= ENV['MONGOID_HOST'] %>:27017
+        - <%= ENV['MONGOID_HOST'] || 'localhost' %>:27017
       options:
         # Change whether the session persists in safe mode by default.
         # (default: false)
@@ -63,7 +63,7 @@ test:
     default:
       database: asr_test
       hosts:
-        - <%= ENV['MONGOID_HOST'] %>:27017
+        - <%= ENV['MONGOID_HOST'] || 'localhost' %>:27017
       options:
         consistency: :strong
 
@@ -72,6 +72,6 @@ production:
     default:
       database: asr_production
       hosts:
-        - <%= ENV['MONGOID_HOST'] %>:27017
+        - <%= ENV['MONGOID_HOST'] || 'localhost' %>:27017
       options:
         consistency: :strong
