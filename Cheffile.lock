@@ -7,6 +7,7 @@ SITE
       nginx (>= 0.0.0)
     apt (2.1.1)
     build-essential (1.4.2)
+    chef-solo-search (0.5.1)
     chef_handler (1.1.4)
     dmg (2.0.0)
     erlang (1.3.2)
@@ -37,13 +38,6 @@ SITE
     windows (1.10.0)
       chef_handler (>= 0.0.0)
     yum (2.3.2)
-
-GIT
-  remote: https://github.com/edelight/chef-solo-search
-  ref: master
-  sha: 681f78a108f5f8a3655551b32d9939603628c568
-  specs:
-    chef-solo-search (0.5.1)
 
 GIT
   remote: https://github.com/fnichol/chef-rbenv
@@ -90,6 +84,7 @@ PATH
       application (>= 0.0.0)
       application_nginx (>= 0.0.0)
       apt (>= 0.0.0)
+      chef-solo-search (>= 0.0.0)
       git (>= 0.0.0)
       mongodb (>= 0.0.0)
       motd-tail (>= 0.0.0)
@@ -99,7 +94,6 @@ PATH
 
 DEPENDENCIES
   adam (>= 0)
-  chef-solo-search (>= 0)
   ejabberd (>= 0)
   freeswitch (>= 0)
   rabbitmq (>= 0)

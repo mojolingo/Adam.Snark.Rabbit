@@ -13,6 +13,7 @@ end
 
 %w{
   apt
+  chef-solo-search
   motd-tail
   mongodb
   git
