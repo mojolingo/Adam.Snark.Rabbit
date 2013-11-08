@@ -32,6 +32,8 @@ SITE
     ohai (1.1.12)
     postfix (3.0.0)
     runit (1.2.0)
+    rabbitmq (2.3.2)
+      erlang (>= 0.9.0)
       build-essential (>= 0.0.0)
       yum (>= 0.0.0)
     sudo (2.2.0)
@@ -67,16 +69,6 @@ GIT
   specs:
     freeswitch (0.1.0)
 
-GIT
-  remote: https://github.com/mojolingo/rabbitmq
-  ref: master
-  sha: 0cea36930941cc036616718c867c234479a6a3dc
-  specs:
-    rabbitmq (1.5.1)
-      apt (>= 1.4.4)
-      erlang (>= 0.9)
-      yum (>= 0.5.0)
-
 PATH
   remote: adam_cookbook
   specs:
@@ -89,6 +81,7 @@ PATH
       mongodb (>= 0.0.0)
       motd-tail (>= 0.0.0)
       postfix (>= 0.0.0)
+      rabbitmq (>= 0.0.0)
       rbenv (>= 0.0.0)
       sudo (>= 0.0.0)
 
@@ -96,7 +89,6 @@ DEPENDENCIES
   adam (>= 0)
   ejabberd (>= 0)
   freeswitch (>= 0)
-  rabbitmq (>= 0)
   rbenv (>= 0)
   ruby_build (>= 0)
 

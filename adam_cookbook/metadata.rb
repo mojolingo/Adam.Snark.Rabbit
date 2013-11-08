@@ -17,6 +17,7 @@ end
   motd-tail
   mongodb
   git
+  rabbitmq
   rbenv
   application
   application_nginx
