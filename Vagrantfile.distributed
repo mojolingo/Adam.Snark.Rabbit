@@ -22,7 +22,6 @@ Vagrant.configure("2") do |config|
       chef.add_role "app"
 
       chef.json = {
-        jabber_domain: 'test.adamrabbit.net',
         'adam' => {
           'app_repo_ref' => `git rev-parse --abbrev-ref HEAD`.strip,
           'environment' => 'development',
@@ -46,7 +45,10 @@ Vagrant.configure("2") do |config|
           },
           'amqp_host' => '192.168.33.101',
           'rayo_domain' => 'rayo.test.adamrabbit.net'
-        }.merge(creds)
+        }.merge(creds),
+        'ejabberd' => {
+          'jabber_domain' => 'test.adamrabbit.net',
+        }
       }
 
       chef.log_level = :debug
@@ -71,7 +73,6 @@ Vagrant.configure("2") do |config|
       chef.add_role "amqp"
 
       chef.json = {
-        jabber_domain: 'test.adamrabbit.net',
         'adam' => {
           'environment' => 'development',
           'memory_base_url' => 'http://test.adamrabbit.net:3000',
@@ -81,7 +82,10 @@ Vagrant.configure("2") do |config|
           'memory' => {
             'internal_password' => 'fj8j4893jgg9jg9'
           }
-        }.merge(creds)
+        }.merge(creds),
+        'ejabberd' => {
+          'jabber_domain' => 'test.adamrabbit.net',
+        }
       }
 
       chef.log_level = :debug
@@ -106,7 +110,6 @@ Vagrant.configure("2") do |config|
       chef.add_role "mongo"
 
       chef.json = {
-        jabber_domain: 'test.adamrabbit.net',
         'adam' => {
           'environment' => 'development',
           'memory_base_url' => 'http://test.adamrabbit.net:3000',
@@ -116,7 +119,10 @@ Vagrant.configure("2") do |config|
           'memory' => {
             'internal_password' => 'fj8j4893jgg9jg9'
           }
-        }.merge(creds)
+        }.merge(creds),
+        'ejabberd' => {
+          'jabber_domain' => 'test.adamrabbit.net',
+        }
       }
 
       chef.log_level = :debug
@@ -141,7 +147,6 @@ Vagrant.configure("2") do |config|
       chef.add_role "freeswitch"
 
       chef.json = {
-        jabber_domain: 'test.adamrabbit.net',
         'adam' => {
           'environment' => 'development',
           'memory_base_url' => 'http://test.adamrabbit.net:3000',
@@ -152,6 +157,9 @@ Vagrant.configure("2") do |config|
             'internal_password' => 'fj8j4893jgg9jg9'
           }
         }.merge(creds),
+        'ejabberd' => {
+          'jabber_domain' => 'test.adamrabbit.net',
+        },
         'freeswitch' => {
           'local_ip' => public_ip,
           'domain' => 'rayo.test.adamrabbit.net'
@@ -180,7 +188,6 @@ Vagrant.configure("2") do |config|
       chef.add_role "xmpp"
 
       chef.json = {
-        jabber_domain: 'test.adamrabbit.net',
         'adam' => {
           'environment' => 'development',
           'memory_base_url' => 'http://test.adamrabbit.net:3000',
@@ -190,7 +197,10 @@ Vagrant.configure("2") do |config|
           'memory' => {
             'internal_password' => 'fj8j4893jgg9jg9'
           }
-        }.merge(creds)
+        }.merge(creds),
+        'ejabberd' => {
+          'jabber_domain' => 'test.adamrabbit.net',
+        }
       }
 
       chef.log_level = :debug
@@ -215,7 +225,6 @@ Vagrant.configure("2") do |config|
       chef.add_role "app"
 
       chef.json = {
-        jabber_domain: 'test.adamrabbit.net',
         'adam' => {
           'app_repo_ref' => `git rev-parse --abbrev-ref HEAD`.strip,
           'environment' => 'development',
@@ -238,7 +247,10 @@ Vagrant.configure("2") do |config|
           },
           'amqp_host' => '192.168.33.101',
           'rayo_domain' => 'rayo.test.adamrabbit.net'
-        }.merge(creds)
+        }.merge(creds),
+        'ejabberd' => {
+          'jabber_domain' => 'test.adamrabbit.net',
+        }
       }
 
       chef.log_level = :debug
@@ -263,7 +275,6 @@ Vagrant.configure("2") do |config|
       chef.add_role "app"
 
       chef.json = {
-        jabber_domain: 'test.adamrabbit.net',
         'adam' => {
           'app_repo_ref' => `git rev-parse --abbrev-ref HEAD`.strip,
           'environment' => 'development',
@@ -286,7 +297,10 @@ Vagrant.configure("2") do |config|
           },
           'amqp_host' => '192.168.33.101',
           'rayo_domain' => 'rayo.test.adamrabbit.net'
-        }.merge(creds)
+        }.merge(creds),
+        'ejabberd' => {
+          'jabber_domain' => 'test.adamrabbit.net',
+        }
       }
 
       chef.log_level = :debug
@@ -311,7 +325,6 @@ Vagrant.configure("2") do |config|
       chef.add_role "app"
 
       chef.json = {
-        jabber_domain: 'test.adamrabbit.net',
         'adam' => {
           'app_repo_ref' => `git rev-parse --abbrev-ref HEAD`.strip,
           'environment' => 'development',
@@ -334,7 +347,10 @@ Vagrant.configure("2") do |config|
           },
           'amqp_host' => '192.168.33.101',
           'rayo_domain' => 'rayo.test.adamrabbit.net'
-        }.merge(creds)
+        }.merge(creds),
+        'ejabberd' => {
+          'jabber_domain' => 'test.adamrabbit.net',
+        }
       }
 
       chef.log_level = :debug

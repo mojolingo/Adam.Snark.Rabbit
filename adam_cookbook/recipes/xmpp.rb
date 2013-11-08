@@ -1,4 +1,12 @@
+chef_gem "chef-rewind"
+require 'chef/rewind'
+
 include_recipe "ejabberd"
+
+rewind "template[/etc/ejabberd/ejabberd.cfg]" do
+  source "ejabberd.cfg.erb"
+  cookbook_name "adam"
+end
 
 include_recipe "ruby_build"
 include_recipe "rbenv::system_install"

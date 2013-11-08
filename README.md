@@ -65,7 +65,6 @@ This is a simple Vagrant based development environment. All the usual vagrant ru
 ```json
 {
   "run_list":"role[dev]",
-  "jabber_domain":"staging.adamrabbit.net",
   "adam": {
     "root_domain":"staging.adamrabbit.net",
     "memory_base_url":"http://staging.adamrabbit.net:3000",
@@ -82,6 +81,9 @@ This is a simple Vagrant based development environment. All the usual vagrant ru
     "internal_password":"changeme",
     "punchblock_port":"5224",
     "reporter":{"api_key":"changeme"}
+  },
+  "ejabberd":{
+    "jabber_domain":"staging.adamrabbit.net",
   },
   "freeswitch": {
     "local_ip":"changeme",
