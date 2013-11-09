@@ -1,4 +1,4 @@
-ci: destroy_dev_env create_dev_env run_tests_in_dev_env build_distributed_environment prep_deployment_config
+ci: destroy_dev_env create_dev_env run_tests_in_dev_env prep_deployment_config
 
 destroy_dev_env:
 	vagrant destroy -f
