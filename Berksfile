@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 #^syntax detection
 
-site 'http://community.opscode.com/api/v1'
+site :opscode
 
 cookbook 'rbenv',       github: 'fnichol/chef-rbenv', ref: 'v0.7.2'
 cookbook 'ruby_build',  github: 'fnichol/chef-ruby_build'
