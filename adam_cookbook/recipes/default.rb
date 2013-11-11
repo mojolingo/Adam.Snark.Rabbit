@@ -130,7 +130,7 @@ unless ruby_components.empty?
         end
       end
 
-      restart_command "sudo service adam restart"
+      restart_command "sudo restart adam"
     end
   else
     ruby_components.each do |component|

@@ -8,6 +8,6 @@ end
 sudo 'adam' do
   user      'adam'
   runas     'ALL'
-  commands  ['/usr/sbin/service adam restart']
+  commands  ['/usr/sbin/restart adam']
   nopasswd  true
 end
