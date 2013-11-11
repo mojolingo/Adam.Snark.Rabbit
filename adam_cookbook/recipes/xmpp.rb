@@ -8,14 +8,23 @@ rewind "template[/etc/ejabberd/ejabberd.cfg]" do
   cookbook_name "adam"
 end
 
-include_recipe "ruby_build"
-include_recipe "rbenv::system_install"
+node.default['rbenv']['group_users'] << 'ejabberd'
 
-ruby_version = '2.0.0-p0'
-rbenv_ruby ruby_version
-rbenv_global ruby_version
-rbenv_gem 'faraday'
-rbenv_gem 'faraday_middleware'
+include_recipe 'rbenv'
+include_recipe 'rbenv::ruby_build'
+
+ruby = '2.0.0-p0'
+rbenv_ruby ruby do
+  global true
+end
+
+rbenv_gem 'faraday' do
+  ruby_version ruby
+end
+
+rbenv_gem 'faraday_middleware' do
+  ruby_version ruby
+end
 
 template '/etc/ejabberd/ext_auth' do
   source 'ejabberd_auth.erb'

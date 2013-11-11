@@ -13,7 +13,6 @@ end
 
 %w{
   apt
-  chef-solo-search
   ejabberd
   motd-tail
   mongodb

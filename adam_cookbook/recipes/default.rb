@@ -3,10 +3,12 @@
   libpcre3-dev
 }.each { |p| package p }
 
+node.default['rbenv']['group_users'] << 'adam'
+
 include_recipe "git"
 include_recipe "postfix"
-include_recipe "ruby_build"
-include_recipe "rbenv::system_install"
+include_recipe 'rbenv'
+include_recipe 'rbenv::ruby_build'
 
 ruby_components = []
 
@@ -27,17 +29,18 @@ if node['adam']['brain']['install']
 end
 
 unless ruby_components.empty?
-  ruby_version = '2.0.0-p0'
+  ruby = '2.0.0-p0'
 
-  rbenv_ruby ruby_version
-  rbenv_global ruby_version
+  rbenv_ruby ruby do
+    global true
+  end
 
   rbenv_gem 'bundler' do
-    rbenv_version ruby_version
+    ruby_version ruby
   end
 
   rbenv_gem 'foreman' do
-    rbenv_version ruby_version
+    ruby_version ruby
   end
 
   if node[:adam][:standalone_deployment]
@@ -113,15 +116,15 @@ unless ruby_components.empty?
 
       before_restart do
         ruby_components.each do |component|
-          rbenv_script "app_#{component}_dependencies" do
-            code "bundle install --deployment --path vendor/ruby"
+          rbenv_execute "app_#{component}_dependencies" do
+            command "bundle install --deployment --path vendor/ruby"
             cwd File.join(node['adam']['deployment_path'], 'current', component)
           end
         end
 
         # Just so that tests can run
-        rbenv_script "adam_common_dependencies" do
-          code "bundle install --path vendor/ruby"
+        rbenv_execute "adam_common_dependencies" do
+          command "bundle install --path vendor/ruby"
           cwd File.join(node['adam']['deployment_path'], 'current', 'adam_common')
           environment 'NOKOGIRI_USE_SYSTEM_LIBRARIES' => 'true'
         end
@@ -131,15 +134,15 @@ unless ruby_components.empty?
     end
   else
     ruby_components.each do |component|
-      rbenv_script "app_#{component}_dependencies" do
-        code "bundle install --path vendor/ruby"
+      rbenv_execute "app_#{component}_dependencies" do
+        command "bundle install --path vendor/ruby"
         cwd File.join(node['adam']['deployment_path'], 'current', component)
         environment 'NOKOGIRI_USE_SYSTEM_LIBRARIES' => 'true'
       end
     end
 
-    rbenv_script "setup app services" do
-      code "foreman export upstart /etc/init -a adam"
+    rbenv_execute "setup app services" do
+      command "foreman export upstart /etc/init -a adam"
       cwd File.join(node['adam']['deployment_path'], 'current')
     end
 
