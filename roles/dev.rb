@@ -4,25 +4,5 @@ run_list "role[amqp]",
   "role[xmpp]",
   "role[mongo]",
   "role[freeswitch]",
+  "recipe[adam::dev]",
   "role[app]"
-
-override_attributes :freeswitch => {
-  :modules => {
-    :rayo => {
-      :listeners => [
-        {
-          :type => "c2s",
-          :port => "5224",
-          :address => "$${rayo_ip}",
-          :acl => ""
-        },
-        {
-          :type => "c2s",
-          :port => "5224",
-          :address => "127.0.0.1",
-          :acl => ""
-        }
-      ]
-    }
-  }
-}

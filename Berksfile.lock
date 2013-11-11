@@ -3,13 +3,13 @@
     "freeswitch": {
       "locked_version": "0.1.0",
       "git": "git://github.com/mojolingo/freeswitch-cookbook.git",
-      "ref": "da6e918da7719fad025b150ab1e65071735b80ec"
+      "ref": "5cb9ba1214ad5291b9e1a807bbb33df021fd1ca9"
     },
     "adam": {
       "path": "./adam_cookbook"
     },
     "apt": {
-      "locked_version": "1.5.0"
+      "locked_version": "2.3.0"
     },
     "ejabberd": {
       "locked_version": "0.1.0"

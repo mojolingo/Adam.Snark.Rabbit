@@ -3,6 +3,6 @@
 
 site :opscode
 
-cookbook 'freeswitch', github: 'mojolingo/freeswitch-cookbook', ref: 'da6e918da7719fad025b150ab1e65071735b80ec'
+cookbook 'freeswitch', github: 'mojolingo/freeswitch-cookbook', ref: '5cb9ba1214ad5291b9e1a807bbb33df021fd1ca9'
 
 cookbook 'adam', path: 'adam_cookbook'
