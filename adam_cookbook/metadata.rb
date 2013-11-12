@@ -13,7 +13,6 @@ end
 
 %w{
   apt
-  ejabberd
   motd-tail
   mongodb
   git
@@ -26,3 +25,5 @@ end
 }.each do |cb|
   depends cb
 end
+
+depends 'ejabberd', '~> 0.1.1'

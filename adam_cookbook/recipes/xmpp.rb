@@ -34,5 +34,5 @@ template '/etc/ejabberd/ext_auth' do
   variables :memory_base_url => node['adam']['memory_base_url'],
             :internal_username => node['adam']['memory']['internal_username'],
             :internal_password => node['adam']['memory']['internal_password']
-  notifies :restart, resources(:service => "ejabberd"), :immediately
+  notifies :restart, resources(:service => "ejabberd")
 end
