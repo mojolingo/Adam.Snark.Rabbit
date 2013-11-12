@@ -13,9 +13,7 @@ file.sync = true
 $logger = Logger.new file
 $logger.level = Logger::DEBUG
 
-# Ruby 1.8 uses 'n' to indicate a short in network order
-# Ruby 1.9 uses 'S>'
-PACK_FORMAT = RUBY_VERSION =~ /^1\.9/ ? 'S>' : 'n'
+PACK_FORMAT = 'S>'
 
 class Auth
   def initialize
