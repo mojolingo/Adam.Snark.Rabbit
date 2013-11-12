@@ -1,2 +1,2 @@
 #!/bin/bash
-cd fingers && bundle exec ahn start . --no-console
+cd fingers && exec bundle exec ahn start . --no-console

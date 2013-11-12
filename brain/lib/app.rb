@@ -39,6 +39,7 @@ class App < Adhearsion::Plugin
     Adhearsion::Events.shutdown do
       logger.info "Shutting down while connecting. Breaking the connection block."
       m.synchronize { blocker.broadcast }
+      EM.next_tick { EM.stop }
     end
 
     Adhearsion::Process.important_threads << Thread.new do
@@ -65,7 +66,7 @@ class App < Adhearsion::Plugin
   def self.run
     EM.run do
       AMQP.connect "amqp://#{ENV['ADAM_BRAIN_AMQP_USERNAME']}:#{ENV['ADAM_BRAIN_AMQP_PASSWORD']}@#{ENV['ADAM_BRAIN_AMQP_HOST']}" do |connection|
-        AMQPHandler.new(@brain).listen
+        AMQPHandler.new(connection, @brain).listen
         logger.info "Connected and listening for messages"
         Adhearsion::Events.trigger :amqp_connected
       end

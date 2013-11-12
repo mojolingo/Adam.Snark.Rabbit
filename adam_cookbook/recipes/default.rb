@@ -1,118 +1,156 @@
-include_recipe 'adam::rabbitmq_users'
+include_recipe "chef-solo-search"
 
 %w{
-  libqt4-dev
-  qt4-qmake
   libpcre3
   libpcre3-dev
 }.each { |p| package p }
 
-rbenv_gem 'faraday'
-rbenv_gem 'faraday_middleware'
+node.default['rbenv']['group_users'] << 'adam'
 
-template '/etc/ejabberd/ext_auth' do
-  source 'ejabberd_auth.erb'
-  user 'ejabberd'
-  group 'ejabberd'
-  mode "770"
-  variables :root_domain => node['adam']['root_domain'],
-            :internal_password => node['adam']['internal_password']
-  notifies :restart, resources(:service => "ejabberd"), :immediately
+include_recipe "git"
+include_recipe "postfix"
+include_recipe 'rbenv'
+include_recipe 'rbenv::ruby_build'
+
+ruby_components = []
+
+if node['adam']['memory']['install']
+  ruby_components << 'memory'
 end
 
-ruby_components = %w{
-  memory
-  ears
-  fingers
-  brain
-}
+if node['adam']['ears']['install']
+  ruby_components << 'ears'
+end
 
-if node[:adam][:standalone_deployment]
-  links = {}
-  ruby_components.each do |component|
-    links["#{component}/vendor/ruby"] = "#{component}/vendor/ruby"
+if node['adam']['fingers']['install']
+  ruby_components << 'fingers'
+end
+
+if node['adam']['brain']['install']
+  ruby_components << 'brain'
+end
+
+unless ruby_components.empty?
+  ruby = '2.0.0-p0'
+
+  rbenv_ruby ruby do
+    global true
   end
 
-  links.each_pair do |source_dir, symlink|
-    directory File.join(node['adam']['deployment_path'], 'shared', source_dir) do
-      recursive true
+  rbenv_gem 'bundler' do
+    ruby_version ruby
+  end
+
+  rbenv_gem 'foreman' do
+    ruby_version ruby
+  end
+
+  if node[:adam][:standalone_deployment]
+    links = {}
+    ruby_components.each do |component|
+      links["#{component}/vendor/ruby"] = "#{component}/vendor/ruby"
+    end
+
+    links.each_pair do |source_dir, symlink|
+      directory File.join(node['adam']['deployment_path'], 'shared', source_dir) do
+        recursive true
+        owner "adam"
+        group "adam"
+      end
+    end
+
+    %w{
+      /etc/adam
+      /var/log/adam
+    }.each do |dir|
+      directory dir do
+        owner "adam"
+      end
+    end
+
+    application "adam" do
+      path node['adam']['deployment_path']
       owner "adam"
       group "adam"
-    end
-  end
 
-  application "adam" do
-    path node['adam']['deployment_path']
-    owner "adam"
-    group "adam"
+      repository node['adam']['app_repo_url']
+      revision node['adam']['app_repo_ref']
 
-    repository node['adam']['app_repo_url']
-    revision node['adam']['app_repo_ref']
+      deploy_key node['adam']['deploy_key']
 
-    deploy_key node['adam']['deploy_key']
+      symlinks links
 
-    symlinks links
-
-    nginx_load_balancer do
-      application_port 3000
-      application_server_role 'app'
-      set_host_header true
-      static_files "/assets" => "memory/public/assets",
-                   "/favicon.ico" => "memory/public/favicon.ico"
-    end
-
-    before_restart do
-      template File.join(node['adam']['deployment_path'], 'current', '.env') do
-        source "env.erb"
+      nginx_load_balancer do
+        application_port 3000
+        application_server_role 'app'
+        set_host_header true
+        template 'nginx_site.erb'
+        static_files "/assets" => "memory/public/assets",
+                     "/favicon.ico" => "memory/public/favicon.ico"
       end
 
-      template File.join(node['adam']['deployment_path'], 'current', '.foreman') do
-        source "foreman.erb"
-      end
+      before_deploy do
+        template '/etc/adam/environment' do
+          source "environment.erb"
+          owner "adam"
+          group "adam"
+        end
 
-      ruby_components.each do |component|
-        rbenv_script "app_#{component}_dependencies" do
-          code "bundle install --deployment --path vendor/ruby"
-          cwd File.join(node['adam']['deployment_path'], 'current', component)
+        template "/etc/init/adam.conf" do
+          source "upstart/adam.conf.erb"
+          mode 0744
+        end
+
+        ruby_components.each do |component|
+          template "/etc/init/adam-#{component}.conf" do
+            source "upstart/component.conf.erb"
+            mode 0744
+            variables :component_name => component,
+              :base_directory => File.join(node['adam']['deployment_path'], 'current')
+          end
+        end
+
+        service 'adam' do
+          action :enable
+          provider Chef::Provider::Service::Upstart
         end
       end
 
-      # Just so that tests can run
-      rbenv_script "adam_common_dependencies" do
-        code "bundle install --path vendor/ruby"
-        cwd File.join(node['adam']['deployment_path'], 'current', 'adam_common')
+      before_restart do
+        ruby_components.each do |component|
+          rbenv_execute "app_#{component}_dependencies" do
+            command "bundle install --deployment --path vendor/ruby"
+            cwd File.join(node['adam']['deployment_path'], 'current', component)
+          end
+        end
+
+        # Just so that tests can run
+        rbenv_execute "adam_common_dependencies" do
+          command "bundle install --path vendor/ruby"
+          cwd File.join(node['adam']['deployment_path'], 'current', 'adam_common')
+          environment 'NOKOGIRI_USE_SYSTEM_LIBRARIES' => 'true'
+        end
+      end
+
+      restart_command "sudo service adam restart"
+    end
+  else
+    ruby_components.each do |component|
+      rbenv_execute "app_#{component}_dependencies" do
+        command "bundle install --path vendor/ruby"
+        cwd File.join(node['adam']['deployment_path'], 'current', component)
         environment 'NOKOGIRI_USE_SYSTEM_LIBRARIES' => 'true'
       end
-
-      rbenv_script "setup app services" do
-        code "foreman export upstart /etc/init -a adam"
-        cwd File.join(node['adam']['deployment_path'], 'current')
-      end
-
-      service 'adam' do
-        action :enable
-        provider Chef::Provider::Service::Upstart
-      end
     end
 
-    restart_command "sudo service adam restart"
-  end
-else
-  ruby_components.each do |component|
-    rbenv_script "app_#{component}_dependencies" do
-      code "bundle install --path vendor/ruby"
-      cwd File.join(node['adam']['deployment_path'], 'current', component)
-      environment 'NOKOGIRI_USE_SYSTEM_LIBRARIES' => 'true'
+    rbenv_execute "setup app services" do
+      command "foreman export upstart /etc/init -a adam"
+      cwd File.join(node['adam']['deployment_path'], 'current')
     end
-  end
 
-  rbenv_script "setup app services" do
-    code "foreman export upstart /etc/init -a adam"
-    cwd File.join(node['adam']['deployment_path'], 'current')
-  end
-
-  service 'adam' do
-    action :enable
-    provider Chef::Provider::Service::Upstart
+    service 'adam' do
+      action :enable
+      provider Chef::Provider::Service::Upstart
+    end
   end
 end

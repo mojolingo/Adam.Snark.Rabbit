@@ -39,7 +39,7 @@ describe "AMQP handling" do
   it "should respond to messages on the 'messages' exchange by publishing matching responses on the 'responses' exchange with routing key 'response.[type]'" do
     channel = AMQP::Channel.new
 
-    AMQPHandler.new.listen
+    AMQPHandler.new(nil).listen
 
     responses = []
     channel.queue('', auto_delete: true) do |queue|
@@ -60,7 +60,7 @@ describe "AMQP handling" do
     it "should forward the message via XMPP and respond via XMPP to the user's built-in JID" do
       channel = AMQP::Channel.new
 
-      AMQPHandler.new.listen
+      AMQPHandler.new(nil).listen
 
       responses = []
       channel.queue('', auto_delete: true) do |queue|
@@ -105,7 +105,7 @@ describe "AMQP handling" do
         .to_return(body: wit_interpretation('foo', 'foo', entities), headers: {'Content-Type' => 'application/json'})
       channel = AMQP::Channel.new
 
-      AMQPHandler.new(brain).listen
+      AMQPHandler.new(nil, brain).listen
 
       responses = []
       channel.queue('', auto_delete: true) do |queue|
@@ -148,7 +148,7 @@ describe "AMQP handling" do
       it "should check that user data is fetched correctly" do
         channel = AMQP::Channel.new
 
-        AMQPHandler.new(brain).listen
+        AMQPHandler.new(nil, brain).listen
 
         responses = []
         channel.queue('', auto_delete: true) do |queue|

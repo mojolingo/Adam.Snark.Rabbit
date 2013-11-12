@@ -1,5 +1,4 @@
 name "amqp"
 description "AMQP Broker"
-run_list "role[base]",
-  "recipe[rabbitmq]",
-  "recipe[rabbitmq::mgmt_console]"
+run_list "recipe[adam::base]",
+  "recipe[adam::rabbitmq]"

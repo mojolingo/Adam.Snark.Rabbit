@@ -1,0 +1,359 @@
+Vagrant.configure("2") do |config|
+  config.vm.box     = 'tdb-ubuntu1204-v14'
+  config.vm.box_url = 'http://ci.mojolingo.com/job/Telephony-Dev-Box-Base-Boxen/14/artifact/tdb-ubuntu1204.box'
+
+  creds = JSON.parse(File.read('creds.json'))
+
+  config.vm.define :memory do |config|
+    config.vm.hostname  = "memory.test.adamrabbit.net"
+
+    config.vm.provider :virtualbox do |vb|
+      vb.name = "Adam-Snark-Rabbit-Memory"
+    end
+
+    public_ip = "192.168.34.100"
+    config.vm.network :private_network, ip: public_ip
+
+    config.vm.provision :chef_solo do |chef|
+      chef.cookbooks_path = "cookbooks"
+      chef.roles_path = "roles"
+      chef.data_bags_path = "data_bags"
+
+      chef.add_role "app"
+
+      chef.json = {
+        'adam' => {
+          'app_repo_ref' => `git rev-parse --abbrev-ref HEAD`.strip,
+          'environment' => 'development',
+          'memory_base_url' => 'http://test.adamrabbit.net:3000',
+          'root_domain' => 'test.adamrabbit.net',
+          'standalone_deployment' => true,
+          'deploy_key' => File.read('deploy_key'),
+          'memory' => {
+            'internal_password' => 'fj8j4893jgg9jg9',
+            'mongoid_host' => 'mongo.test.adamrabbit.net',
+            'bosh_host' => 'xmpp.test.adamrabbit.net'
+          },
+          'ears' => {
+            'install' => false
+          },
+          'fingers' => {
+            'install' => false
+          },
+          'brain' => {
+            'install' => false
+          },
+          'amqp_host' => '192.168.33.101',
+          'rayo_domain' => 'rayo.test.adamrabbit.net'
+        }.merge(creds),
+        'ejabberd' => {
+          'jabber_domain' => 'test.adamrabbit.net',
+        }
+      }
+
+      chef.log_level = :debug
+    end
+  end
+
+  config.vm.define :amqp do |config|
+    config.vm.hostname  = "amqp.test.adamrabbit.net"
+
+    config.vm.provider :virtualbox do |vb|
+      vb.name = "Adam-Snark-Rabbit-AMQP"
+    end
+
+    public_ip = "192.168.34.101"
+    config.vm.network :private_network, ip: public_ip
+
+    config.vm.provision :chef_solo do |chef|
+      chef.cookbooks_path = "cookbooks"
+      chef.roles_path = "roles"
+      chef.data_bags_path = "data_bags"
+
+      chef.add_role "amqp"
+
+      chef.json = {
+        'adam' => {
+          'environment' => 'development',
+          'memory_base_url' => 'http://test.adamrabbit.net:3000',
+          'root_domain' => 'test.adamrabbit.net',
+          'standalone_deployment' => true,
+          'deploy_key' => File.read('deploy_key'),
+          'memory' => {
+            'internal_password' => 'fj8j4893jgg9jg9'
+          }
+        }.merge(creds),
+        'ejabberd' => {
+          'jabber_domain' => 'test.adamrabbit.net',
+        }
+      }
+
+      chef.log_level = :debug
+    end
+  end
+
+  config.vm.define :mongo do |config|
+    config.vm.hostname  = "mongo.test.adamrabbit.net"
+
+    config.vm.provider :virtualbox do |vb|
+      vb.name = "Adam-Snark-Rabbit-Mongo"
+    end
+
+    public_ip = "192.168.34.102"
+    config.vm.network :private_network, ip: public_ip
+
+    config.vm.provision :chef_solo do |chef|
+      chef.cookbooks_path = "cookbooks"
+      chef.roles_path = "roles"
+      chef.data_bags_path = "data_bags"
+
+      chef.add_role "mongo"
+
+      chef.json = {
+        'adam' => {
+          'environment' => 'development',
+          'memory_base_url' => 'http://test.adamrabbit.net:3000',
+          'root_domain' => 'test.adamrabbit.net',
+          'standalone_deployment' => true,
+          'deploy_key' => File.read('deploy_key'),
+          'memory' => {
+            'internal_password' => 'fj8j4893jgg9jg9'
+          }
+        }.merge(creds),
+        'ejabberd' => {
+          'jabber_domain' => 'test.adamrabbit.net',
+        }
+      }
+
+      chef.log_level = :debug
+    end
+  end
+
+  config.vm.define :freeswitch do |config|
+    config.vm.hostname  = "freeswitch.test.adamrabbit.net"
+
+    config.vm.provider :virtualbox do |vb|
+      vb.name = "Adam-Snark-Rabbit-FreeSWITCH"
+    end
+
+    public_ip = "192.168.34.103"
+    config.vm.network :private_network, ip: public_ip
+
+    config.vm.provision :chef_solo do |chef|
+      chef.cookbooks_path = "cookbooks"
+      chef.roles_path = "roles"
+      chef.data_bags_path = "data_bags"
+
+      chef.add_role "freeswitch"
+
+      chef.json = {
+        'adam' => {
+          'environment' => 'development',
+          'memory_base_url' => 'http://test.adamrabbit.net:3000',
+          'root_domain' => 'test.adamrabbit.net',
+          'standalone_deployment' => true,
+          'deploy_key' => File.read('deploy_key'),
+          'memory' => {
+            'internal_password' => 'fj8j4893jgg9jg9'
+          }
+        }.merge(creds),
+        'ejabberd' => {
+          'jabber_domain' => 'test.adamrabbit.net',
+        },
+        'freeswitch' => {
+          'local_ip' => public_ip,
+          'domain' => 'rayo.test.adamrabbit.net'
+        }
+      }
+
+      chef.log_level = :debug
+    end
+  end
+
+  config.vm.define :xmpp do |config|
+    config.vm.hostname  = "xmpp.test.adamrabbit.net"
+
+    config.vm.provider :virtualbox do |vb|
+      vb.name = "Adam-Snark-Rabbit-XMPP"
+    end
+
+    public_ip = "192.168.34.104"
+    config.vm.network :private_network, ip: public_ip
+
+    config.vm.provision :chef_solo do |chef|
+      chef.cookbooks_path = "cookbooks"
+      chef.roles_path = "roles"
+      chef.data_bags_path = "data_bags"
+
+      chef.add_role "xmpp"
+
+      chef.json = {
+        'adam' => {
+          'environment' => 'development',
+          'memory_base_url' => 'http://test.adamrabbit.net:3000',
+          'root_domain' => 'test.adamrabbit.net',
+          'standalone_deployment' => true,
+          'deploy_key' => File.read('deploy_key'),
+          'memory' => {
+            'internal_password' => 'fj8j4893jgg9jg9'
+          }
+        }.merge(creds),
+        'ejabberd' => {
+          'jabber_domain' => 'test.adamrabbit.net',
+        }
+      }
+
+      chef.log_level = :debug
+    end
+  end
+
+  config.vm.define :ears do |config|
+    config.vm.hostname  = "ears.test.adamrabbit.net"
+
+    config.vm.provider :virtualbox do |vb|
+      vb.name = "Adam-Snark-Rabbit-Ears"
+    end
+
+    public_ip = "192.168.34.200"
+    config.vm.network :private_network, ip: public_ip
+
+    config.vm.provision :chef_solo do |chef|
+      chef.cookbooks_path = "cookbooks"
+      chef.roles_path = "roles"
+      chef.data_bags_path = "data_bags"
+
+      chef.add_role "app"
+
+      chef.json = {
+        'adam' => {
+          'app_repo_ref' => `git rev-parse --abbrev-ref HEAD`.strip,
+          'environment' => 'development',
+          'memory_base_url' => 'http://test.adamrabbit.net:3000',
+          'root_domain' => 'test.adamrabbit.net',
+          'standalone_deployment' => true,
+          'deploy_key' => File.read('deploy_key'),
+          'memory' => {
+            'internal_password' => 'fj8j4893jgg9jg9',
+            'install' => false
+          },
+          'ears' => {
+            'install' => true
+          },
+          'fingers' => {
+            'install' => false
+          },
+          'brain' => {
+            'install' => false
+          },
+          'amqp_host' => '192.168.33.101',
+          'rayo_domain' => 'rayo.test.adamrabbit.net'
+        }.merge(creds),
+        'ejabberd' => {
+          'jabber_domain' => 'test.adamrabbit.net',
+        }
+      }
+
+      chef.log_level = :debug
+    end
+  end
+
+  config.vm.define :fingers do |config|
+    config.vm.hostname  = "fingers.test.adamrabbit.net"
+
+    config.vm.provider :virtualbox do |vb|
+      vb.name = "Adam-Snark-Rabbit-Fingers"
+    end
+
+    public_ip = "192.168.34.201"
+    config.vm.network :private_network, ip: public_ip
+
+    config.vm.provision :chef_solo do |chef|
+      chef.cookbooks_path = "cookbooks"
+      chef.roles_path = "roles"
+      chef.data_bags_path = "data_bags"
+
+      chef.add_role "app"
+
+      chef.json = {
+        'adam' => {
+          'app_repo_ref' => `git rev-parse --abbrev-ref HEAD`.strip,
+          'environment' => 'development',
+          'memory_base_url' => 'http://test.adamrabbit.net:3000',
+          'root_domain' => 'test.adamrabbit.net',
+          'standalone_deployment' => true,
+          'deploy_key' => File.read('deploy_key'),
+          'memory' => {
+            'internal_password' => 'fj8j4893jgg9jg9',
+            'install' => false
+          },
+          'ears' => {
+            'install' => false
+          },
+          'fingers' => {
+            'install' => true
+          },
+          'brain' => {
+            'install' => false
+          },
+          'amqp_host' => '192.168.33.101',
+          'rayo_domain' => 'rayo.test.adamrabbit.net'
+        }.merge(creds),
+        'ejabberd' => {
+          'jabber_domain' => 'test.adamrabbit.net',
+        }
+      }
+
+      chef.log_level = :debug
+    end
+  end
+
+  config.vm.define :brain do |config|
+    config.vm.hostname  = "brain.test.adamrabbit.net"
+
+    config.vm.provider :virtualbox do |vb|
+      vb.name = "Adam-Snark-Rabbit-Brain"
+    end
+
+    public_ip = "192.168.34.202"
+    config.vm.network :private_network, ip: public_ip
+
+    config.vm.provision :chef_solo do |chef|
+      chef.cookbooks_path = "cookbooks"
+      chef.roles_path = "roles"
+      chef.data_bags_path = "data_bags"
+
+      chef.add_role "app"
+
+      chef.json = {
+        'adam' => {
+          'app_repo_ref' => `git rev-parse --abbrev-ref HEAD`.strip,
+          'environment' => 'development',
+          'memory_base_url' => 'http://test.adamrabbit.net:3000',
+          'root_domain' => 'test.adamrabbit.net',
+          'standalone_deployment' => true,
+          'deploy_key' => File.read('deploy_key'),
+          'memory' => {
+            'internal_password' => 'fj8j4893jgg9jg9',
+            'install' => false
+          },
+          'ears' => {
+            'install' => false
+          },
+          'fingers' => {
+            'install' => false
+          },
+          'brain' => {
+            'install' => true
+          },
+          'amqp_host' => '192.168.33.101',
+          'rayo_domain' => 'rayo.test.adamrabbit.net'
+        }.merge(creds),
+        'ejabberd' => {
+          'jabber_domain' => 'test.adamrabbit.net',
+        }
+      }
+
+      chef.log_level = :debug
+    end
+  end
+end

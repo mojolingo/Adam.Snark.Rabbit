@@ -2,8 +2,8 @@ require_relative 'brain'
 require_relative 'message_processor'
 
 class AMQPHandler
-  def initialize(brain = Brain.new)
-    @channel = AMQP::Channel.new
+  def initialize(connection, brain = Brain.new)
+    @channel = AMQP::Channel.new connection
     @brain = brain
   end
 

@@ -12,7 +12,12 @@ recipe            "apt-update", "Updates apt repositories"
 end
 
 %w{
+  apt
+  motd-tail
+  chef-solo-search
+  mongodb
   git
+  rabbitmq
   rbenv
   application
   application_nginx
@@ -21,3 +26,6 @@ end
 }.each do |cb|
   depends cb
 end
+
+depends 'ejabberd', '~> 0.1.1'
+depends 'freeswitch', '~> 0.2.0'

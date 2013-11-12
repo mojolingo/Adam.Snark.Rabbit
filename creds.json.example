@@ -1,0 +1,11 @@
+{
+  "github_key":"changeme",
+  "github_secret":"changeme",
+  "twitter_key":"changeme",
+  "twitter_secret":"changeme",
+  "wit_api_key": "changeme",
+  "bing_translate_key": "changeme",
+  "bing_translate_secret": "changeme",
+  "att_asr_key": "changeme",
+  "att_asr_secret": "changeme"
+}

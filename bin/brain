@@ -1,2 +1,2 @@
 #!/bin/bash
-cd brain && bundle exec ahn start . --no-console
+cd brain && exec bundle exec ahn start . --no-console

@@ -22,6 +22,7 @@ class App < Adhearsion::Plugin
     Adhearsion::Events.shutdown do
       logger.info "Shutting down while connecting. Breaking the connection block."
       m.synchronize { blocker.broadcast }
+      EM.next_tick { EM.stop }
     end
 
     Adhearsion::Process.important_threads << Thread.new do

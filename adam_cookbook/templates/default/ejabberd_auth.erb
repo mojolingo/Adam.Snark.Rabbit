@@ -13,18 +13,12 @@ file.sync = true
 $logger = Logger.new file
 $logger.level = Logger::DEBUG
 
-# Ruby 1.8 uses 'n' to indicate a short in network order
-# Ruby 1.9 uses 'S>'
-PACK_FORMAT = RUBY_VERSION =~ /^1\.9/ ? 'S>' : 'n'
+PACK_FORMAT = 'S>'
 
 class Auth
   def initialize
-    url = "http://<%= @root_domain %>:3000"
-    password = "<%= @internal_password %>"
-    $logger.debug "Making connection to #{url} using #{password}"
-
-    @conn = Faraday.new url: url do |c|
-      c.basic_auth 'internal', password
+    @conn = Faraday.new url: "<%= @memory_base_url %>" do |c|
+      c.basic_auth "<%= @internal_username %>", "<%= @internal_password %>"
       c.adapter :net_http
       c.use FaradayMiddleware::ParseJson, content_type: 'application/json'
       c.response :raise_error

@@ -51,7 +51,7 @@ A full Vagrant development environment for Adam is included. It can be setup in 
 
 1. Install [virtualbox](https://www.virtualbox.org/wiki/Downloads)
 2. Install [vagrant](http://vagrantup.com)
-3. Add the [librarian-chef plugin](https://github.com/jimmycuadra/vagrant-librarian-chef) to your Vagrant installation by doing `vagrant plugin install vagrant-librarian-chef`.
+3. Add the [vagrant-berkshelf plugin](https://github.com/riotgames/vagrant-berkshelf) to your Vagrant installation by doing `vagrant plugin install vagrant-berkshelf`.
 4. (optional - Only required to build with `STANDALONE_DEPLOYMENT=true` or to run `make ci`) Place or symlink an SSH private key to be used to clone the app repo from Github in the VM in `deploy_key`. This will be copied to the VM. It can be a deploy key on the adam repo, or a Github user's SSH key.
 5. `vagrant up` to download, launch, and provision the VMs
 
@@ -65,9 +65,9 @@ This is a simple Vagrant based development environment. All the usual vagrant ru
 ```json
 {
   "run_list":"role[dev]",
-  "jabber_domain":"staging.adamrabbit.net",
   "adam": {
     "root_domain":"staging.adamrabbit.net",
+    "memory_base_url":"http://staging.adamrabbit.net:3000",
     "deploy_key":"-----BEGIN RSA PRIVATE KEY-----ncenneccikiejwcoej-----END RSA PRIVATE KEY-----",
     "github_key":"changeme",
     "github_secret":"changeme",
@@ -82,26 +82,11 @@ This is a simple Vagrant based development environment. All the usual vagrant ru
     "punchblock_port":"5224",
     "reporter":{"api_key":"changeme"}
   },
+  "ejabberd":{
+    "jabber_domain":"staging.adamrabbit.net",
+  },
   "freeswitch": {
     "local_ip":"changeme",
-    "modules": {
-      "rayo": {
-        "listeners": [
-          {
-            "type": "c2s",
-            "port": "5224",
-            "address": "$${rayo_ip}",
-            "acl": ""
-          },
-          {
-            "type": "c2s",
-            "port": "5224",
-            "address": "127.0.0.1",
-            "acl": ""
-          }
-        ]
-      }
-    }
   }
 }
 ```
