@@ -31,7 +31,7 @@ if node['adam']['brain']['install']
 end
 
 unless ruby_components.empty?
-  ruby = '2.0.0-p0'
+  ruby = '2.0.0-p247'
 
   rbenv_ruby ruby do
     global true

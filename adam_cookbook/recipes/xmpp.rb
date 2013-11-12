@@ -13,7 +13,7 @@ node.default['rbenv']['group_users'] << 'ejabberd'
 include_recipe 'rbenv'
 include_recipe 'rbenv::ruby_build'
 
-ruby = '2.0.0-p0'
+ruby = '2.0.0-p247'
 rbenv_ruby ruby do
   global true
 end
