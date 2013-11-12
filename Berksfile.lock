@@ -9,7 +9,7 @@
       "path": "./adam_cookbook"
     },
     "apt": {
-      "locked_version": "2.2.0"
+      "locked_version": "2.3.0"
     },
     "motd-tail": {
       "locked_version": "1.2.0"
@@ -21,55 +21,55 @@
       "locked_version": "2.4.2"
     },
     "git": {
-      "locked_version": "2.1.2"
+      "locked_version": "2.7.0"
     },
     "dmg": {
-      "locked_version": "1.1.0"
-    },
-    "runit": {
-      "locked_version": "0.16.2"
+      "locked_version": "2.0.8"
     },
     "build-essential": {
-      "locked_version": "1.3.2"
+      "locked_version": "1.4.2"
     },
     "windows": {
-      "locked_version": "1.7.0"
+      "locked_version": "1.11.0"
     },
     "chef_handler": {
       "locked_version": "1.1.4"
+    },
+    "runit": {
+      "locked_version": "1.4.0"
     },
     "rabbitmq": {
       "locked_version": "2.3.2"
     },
     "erlang": {
-      "locked_version": "1.1.2"
+      "locked_version": "1.3.2"
     },
     "rbenv": {
-      "locked_version": "1.4.1"
+      "locked_version": "1.6.5"
     },
     "ohai": {
-      "locked_version": "1.1.6"
+      "locked_version": "1.1.12"
     },
     "application": {
-      "locked_version": "3.0.0"
+      "locked_version": "4.1.4"
     },
     "application_nginx": {
       "locked_version": "2.0.2"
     },
     "nginx": {
-      "locked_version": "1.1.4"
-    },
-    "bluepill": {
-      "locked_version": "2.2.0"
-    },
-    "rsyslog": {
-      "locked_version": "1.5.0"
-    },
-    "sudo": {
       "locked_version": "2.0.4"
     },
+    "bluepill": {
+      "locked_version": "2.3.0"
+    },
+    "rsyslog": {
+      "locked_version": "1.9.0"
+    },
+    "sudo": {
+      "locked_version": "2.2.2"
+    },
     "postfix": {
-      "locked_version": "2.1.4"
+      "locked_version": "3.0.4"
     },
     "ejabberd": {
       "locked_version": "0.1.1"
