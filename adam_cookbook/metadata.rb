@@ -14,6 +14,7 @@ end
 %w{
   apt
   motd-tail
+  chef-solo-search
   mongodb
   git
   rabbitmq

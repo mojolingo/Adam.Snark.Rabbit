@@ -1,3 +1,5 @@
+include_recipe "chef-solo-search"
+
 %w{
   libpcre3
   libpcre3-dev
