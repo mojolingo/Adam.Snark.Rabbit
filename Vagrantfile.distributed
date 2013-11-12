@@ -11,7 +11,7 @@ Vagrant.configure("2") do |config|
       vb.name = "Adam-Snark-Rabbit-Memory"
     end
 
-    public_ip = "192.168.33.100"
+    public_ip = "192.168.34.100"
     config.vm.network :private_network, ip: public_ip
 
     config.vm.provision :chef_solo do |chef|
@@ -62,7 +62,7 @@ Vagrant.configure("2") do |config|
       vb.name = "Adam-Snark-Rabbit-AMQP"
     end
 
-    public_ip = "192.168.33.101"
+    public_ip = "192.168.34.101"
     config.vm.network :private_network, ip: public_ip
 
     config.vm.provision :chef_solo do |chef|
@@ -99,7 +99,7 @@ Vagrant.configure("2") do |config|
       vb.name = "Adam-Snark-Rabbit-Mongo"
     end
 
-    public_ip = "192.168.33.102"
+    public_ip = "192.168.34.102"
     config.vm.network :private_network, ip: public_ip
 
     config.vm.provision :chef_solo do |chef|
@@ -136,7 +136,7 @@ Vagrant.configure("2") do |config|
       vb.name = "Adam-Snark-Rabbit-FreeSWITCH"
     end
 
-    public_ip = "192.168.33.103"
+    public_ip = "192.168.34.103"
     config.vm.network :private_network, ip: public_ip
 
     config.vm.provision :chef_solo do |chef|
@@ -177,7 +177,7 @@ Vagrant.configure("2") do |config|
       vb.name = "Adam-Snark-Rabbit-XMPP"
     end
 
-    public_ip = "192.168.33.104"
+    public_ip = "192.168.34.104"
     config.vm.network :private_network, ip: public_ip
 
     config.vm.provision :chef_solo do |chef|
@@ -214,7 +214,7 @@ Vagrant.configure("2") do |config|
       vb.name = "Adam-Snark-Rabbit-Ears"
     end
 
-    public_ip = "192.168.33.200"
+    public_ip = "192.168.34.200"
     config.vm.network :private_network, ip: public_ip
 
     config.vm.provision :chef_solo do |chef|
@@ -264,7 +264,7 @@ Vagrant.configure("2") do |config|
       vb.name = "Adam-Snark-Rabbit-Fingers"
     end
 
-    public_ip = "192.168.33.201"
+    public_ip = "192.168.34.201"
     config.vm.network :private_network, ip: public_ip
 
     config.vm.provision :chef_solo do |chef|
@@ -314,7 +314,7 @@ Vagrant.configure("2") do |config|
       vb.name = "Adam-Snark-Rabbit-Brain"
     end
 
-    public_ip = "192.168.33.202"
+    public_ip = "192.168.34.202"
     config.vm.network :private_network, ip: public_ip
 
     config.vm.provision :chef_solo do |chef|
