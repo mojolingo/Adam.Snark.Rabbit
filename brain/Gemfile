@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'amqp'
-gem 'adam_common', path: '../adam_common'
+gem 'adam_signals', '~> 1.0'
 gem 'activesupport', require: nil
 gem 'adhearsion', '~> 2.4'
 

@@ -123,13 +123,6 @@ unless ruby_components.empty?
             cwd File.join(node['adam']['deployment_path'], 'current', component)
           end
         end
-
-        # Just so that tests can run
-        rbenv_execute "adam_common_dependencies" do
-          command "bundle install --path vendor/ruby"
-          cwd File.join(node['adam']['deployment_path'], 'current', 'adam_common')
-          environment 'NOKOGIRI_USE_SYSTEM_LIBRARIES' => 'true'
-        end
       end
 
       restart_command "sudo service adam restart"

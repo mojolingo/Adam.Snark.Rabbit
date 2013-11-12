@@ -1,7 +1,6 @@
 #!/usr/bin/env rake
 
 ruby_components = %w{
-  adam_common
   memory
   ears
   fingers

@@ -1,4 +1,4 @@
-require 'adam_common/message'
+require 'adam_signals/message'
 
 require 'faraday'
 require 'faraday_middleware'
