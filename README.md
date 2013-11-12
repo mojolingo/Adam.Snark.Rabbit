@@ -87,24 +87,6 @@ This is a simple Vagrant based development environment. All the usual vagrant ru
   },
   "freeswitch": {
     "local_ip":"changeme",
-    "modules": {
-      "rayo": {
-        "listeners": [
-          {
-            "type": "c2s",
-            "port": "5224",
-            "address": "$${rayo_ip}",
-            "acl": ""
-          },
-          {
-            "type": "c2s",
-            "port": "5224",
-            "address": "127.0.0.1",
-            "acl": ""
-          }
-        ]
-      }
-    }
   }
 }
 ```

@@ -1,10 +1,5 @@
 {
   "sources": {
-    "freeswitch": {
-      "locked_version": "0.1.0",
-      "git": "git://github.com/mojolingo/freeswitch-cookbook.git",
-      "ref": "5cb9ba1214ad5291b9e1a807bbb33df021fd1ca9"
-    },
     "adam": {
       "path": "./adam_cookbook"
     },
@@ -76,6 +71,9 @@
     },
     "ejabberd": {
       "locked_version": "0.1.1"
+    },
+    "freeswitch": {
+      "locked_version": "0.2.0"
     }
   }
 }
