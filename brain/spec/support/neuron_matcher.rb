@@ -6,10 +6,10 @@ module NeuronMatchers
   class MessageMatcher
     def initialize(message, user = :default_user, interpretation = nil)
       user = default_user if user == :default_user
-      @message = if message.is_a?(AdamCommon::Message)
+      @message = if message.is_a?(AdamSignals::Message)
         message
       else
-        AdamCommon::Message.new body: message, user: user
+        AdamSignals::Message.new body: message, user: user
       end
 
       @interpretation = if interpretation.nil?

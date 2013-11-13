@@ -4,7 +4,7 @@ require_relative '../../lib/message_processor'
 describe MessageProcessor do
   describe "processing a message" do
     let :message do
-      AdamCommon::Message.new source_type: :xmpp,
+      AdamSignals::Message.new source_type: :xmpp,
                   source_address: 'foo@bar.com',
                   body: "Hello"
     end

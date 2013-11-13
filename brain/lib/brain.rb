@@ -11,10 +11,10 @@ class Brain
   #
   # Handle a message received from a user
   #
-  # @param [AdamCommon::Message] message received from the user
+  # @param [AdamSignals::Message] message received from the user
   #
   # @yield [response, type] handle the response calculated from the message
-  # @yieldparam [AdamCommon::Response] response
+  # @yieldparam [AdamSignals::Response] response
   # @yieldparam [Symbol] type The type of response. Can be :xmpp, :phone, etc. Used for routing the response to the best mode gateway.
   #
   def handle(message)
@@ -62,7 +62,7 @@ class Brain
   end
 
   def response(type, address, body)
-    AdamCommon::Response.new target_type: type, target_address: address, body: body
+    AdamSignals::Response.new target_type: type, target_address: address, body: body
   end
 
   #

@@ -7,13 +7,13 @@ describe Brain do
 
   let(:message_body) { "Hello" }
   let :message do
-    AdamCommon::Message.new source_type: :xmpp,
+    AdamSignals::Message.new source_type: :xmpp,
                 source_address: 'foo@bar.com',
                 body: message_body
   end
 
   def response_with_body(body)
-    AdamCommon::Response.new target_type: :xmpp,
+    AdamSignals::Response.new target_type: :xmpp,
                 target_address: 'foo@bar.com',
                 body: body
   end

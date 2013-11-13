@@ -50,7 +50,7 @@ class App < Adhearsion::Plugin
   end
 
   def self.publish_message(message, call_uri)
-    message = AdamCommon::Message.new(body: message, source_address: call_uri, auth_address: 'demo@adamrabbit.net', source_type: :phone)
+    message = AdamSignals::Message.new(body: message, source_address: call_uri, auth_address: 'demo@adamrabbit.net', source_type: :phone)
     logger.info "Publishing message #{message}"
     EM.next_tick { @amqp_handler.publish_message message.to_json }
   end
@@ -61,7 +61,7 @@ class App < Adhearsion::Plugin
       @amqp_handler = amqp = AMQPHandler.new "amqp://#{ENV['ADAM_EARS_AMQP_USERNAME']}:#{ENV['ADAM_EARS_AMQP_PASSWORD']}@#{ENV['ADAM_EARS_AMQP_HOST']}"
       amqp.run
       amqp.work_topic 'responses', 'response.phone' do |payload|
-        response = AdamCommon::Response.from_json(payload)
+        response = AdamSignals::Response.from_json(payload)
         call = Adhearsion.active_calls[response.target_address]
         logger.info "Response was received: #{response} for #{call || 'missing call'}"
         if call

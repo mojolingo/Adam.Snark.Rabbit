@@ -12,13 +12,13 @@ describe "AMQP handling" do
   let(:brain) { Brain.new }
 
   def publish_message(channel, from, body, type = :xmpp)
-    message = AdamCommon::Message.new source_type: type,
+    message = AdamSignals::Message.new source_type: type,
                 source_address: from, body: body
     channel.topic("messages").publish message.to_json
   end
 
   def response(type, address, body)
-    AdamCommon::Response.new target_type: type,
+    AdamSignals::Response.new target_type: type,
                             target_address: address,
                             body: body
   end

@@ -4,7 +4,7 @@ feature 'Users' do
   let(:jid) { 'foo@bar.com/doo' }
 
   def message(source_address = jid, source_type = :xmpp)
-    AdamCommon::Message.new source_type: source_type,
+    AdamSignals::Message.new source_type: source_type,
                             source_address: 'tel:12345',
                             auth_address: source_address
   end

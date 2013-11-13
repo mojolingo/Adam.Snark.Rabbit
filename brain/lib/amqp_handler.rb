@@ -14,7 +14,7 @@ class AMQPHandler
   end
 
   def handle_message(headers, payload)
-    message = AdamCommon::Message.from_json payload
+    message = AdamSignals::Message.from_json payload
     message = processed_message message
     @brain.handle message, &method(:publish_response)
   end

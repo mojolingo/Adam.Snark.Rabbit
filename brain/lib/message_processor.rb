@@ -10,7 +10,7 @@ class MessageProcessor
 
   def processed_message
     @user ||= fetch_user
-    AdamCommon::Message.new source_type: @message.source_type,
+    AdamSignals::Message.new source_type: @message.source_type,
                             source_address: @message.source_address,
                             auth_address: @message.auth_address,
                             body: @message.body,

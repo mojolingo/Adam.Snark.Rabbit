@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   end
 
   def find_for_message
-    message = AdamCommon::Message.from_json params[:message]
+    message = AdamSignals::Message.from_json params[:message]
     user = User.find_for_message(message)
     respond_with user, status: user ? 200 : 404
   end

@@ -13,7 +13,7 @@ class XMPPHandler
     message :body, type: [nil, :chat, :normal] do |m|
       EM.next_tick do
         send_typing m.from
-        message = AdamCommon::Message.new(body: m.body, source_address: m.from.to_s, auth_address: m.from.to_s, source_type: :xmpp)
+        message = AdamSignals::Message.new(body: m.body, source_address: m.from.to_s, auth_address: m.from.to_s, source_type: :xmpp)
         logger.info "Publishing message #{message}"
         @amqp_handler.publish_message message.to_json
       end

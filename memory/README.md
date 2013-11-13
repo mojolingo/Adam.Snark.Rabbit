@@ -44,7 +44,7 @@ The JSON representation of a message will be in the format:
 }
 ```
 
-The fields of a message correspond to those fields on `AdamCommon::Message` and the possible values are documented there.
+The fields of a message correspond to those fields on `AdamSignals::Message` and the possible values are documented there.
 
 The response payload is a JSON representation of the user as described in the 'User representation' section.
 

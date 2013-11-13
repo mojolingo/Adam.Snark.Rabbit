@@ -71,8 +71,8 @@ class App < Adhearsion::Plugin
       end
 
       amqp.work_topic 'responses', 'response.xmpp' do |payload|
-        puts "Response was received: #{AdamCommon::Response.from_json(payload)}"
-        xmpp.process_message_response AdamCommon::Response.from_json(payload)
+        puts "Response was received: #{AdamSignals::Response.from_json(payload)}"
+        xmpp.process_message_response AdamSignals::Response.from_json(payload)
       end
 
       logger.info "Connected and listening for messages"
