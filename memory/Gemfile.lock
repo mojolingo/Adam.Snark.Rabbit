@@ -78,7 +78,7 @@ GEM
       debugger-linecache (~> 1.2.0)
       debugger-ruby_core_source (~> 1.2.3)
     debugger-linecache (1.2.0)
-    debugger-ruby_core_source (1.2.3)
+    debugger-ruby_core_source (1.2.4)
     descendants_tracker (0.0.3)
     devise (2.2.3)
       bcrypt-ruby (~> 3.0)
