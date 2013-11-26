@@ -32,7 +32,9 @@ Vagrant.configure("2") do |config|
         'root_domain' => 'local.adamrabbit.net',
         'standalone_deployment' => !!ENV['STANDALONE_DEPLOYMENT'],
         'deploy_key' => ENV['STANDALONE_DEPLOYMENT'] ? File.read('deploy_key') : nil,
-        'internal_password' => 'fj8j4893jgg9jg9'
+        'memory' => {
+          'internal_password' => 'fj8j4893jgg9jg9'
+        }
       },
       'ejabberd' => {
         'jabber_domain' => 'local.adamrabbit.net'

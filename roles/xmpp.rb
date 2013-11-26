@@ -1,4 +1,3 @@
 name "xmpp"
 description "XMPP Server"
-run_list "recipe[adam::base]",
-  "recipe[adam::xmpp]"
+run_list "recipe[adam_snark_rabbit::xmpp]"

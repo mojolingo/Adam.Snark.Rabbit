@@ -1,58 +1,56 @@
 {
   "sources": {
-    "adam": {
-      "path": "./adam_cookbook"
+    "adam_snark_rabbit": {
+      "locked_version": "0.1.0",
+      "git": "git@github.com:mojolingo/adam_cookbook.git",
+      "ref": "bedaaae3499dc95aac645cdfc1597ccc48d92aa2"
     },
-    "apt": {
-      "locked_version": "2.3.0"
-    },
-    "motd-tail": {
-      "locked_version": "1.2.0"
-    },
-    "chef-solo-search": {
-      "locked_version": "0.5.1"
-    },
-    "mongodb": {
-      "locked_version": "0.13.4"
-    },
-    "yum": {
-      "locked_version": "2.4.2"
-    },
-    "git": {
-      "locked_version": "2.7.0"
-    },
-    "dmg": {
-      "locked_version": "2.0.8"
-    },
-    "build-essential": {
-      "locked_version": "1.4.2"
-    },
-    "windows": {
-      "locked_version": "1.11.0"
-    },
-    "chef_handler": {
-      "locked_version": "1.1.4"
-    },
-    "runit": {
-      "locked_version": "1.4.0"
-    },
-    "rabbitmq": {
-      "locked_version": "2.3.2"
-    },
-    "erlang": {
-      "locked_version": "1.3.2"
-    },
-    "rbenv": {
-      "locked_version": "1.6.5"
-    },
-    "ohai": {
-      "locked_version": "1.1.12"
+    "application_nginx": {
+      "locked_version": "2.0.1",
+      "git": "https://github.com/polysics/application_nginx.git",
+      "ref": "7e386f9d1b67246a30a30df7882551c736fb30f8"
     },
     "application": {
       "locked_version": "4.1.4"
     },
-    "application_nginx": {
-      "locked_version": "2.0.2"
+    "apt": {
+      "locked_version": "2.3.0"
+    },
+    "chef-solo-search": {
+      "locked_version": "0.5.1"
+    },
+    "ejabberd": {
+      "locked_version": "0.1.1"
+    },
+    "yum": {
+      "locked_version": "2.4.2"
+    },
+    "freeswitch": {
+      "locked_version": "0.2.0"
+    },
+    "git": {
+      "locked_version": "2.1.2"
+    },
+    "dmg": {
+      "locked_version": "1.1.0"
+    },
+    "runit": {
+      "locked_version": "1.1.6"
+    },
+    "build-essential": {
+      "locked_version": "1.4.0"
+    },
+    "windows": {
+      "locked_version": "1.10.0"
+    },
+    "chef_handler": {
+      "locked_version": "1.1.4"
+    },
+    "mongodb": {
+      "locked_version": "0.13.4"
+    },
+    "motd-tail": {
+      "locked_version": "1.2.0"
     },
     "nginx": {
       "locked_version": "2.0.4"
@@ -63,17 +61,23 @@
     "rsyslog": {
       "locked_version": "1.9.0"
     },
-    "sudo": {
-      "locked_version": "2.2.2"
+    "ohai": {
+      "locked_version": "1.1.10"
     },
     "postfix": {
-      "locked_version": "3.0.4"
+      "locked_version": "2.1.6"
     },
-    "ejabberd": {
-      "locked_version": "0.1.1"
+    "rabbitmq": {
+      "locked_version": "2.3.2"
     },
-    "freeswitch": {
-      "locked_version": "0.2.0"
+    "erlang": {
+      "locked_version": "1.1.2"
+    },
+    "rbenv": {
+      "locked_version": "1.6.5"
+    },
+    "sudo": {
+      "locked_version": "2.2.2"
     }
   }
 }

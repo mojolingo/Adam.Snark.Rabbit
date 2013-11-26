@@ -155,6 +155,22 @@ Vagrant.configure("2") do |config|
           'deploy_key' => File.read('deploy_key'),
           'memory' => {
             'internal_password' => 'fj8j4893jgg9jg9'
+          },
+          'rayo' => {
+            'listeners' => [
+              {
+                'type' => "c2s",
+                'port' => "5222",
+                'address' => "$${rayo_ip}",
+                'acl' => ""
+              },
+              {
+                'type' => "c2s",
+                'port' => "5222",
+                'address' => "127.0.0.1",
+                'acl' => ""
+              }
+            ]
           }
         }.merge(creds),
         'ejabberd' => {
