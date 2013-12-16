@@ -56,6 +56,29 @@ describe "AMQP handling" do
     end
   end
 
+  it "should continue processing messages even when a malformed message is received" do
+    channel = AMQP::Channel.new
+
+    AMQPHandler.new(nil).listen
+
+    responses = []
+    channel.queue('', auto_delete: true) do |queue|
+      queue.bind(channel.topic('responses'), routing_key: 'response.xmpp').subscribe { |h, p| responses << p }
+    end
+
+    EM.add_timer 1 do # Leave time for server-named queues to be bound
+      # Bad message
+      channel.topic("messages").publish 'an obviously malformed message'
+      # Good message
+      publish_message channel, 'foo@bar.com', message_body
+    end
+
+    done 2 do
+      expected_response = response(:xmpp, 'foo@bar.com', "Sorry, I don't understand.").to_json
+      responses.should eql([expected_response, expected_response])
+    end
+  end
+
   context "with a message from the phone" do
     it "should forward the message via XMPP and respond via XMPP to the user's built-in JID" do
       channel = AMQP::Channel.new
