@@ -3,9 +3,12 @@ require 'adam_signals/message'
 require 'faraday'
 require 'faraday_middleware'
 
+require 'uri'
+
 class MessageProcessor
   def initialize(message)
     @message = message
+    @memory_url = URI.parse ENV['ADAM_MEMORY_URL']
   end
 
   def processed_message
@@ -20,7 +23,7 @@ class MessageProcessor
   private
 
   def fetch_user
-    conn = Faraday.new url: ENV['ADAM_MEMORY_URL'] do |c|
+    conn = Faraday.new url: @memory_url.to_s do |c|
       c.basic_auth ENV['ADAM_MEMORY_INTERNAL_USERNAME'], ENV['ADAM_MEMORY_INTERNAL_PASSWORD']
       c.adapter :net_http
       c.response :logger
@@ -28,7 +31,7 @@ class MessageProcessor
       c.response :raise_error
     end
 
-    response = conn.get '/users/find_for_message.json', message: @message.to_json
+    response = conn.get "#{@memory_url.path}/users/find_for_message.json", message: @message.to_json
     response.body
   rescue Faraday::Error::ResourceNotFound
     nil
