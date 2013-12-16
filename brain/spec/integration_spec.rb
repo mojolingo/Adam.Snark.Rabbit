@@ -67,6 +67,11 @@ describe "AMQP handling" do
 
     AMQPHandler.new(nil).listen
 
+    ex = lo = nil
+    Adhearsion::Events.exception do |e, l|
+      ex, lo = e, l
+    end
+
     responses = []
     channel.queue('', auto_delete: true) do |queue|
       queue.bind(channel.topic('responses'), routing_key: 'response.xmpp').subscribe { |h, p| responses << p }
@@ -81,7 +86,11 @@ describe "AMQP handling" do
 
     done 2 do
       expected_response = response(:xmpp, 'foo@bar.com', "Sorry, I don't understand.").to_json
-      responses.should eql([expected_response, expected_response])
+      responses.should eql([expected_response])
+
+      ex.should be_a StandardError
+      ex.message.should match(/an obviously malformed message/)
+      lo.should be AMQPHandler.logger
     end
   end
 
