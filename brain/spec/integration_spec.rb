@@ -26,12 +26,18 @@ describe "AMQP handling" do
   let(:message_body) { 'Hello' }
   let(:intent) { 'foo' }
   let(:entities) { {} }
+  let(:user) { JSON.dump name: 'Ben', id: "foobarid" }
 
   before do
-    user = JSON.dump name: 'Ben', id: "foobarid"
     stub_request(:get, 'http://internal:foobar@local.adamrabbit.com:3000/users/find_for_message.json')
       .with(query: hash_including)
-      .to_return(body: user, headers: {'Content-Type' => 'application/json'})
+      .tap do |r|
+        if user
+          r.to_return(body: user, headers: {'Content-Type' => 'application/json'})
+        else
+          r.to_return(status: 404, body: 'null', headers: {'Content-Type' => 'application/json'})
+        end
+      end
     stub_request(:get, "https://api.wit.ai/message?q=#{message_body}")
       .to_return(body: wit_interpretation(message_body, intent, entities), headers: {'Content-Type' => 'application/json'})
   end
@@ -79,6 +85,30 @@ describe "AMQP handling" do
     end
   end
 
+  context "when the user cannot be identified" do
+    let(:user) { nil }
+
+    it "should respond" do
+      channel = AMQP::Channel.new
+
+      AMQPHandler.new(nil).listen
+
+      responses = []
+      channel.queue('', auto_delete: true) do |queue|
+        queue.bind(channel.topic('responses'), routing_key: 'response.xmpp').subscribe { |h, p| responses << p }
+      end
+
+      EM.add_timer 1 do # Leave time for server-named queues to be bound
+        publish_message channel, 'foo@bar.com', message_body
+      end
+
+      done 2 do
+        expected_response = response(:xmpp, 'foo@bar.com', "Sorry, I don't understand.").to_json
+        responses.should eql([expected_response])
+      end
+    end
+  end
+
   context "with a message from the phone" do
     it "should forward the message via XMPP and respond via XMPP to the user's built-in JID" do
       channel = AMQP::Channel.new
@@ -98,6 +128,30 @@ describe "AMQP handling" do
         expected_message_copy = response :xmpp, 'foobarid@local.adamrabbit.com', "You said #{message_body}."
         expected_response = response :xmpp, 'foobarid@local.adamrabbit.com', "Sorry, I don't understand."
         responses.should eql([expected_message_copy.to_json, expected_response.to_json])
+      end
+    end
+
+    context "when the user cannot be identified" do
+      let(:user) { nil }
+
+      it "should respond" do
+        channel = AMQP::Channel.new
+
+        AMQPHandler.new(nil).listen
+
+        responses = []
+        channel.queue('', auto_delete: true) do |queue|
+          queue.bind(channel.topic('responses'), routing_key: 'response.xmpp').subscribe { |h, p| responses << p }
+        end
+
+        EM.add_timer 1 do # Leave time for server-named queues to be bound
+          publish_message channel, '23817492834289@rayo.adamrabbit.net', message_body, :phone
+        end
+
+        done 2 do
+          expected_response = response(:xmpp, 'foo@bar.com', "Sorry, I don't understand.").to_json
+          responses.should eql([expected_response, expected_response])
+        end
       end
     end
   end
