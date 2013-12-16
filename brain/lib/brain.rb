@@ -22,7 +22,7 @@ class Brain
 
     response_targets = {message.source_type => message.source_address}
 
-    if message.source_type == :phone
+    if message.source_type == :phone && message.user
       internal_jid = "#{message.user['id']}@#{ENV['ADAM_ROOT_DOMAIN'].sub(/:\d*/, '')}"
       response_targets[:xmpp] = internal_jid
 

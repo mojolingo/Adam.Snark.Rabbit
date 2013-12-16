@@ -141,7 +141,7 @@ describe "AMQP handling" do
 
         responses = []
         channel.queue('', auto_delete: true) do |queue|
-          queue.bind(channel.topic('responses'), routing_key: 'response.xmpp').subscribe { |h, p| responses << p }
+          queue.bind(channel.topic('responses'), routing_key: 'response.*').subscribe { |h, p| responses << p }
         end
 
         EM.add_timer 1 do # Leave time for server-named queues to be bound
@@ -149,8 +149,8 @@ describe "AMQP handling" do
         end
 
         done 2 do
-          expected_response = response(:xmpp, 'foo@bar.com', "Sorry, I don't understand.").to_json
-          responses.should eql([expected_response, expected_response])
+          expected_response = response(:phone, '23817492834289@rayo.adamrabbit.net', "Sorry, I don't understand.").to_json
+          responses.should eql([expected_response])
         end
       end
     end
