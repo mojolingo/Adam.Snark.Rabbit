@@ -38,7 +38,7 @@ describe Brain do
       end
 
       context "when wit signals an action" do
-        let(:interpretation) { wit_interpretation(message_body, '[action]something') }
+        let(:interpretation) { wit_interpretation(message_body, '_action_something') }
 
         it "should yield a message with an empty body, and copy the action token" do
           response = nil

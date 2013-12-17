@@ -1,5 +1,5 @@
 class WitActionNeuron
-  REGEX = /\[action\](?<action>.*)/.freeze
+  REGEX = /_action_(?<action>.*)/.freeze
 
   def self.matching_intent?(intent)
     !! intent.match(REGEX)
