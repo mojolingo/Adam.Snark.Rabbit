@@ -48,10 +48,6 @@ GEM
       girl_friday
       niceogiri (~> 1.0)
       nokogiri (~> 1.5, >= 1.5.6)
-    blurrily (0.2.1)
-      activesupport
-      eventmachine
-      json
     celluloid (0.15.2)
       timers (~> 1.1.0)
     celluloid-io (0.15.0)
@@ -171,7 +167,6 @@ DEPENDENCIES
   adhearsion-reporter (~> 2.0)
   amqp
   bing_translator
-  blurrily
   evented-spec
   faraday
   faraday_middleware
