@@ -18,6 +18,12 @@ describe Brain do
                 body: body
   end
 
+  def response_with_action(action)
+    AdamSignals::Response.new target_type: :xmpp,
+                target_address: 'foo@bar.com',
+                action: action
+  end
+
   describe "handling a message" do
     before { Wit.stub query: interpretation }
 
@@ -29,6 +35,16 @@ describe Brain do
         response = nil
         subject.handle(message) { |r| response = r }
         response.should == response_with_body("Sorry, I don't understand.")
+      end
+
+      context "when wit signals an action" do
+        let(:interpretation) { wit_interpretation(message_body, '[action]something') }
+
+        it "should yield a message with an empty body, and copy the action token" do
+          response = nil
+          subject.handle(message) { |r| response = r }
+          response.should == response_with_action('something')
+        end
       end
     end
 

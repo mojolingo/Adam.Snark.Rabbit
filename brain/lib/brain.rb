@@ -1,11 +1,14 @@
 require_relative 'failure_neuron'
+require_relative 'wit_action_neuron'
 
 class Brain
   MIN_CONFIDENCE = 0.4
   DEFAULT_NEURON = 'failure'
+  WIT_ACTION_NEURON = 'wit_action'
 
   def initialize
     add_neuron FailureNeuron.new
+    add_neuron WitActionNeuron.new
   end
 
   #
@@ -26,15 +29,15 @@ class Brain
       internal_jid = "#{message.user['id']}@#{ENV['ADAM_ROOT_DOMAIN'].sub(/:\d*/, '')}"
       response_targets[:xmpp] = internal_jid
 
-      forward = response :xmpp, internal_jid, "You said #{message.body}."
+      forward = response :xmpp, internal_jid, body: "You said #{message.body}."
       logger.info "Forwarding phone message to UI: #{forward}"
       yield forward, :xmpp
     end
 
-    response_body = response_body message
+    response_attributes = response_attributes message
 
     response_targets.each_pair do |type, address|
-      reply = response type, address, response_body
+      reply = response type, address, response_attributes
       logger.info "Sending response #{reply}"
       yield reply, type
     end
@@ -61,20 +64,25 @@ class Brain
     targets
   end
 
-  def response(type, address, body)
-    AdamSignals::Response.new target_type: type, target_address: address, body: body
+  def response(type, address, attributes = {})
+    AdamSignals::Response.new({target_type: type, target_address: address}.merge(attributes))
   end
 
   #
-  # Retrieve the body of any response from the best matching neuron for
+  # Retrieve the attributes of any response from the best matching neuron for
   #
-  def response_body(message)
+  def response_attributes(message)
     interpretation = Wit.query message.body
     logger.debug "Wit interpretation: #{interpretation.inspect}"
-    find_best_neuron(interpretation).reply(message, interpretation)
+    reply = find_best_neuron(interpretation).reply(message, interpretation)
+    if reply.is_a?(String)
+      {body: reply}
+    else
+      reply
+    end
   rescue => e
     Adhearsion::Events.trigger :exception, [e, logger]
-    "Sorry, I encountered a #{e.class}"
+    {body: "Sorry, I encountered a #{e.class}"}
   end
 
   #
@@ -84,6 +92,8 @@ class Brain
     intent, confidence = interpretation['outcome']['intent'], interpretation['outcome']['confidence']
     if confidence >= MIN_CONFIDENCE && @neurons.has_key?(intent)
       @neurons[intent]
+    elsif intent.match(WitActionNeuron::REGEX)
+      @neurons[WIT_ACTION_NEURON]
     else
       @neurons[DEFAULT_NEURON]
     end
