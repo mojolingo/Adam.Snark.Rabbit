@@ -7,7 +7,7 @@ GEM
       multi_json (~> 1.3)
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
-    adam_signals (1.0.0)
+    adam_signals (1.1.0)
       virtus (~> 1.0)
     addressable (2.3.2)
     adhearsion (2.4.0)
@@ -48,10 +48,6 @@ GEM
       girl_friday
       niceogiri (~> 1.0)
       nokogiri (~> 1.5, >= 1.5.6)
-    blurrily (0.2.1)
-      activesupport
-      eventmachine
-      json
     celluloid (0.15.2)
       timers (~> 1.1.0)
     celluloid-io (0.15.0)
@@ -166,12 +162,11 @@ PLATFORMS
 
 DEPENDENCIES
   activesupport
-  adam_signals (~> 1.0)
+  adam_signals (~> 1.1)
   adhearsion (~> 2.4)
   adhearsion-reporter (~> 2.0)
   amqp
   bing_translator
-  blurrily
   evented-spec
   faraday
   faraday_middleware

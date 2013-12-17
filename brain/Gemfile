@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'amqp'
-gem 'adam_signals', '~> 1.0'
+gem 'adam_signals', '~> 1.1'
 gem 'activesupport', require: nil
 gem 'adhearsion', '~> 2.4'
 
@@ -16,9 +16,6 @@ gem 'pipejump'
 
 gem 'faraday'
 gem 'faraday_middleware'
-
-# Astricon Schedule Neuron
-gem 'blurrily'
 
 group :development, :test do
   gem 'rspec'

@@ -1,12 +1,13 @@
 require 'spec_helper'
 require 'timecop'
 
-describe TimeNeuron do
-  let(:subject) { TimeNeuron.new }
+require_relative '../../lib/time_neuron'
 
-  it "should read the current time" do 
-    Timecop.freeze Time.local(2013, 10, 9, 8, 7, 6)
-    subject.reply(nil, nil).should =~ /The time is\s+8:07 AM/
-  end
+describe TimeNeuron do
+  include NeuronMatchers
+
+  before { Timecop.freeze Time.local(2013, 10, 9, 8, 7, 6) }
+
+  it { should handle_message(nil).and_respond_with(body: 'The time is  8:07 AM') }
 end
 

@@ -96,7 +96,7 @@ describe ContactsNeuron do
       context "for message #{message_body} with option overrides #{options.inspect}" do
         let(:options) { options }
         let(:interpretation) { wit_interpretation message_body, 'contacts', 'contact' => 'John Smith' }
-        it { should handle_message(message_body, :default_user, interpretation).and_respond_with(response) }
+        it { should handle_message(message_body, :default_user, interpretation).and_respond_with(body: response) }
       end
     end
 
@@ -104,7 +104,7 @@ describe ContactsNeuron do
       let(:message_body) { 'Find me Joe Bloggs' }
       let(:interpretation) {  wit_interpretation message_body, 'contacts', 'contact' => 'Joe Bloggs' }
 
-      it { should handle_message(message_body, :default_user, interpretation).and_respond_with("Sorry, I have no record of Joe Bloggs.") }
+      it { should handle_message(message_body, :default_user, interpretation).and_respond_with(body: "Sorry, I have no record of Joe Bloggs.") }
     end
 
     context "when the requesting user has not set futuresimple credentials" do
@@ -141,7 +141,7 @@ describe ContactsNeuron do
       end
       let(:interpretation) { wit_interpretation message_body, 'contacts' 'contact' => "Joe Bloggs" }
 
-      it { should handle_message(message_body, user, interpretation).and_respond_with("Sorry, you have not configured any integrations for contact lookup.") }
+      it { should handle_message(message_body, user, interpretation).and_respond_with(body: "Sorry, you have not configured any integrations for contact lookup.") }
     end
 
     context "when the requesting user cannot be identified" do
@@ -149,7 +149,7 @@ describe ContactsNeuron do
       let(:user) { nil }
       let(:interpretation) { wit_interpretation message_body, 'contacts', 'contact' => 'Joe Bloggs' }
 
-      it { should handle_message(message_body, user).and_respond_with("Sorry, I can only help you with that if you login.") }
+      it { should handle_message(message_body, user).and_respond_with(body: "Sorry, I can only help you with that if you login.") }
     end
   end
 end

@@ -21,19 +21,19 @@ describe TranslatorNeuron do
     it "should handle a properly formed request" do
       message = 'How do I say "yes please" in Portuguese?'
       should handle_message(message, :default_user, translation_interpretation(message, 'Portuguese'))
-        .and_respond_with('Sim por favor')
+        .and_respond_with(body: 'Sim por favor')
     end
 
     it "should handle an untranslateable target language" do
       message = 'How do I say "yes please" in Afrikaans?'
       should handle_message(message, :default_user, translation_interpretation(message, 'Afrikaans'))
-        .and_respond_with("Sorry, I don't speak Afrikaans.")
+        .and_respond_with(body: "Sorry, I don't speak Afrikaans.")
     end
 
     it "should handle an invalid target language" do
       message = 'How do I say "yes please" in klingon?'
       should handle_message(message, :default_user, translation_interpretation(message, 'Klingon'))
-        .and_respond_with("Sorry, I don't speak Klingon.")
+        .and_respond_with(body: "Sorry, I don't speak Klingon.")
     end
   end
 

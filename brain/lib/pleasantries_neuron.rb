@@ -4,6 +4,6 @@ class PleasantriesNeuron
   end
 
   def reply(message, interpretation)
-    "I'm fine thanks."
+    {body: "I'm fine thanks."}
   end
 end

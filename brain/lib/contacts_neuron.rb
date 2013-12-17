@@ -16,16 +16,16 @@ EOF
   end
 
   def reply(message, interpretation)
-    return "Sorry, I can only help you with that if you login." unless message.user
+    return {body: "Sorry, I can only help you with that if you login."} unless message.user
     futuresimple_token = message.user["profile"]["futuresimple_token"]
-    return "Sorry, you have not configured any integrations for contact lookup." unless futuresimple_token
+    return {body: "Sorry, you have not configured any integrations for contact lookup."} unless futuresimple_token
 
     entities = interpretation['outcome']['entities']
     name = entities['contact']['value']
 
     session = Pipejump::Session.new token: futuresimple_token
     contact = session.contacts.all.find { |contact| contact.name.downcase == name.downcase }
-    return "Sorry, I have no record of #{name}." unless contact
-    RESPONSE_TEMPLATE.result(binding).strip
+    return {body: "Sorry, I have no record of #{name}."} unless contact
+    {body: RESPONSE_TEMPLATE.result(binding).strip}
   end
 end

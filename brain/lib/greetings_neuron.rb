@@ -4,6 +4,6 @@ class GreetingsNeuron
   end
 
   def reply(message, interpretation)
-    "Why hello there!"
+    {body: "Why hello there!"}
   end
 end
