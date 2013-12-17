@@ -92,7 +92,7 @@ class Brain
     intent, confidence = interpretation['outcome']['intent'], interpretation['outcome']['confidence']
     if confidence >= MIN_CONFIDENCE && @neurons.has_key?(intent)
       @neurons[intent]
-    elsif intent.match(WitActionNeuron::REGEX)
+    elsif WitActionNeuron.matching_intent?(intent)
       @neurons[WIT_ACTION_NEURON]
     else
       @neurons[DEFAULT_NEURON]
