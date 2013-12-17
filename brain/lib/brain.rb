@@ -74,12 +74,7 @@ class Brain
   def response_attributes(message)
     interpretation = Wit.query message.body
     logger.debug "Wit interpretation: #{interpretation.inspect}"
-    reply = find_best_neuron(interpretation).reply(message, interpretation)
-    if reply.is_a?(String)
-      {body: reply}
-    else
-      reply
-    end
+    find_best_neuron(interpretation).reply(message, interpretation)
   rescue => e
     Adhearsion::Events.trigger :exception, [e, logger]
     {body: "Sorry, I encountered a #{e.class}"}

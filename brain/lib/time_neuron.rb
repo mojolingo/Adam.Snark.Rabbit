@@ -4,6 +4,6 @@ class TimeNeuron
   end
 
   def reply(message, interpretation)
-    Time.now.strftime "The time is %l:%M %p"
+    {body: Time.now.strftime("The time is %l:%M %p")}
   end
 end

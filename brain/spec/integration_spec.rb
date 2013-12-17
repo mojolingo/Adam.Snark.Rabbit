@@ -173,7 +173,7 @@ describe "AMQP handling" do
         end
 
         def reply(message, interpretation)
-          "Foo to you too"
+          {body: "Foo to you too"}
         end
       end
     end
@@ -220,7 +220,7 @@ describe "AMQP handling" do
           end
 
           def reply(message, interpretation)
-            message.user['name']
+            {body: message.user['name']}
           end
         end
       end

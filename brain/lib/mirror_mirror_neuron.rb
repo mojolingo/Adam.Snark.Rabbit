@@ -4,6 +4,6 @@ class MirrorMirrorNeuron
   end
 
   def reply(message, interpretation)
-    "ME! Obviously.  Did you really think I would say it was you?"
+    {body: "ME! Obviously.  Did you really think I would say it was you?"}
   end
 end

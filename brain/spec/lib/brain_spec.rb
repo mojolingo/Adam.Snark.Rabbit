@@ -56,7 +56,7 @@ describe Brain do
           end
 
           def reply(message, interpretation)
-            "Foo to you too"
+            {body: "Foo to you too"}
           end
         end
       end
@@ -106,7 +106,7 @@ describe Brain do
           end
 
           def reply(message, interpretation)
-            "Foo one"
+            {body: "Foo one"}
           end
         end
       end
@@ -118,7 +118,7 @@ describe Brain do
           end
 
           def reply(message, interpretation)
-            "Foo two"
+            {body: "Foo two"}
           end
         end
       end

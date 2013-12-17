@@ -4,6 +4,6 @@ class FailureNeuron
   end
 
   def reply(message, interpretation)
-    "Sorry, I don't understand."
+    {body: "Sorry, I don't understand."}
   end
 end
