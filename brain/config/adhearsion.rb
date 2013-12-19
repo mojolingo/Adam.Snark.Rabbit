@@ -2,6 +2,8 @@
 
 $stdout.sync = true # Do not buffer stdout
 
+Loquacious.env_prefix = 'ADAM_BRAIN'
+
 Adhearsion.config do |config|
   config.platform.process_name = 'adam-brain'
 
