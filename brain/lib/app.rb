@@ -7,6 +7,7 @@ require_relative 'translator_neuron'
 require_relative 'contacts_neuron'
 require_relative 'mirror_mirror_neuron'
 require_relative 'time_neuron'
+require_relative 'tell_joke_neuron'
 
 class App < Adhearsion::Plugin
   init :brain do
