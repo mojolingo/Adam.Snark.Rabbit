@@ -19,6 +19,7 @@ class App < Adhearsion::Plugin
     @brain.add_neuron ContactsNeuron.new
     @brain.add_neuron MirrorMirrorNeuron.new
     @brain.add_neuron TimeNeuron.new
+    @brain.add_neuron TellJokeNeuron.new
   end
 
   run :brain do
