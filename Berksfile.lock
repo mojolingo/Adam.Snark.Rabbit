@@ -3,7 +3,7 @@
     "adam_snark_rabbit": {
       "locked_version": "0.1.0",
       "git": "git@github.com:mojolingo/adam_cookbook.git",
-      "ref": "37779cf8a8404adc3db8362104d2e9bbb0c8a849"
+      "ref": "4c7161f1582f429e5d33a307a396220c5837d8b7"
     },
     "application_nginx": {
       "locked_version": "2.0.1",
@@ -15,6 +15,9 @@
     },
     "apt": {
       "locked_version": "2.3.0"
+    },
+    "brightbox-ruby": {
+      "locked_version": "0.1.0"
     },
     "chef-solo-search": {
       "locked_version": "0.5.1"
@@ -72,9 +75,6 @@
     },
     "erlang": {
       "locked_version": "1.1.2"
-    },
-    "rbenv": {
-      "locked_version": "1.6.5"
     },
     "sudo": {
       "locked_version": "2.2.2"
