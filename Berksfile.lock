@@ -3,7 +3,7 @@
     "adam_snark_rabbit": {
       "locked_version": "0.1.0",
       "git": "git@github.com:mojolingo/adam_cookbook.git",
-      "ref": "8a5950ed400893cad0ac3d8d756a3a72b00912b5"
+      "ref": "37779cf8a8404adc3db8362104d2e9bbb0c8a849"
     },
     "application_nginx": {
       "locked_version": "2.0.1",
@@ -26,7 +26,7 @@
       "locked_version": "2.4.2"
     },
     "freeswitch": {
-      "locked_version": "0.2.0"
+      "locked_version": "0.3.2"
     },
     "git": {
       "locked_version": "2.1.2"
