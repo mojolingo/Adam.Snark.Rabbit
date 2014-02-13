@@ -45,8 +45,6 @@ gem 'adam_signals', '~> 1.0'
 gem 'ruby_jid'
 
 group :development do
-  gem 'debugger'
-
   # html2haml
   gem 'hpricot'
   gem 'ruby_parser'
