@@ -16,6 +16,8 @@ Vagrant.configure("2") do |config|
     public_ip = "192.168.34.100"
     config.vm.network :private_network, ip: public_ip
 
+    config.vm.provision "shell", path: 'give_vagrant_everything.sh'
+
     config.vm.provision :chef_solo do |chef|
       chef.cookbooks_path = "cookbooks"
       chef.roles_path = "roles"
@@ -67,6 +69,8 @@ Vagrant.configure("2") do |config|
     public_ip = "192.168.34.101"
     config.vm.network :private_network, ip: public_ip
 
+    config.vm.provision "shell", path: 'give_vagrant_everything.sh'
+
     config.vm.provision :chef_solo do |chef|
       chef.cookbooks_path = "cookbooks"
       chef.roles_path = "roles"
@@ -104,6 +108,8 @@ Vagrant.configure("2") do |config|
     public_ip = "192.168.34.102"
     config.vm.network :private_network, ip: public_ip
 
+    config.vm.provision "shell", path: 'give_vagrant_everything.sh'
+
     config.vm.provision :chef_solo do |chef|
       chef.cookbooks_path = "cookbooks"
       chef.roles_path = "roles"
@@ -140,6 +146,8 @@ Vagrant.configure("2") do |config|
 
     public_ip = "192.168.34.103"
     config.vm.network :private_network, ip: public_ip
+
+    config.vm.provision "shell", path: 'give_vagrant_everything.sh'
 
     config.vm.provision :chef_solo do |chef|
       chef.cookbooks_path = "cookbooks"
@@ -198,6 +206,8 @@ Vagrant.configure("2") do |config|
     public_ip = "192.168.34.104"
     config.vm.network :private_network, ip: public_ip
 
+    config.vm.provision "shell", path: 'give_vagrant_everything.sh'
+
     config.vm.provision :chef_solo do |chef|
       chef.cookbooks_path = "cookbooks"
       chef.roles_path = "roles"
@@ -234,6 +244,8 @@ Vagrant.configure("2") do |config|
 
     public_ip = "192.168.34.200"
     config.vm.network :private_network, ip: public_ip
+
+    config.vm.provision "shell", path: 'give_vagrant_everything.sh'
 
     config.vm.provision :chef_solo do |chef|
       chef.cookbooks_path = "cookbooks"
@@ -285,6 +297,8 @@ Vagrant.configure("2") do |config|
     public_ip = "192.168.34.201"
     config.vm.network :private_network, ip: public_ip
 
+    config.vm.provision "shell", path: 'give_vagrant_everything.sh'
+
     config.vm.provision :chef_solo do |chef|
       chef.cookbooks_path = "cookbooks"
       chef.roles_path = "roles"
@@ -334,6 +348,8 @@ Vagrant.configure("2") do |config|
 
     public_ip = "192.168.34.202"
     config.vm.network :private_network, ip: public_ip
+
+    config.vm.provision "shell", path: 'give_vagrant_everything.sh'
 
     config.vm.provision :chef_solo do |chef|
       chef.cookbooks_path = "cookbooks"
