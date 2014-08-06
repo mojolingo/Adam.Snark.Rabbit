@@ -15,6 +15,7 @@ class Wit
     conn.get '/message' do |req|
       req.params['q'] = message
       req.headers['Authorization'] = "Bearer #{ENV['WIT_API_KEY']}"
+      req.headers['Accept'] = 'application/vnd.wit.20140201'
     end.body
   end
 end
