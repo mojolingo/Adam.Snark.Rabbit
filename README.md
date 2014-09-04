@@ -31,12 +31,9 @@ Adam has several components, which use various libraries and various package dep
 
 * Memory: Web UI; Provides authentication/authorization and user administration.
   * User database, MongoDB
-* User Gateways
-  * Fingers: Maintains an XMPP user presence for IM interaction.
-* Brain: The AI component of the system responsible for calculating responses to messages.
+* Brain: The AI component of the system responsible for receiving, calculating responses to and responding to messages.
 * Internal/External communications systems
   * XMPP server: Adam's XMPP and Rayo clients connect here, and this system is federated with global XMPP servers for routing client requests.
-  * AMQP (RabbitMQ): The asynchronous messaging system used to communicate between components for the purpose of responding to messages, among other things.
 
 Further details are available in the `doc/` directory.
 

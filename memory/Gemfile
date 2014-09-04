@@ -36,8 +36,6 @@ gem 'cocoon'
 
 gem "twitter-bootstrap-rails"
 
-gem 'bunny'
-
 gem 'pipejump'
 
 gem 'adam_signals', '~> 1.0'

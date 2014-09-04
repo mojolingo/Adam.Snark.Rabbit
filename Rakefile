@@ -2,7 +2,6 @@
 
 ruby_components = %w{
   memory
-  fingers
   brain
 }
 
