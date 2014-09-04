@@ -32,6 +32,9 @@ class ContactDetails
 
   private
 
+  def send_confirmation_instructions
+  end
+
   def generate_confirmation_token
     self.confirmation_token = SecureRandom.uuid
   end
