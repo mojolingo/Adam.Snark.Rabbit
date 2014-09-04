@@ -41,6 +41,7 @@ A full Vagrant development environment for Adam is included. It can be setup in 
 
 1. Install [virtualbox](https://www.virtualbox.org/wiki/Downloads)
 2. Install [vagrant](http://vagrantup.com)
+3. Install [ChefDK](https://downloads.getchef.com/chef-dk/) for Berkshelf.
 3. Add the [vagrant-berkshelf plugin](https://github.com/riotgames/vagrant-berkshelf) and [vagrant-omnibus](https://github.com/schisamo/vagrant-omnibus) to your Vagrant installation by doing `vagrant plugin install vagrant-berkshelf && vagrant plugin install vagrant-omnibus`.
 4. (optional - Only required to build with `STANDALONE_DEPLOYMENT=true` or to run `make ci`) Place or symlink an SSH private key to be used to clone the app repo from Github in the VM in `deploy_key`. This will be copied to the VM. It can be a deploy key on the adam repo, or a Github user's SSH key.
 5. `vagrant up` to download, launch, and provision the VMs
