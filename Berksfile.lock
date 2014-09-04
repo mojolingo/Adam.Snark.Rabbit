@@ -1,7 +1,7 @@
 DEPENDENCIES
   adam_snark_rabbit
     git: git@github.com:mojolingo/adam_cookbook.git
-    revision: 7820f44f43c29d25d644dff976f4a405fa18ba1d
+    revision: d0cef5d957510f0f2929c2edec39e7a60788b7cd
     branch: feature/simple
   application_nginx
     git: https://github.com/poise/application_nginx.git
@@ -15,13 +15,11 @@ GRAPH
     apt (>= 0.0.0)
     brightbox-ruby (~> 1.1)
     ejabberd (~> 1.0)
-    freeswitch (~> 0.6.0)
     git (>= 0.0.0)
     mongodb (>= 0.0.0)
     motd-tail (~> 1.0)
     nginx (~> 2.4)
     postfix (>= 0.0.0)
-    rabbitmq (>= 0.0.0)
     ruby_build (>= 0.0.0)
     sudo (~> 2.2)
   application (4.1.4)
@@ -39,15 +37,6 @@ GRAPH
   ejabberd (1.0.0)
     apt (~> 2.2)
     yum-epel (>= 0.0.0)
-  erlang (1.5.6)
-    apt (>= 1.7.0)
-    build-essential (>= 0.0.0)
-    yum (~> 3.0)
-    yum-epel (>= 0.0.0)
-    yum-erlang_solutions (>= 0.0.0)
-  freeswitch (0.6.4)
-    apt (~> 2.2)
-    yum (~> 3.1)
   git (4.0.2)
     build-essential (>= 0.0.0)
     dmg (>= 0.0.0)
@@ -73,8 +62,6 @@ GRAPH
   python (1.4.6)
     build-essential (>= 0.0.0)
     yum-epel (>= 0.0.0)
-  rabbitmq (3.3.0)
-    erlang (>= 0.9)
   rsyslog (1.12.2)
   ruby_build (0.8.0)
   runit (1.5.10)
@@ -86,6 +73,4 @@ GRAPH
     chef_handler (>= 0.0.0)
   yum (3.3.0)
   yum-epel (0.5.1)
-    yum (~> 3.0)
-  yum-erlang_solutions (0.2.0)
     yum (~> 3.0)
