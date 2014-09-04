@@ -12,23 +12,18 @@ Best of all, he's yours! Find him here:
   * [The Web](http://adamrabbit.com)
   * [Jabber](xmpp:adam@adamrabbit.com)
   * [E-Mail](mailto:adam@adamrabbit.com)
-  * [SIP](sip:adam@adamrabbit.com)
-  * the PSTN: +1 (404) 475-4840
 
 Or in staging:
 
   * [The Web](http://staging.adamrabbit.com)
   * [Jabber](xmpp:adam@staging.adamrabbit.com)
   * [E-Mail](mailto:adam@staging.adamrabbit.com)
-  * [SIP](sip:adam@staging.adamrabbit.com)
-  * the PSTN: +1 (678) 869-2048
 
 Or in development:
 
   * [The Web](http://local.adamrabbit.com:3000)
   * [Jabber](xmpp:adam@local.adamrabbit.com)
   * [E-Mail](mailto:adam@local.adamrabbit.com)
-  * [SIP](sip:adam@local.adamrabbit.com)
 
 ## Setting up a development environment
 
@@ -37,8 +32,6 @@ Adam has several components, which use various libraries and various package dep
 * Memory: Web UI; Provides authentication/authorization and user administration.
   * User database, MongoDB
 * User Gateways
-  * Ears: Adhearsion application to present a phone interface to Adam via Rayo.
-    * Rayo service: For connection with SIP & PSTN networks, and maintaining call sessions.
   * Fingers: Maintains an XMPP user presence for IM interaction.
 * Brain: The AI component of the system responsible for calculating responses to messages.
 * Internal/External communications systems
@@ -76,17 +69,12 @@ This is a simple Vagrant based development environment. All the usual vagrant ru
     "wit_api_key":"changeme",
     "bing_translate_key":"changeme",
     "bing_translate_secret":"changeme",
-    "att_asr_key":"changeme",
-    "att_asr_secret":"changeme",
     "internal_password":"changeme",
     "punchblock_port":"5224",
     "reporter":{"api_key":"changeme"}
   },
   "ejabberd":{
     "jabber_domain":"staging.adamrabbit.net",
-  },
-  "freeswitch": {
-    "local_ip":"changeme",
   }
 }
 ```

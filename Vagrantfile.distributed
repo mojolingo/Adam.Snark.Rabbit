@@ -38,9 +38,6 @@ Vagrant.configure("2") do |config|
             'mongoid_host' => 'mongo.test.adamrabbit.net',
             'bosh_host' => 'xmpp.test.adamrabbit.net'
           },
-          'ears' => {
-            'install' => false
-          },
           'fingers' => {
             'install' => false
           },
@@ -48,7 +45,6 @@ Vagrant.configure("2") do |config|
             'install' => false
           },
           'amqp_host' => '192.168.33.101',
-          'rayo_domain' => 'rayo.test.adamrabbit.net'
         }.merge(creds),
         'ejabberd' => {
           'jabber_domain' => 'test.adamrabbit.net',
@@ -137,65 +133,6 @@ Vagrant.configure("2") do |config|
     end
   end
 
-  config.vm.define :freeswitch do |config|
-    config.vm.hostname  = "freeswitch.test.adamrabbit.net"
-
-    config.vm.provider :virtualbox do |vb|
-      vb.name = "Adam-Snark-Rabbit-FreeSWITCH"
-    end
-
-    public_ip = "192.168.34.103"
-    config.vm.network :private_network, ip: public_ip
-
-    config.vm.provision "shell", path: 'give_vagrant_everything.sh'
-
-    config.vm.provision :chef_solo do |chef|
-      chef.cookbooks_path = "cookbooks"
-      chef.roles_path = "roles"
-      chef.data_bags_path = "data_bags"
-
-      chef.add_role "freeswitch"
-
-      chef.json = {
-        'adam' => {
-          'environment' => 'development',
-          'memory_base_url' => 'http://test.adamrabbit.net:3000',
-          'root_domain' => 'test.adamrabbit.net',
-          'standalone_deployment' => true,
-          'deploy_key' => File.read('deploy_key'),
-          'memory' => {
-            'internal_password' => 'fj8j4893jgg9jg9'
-          },
-          'rayo' => {
-            'listeners' => [
-              {
-                'type' => "c2s",
-                'port' => "5222",
-                'address' => "$${rayo_ip}",
-                'acl' => ""
-              },
-              {
-                'type' => "c2s",
-                'port' => "5222",
-                'address' => "127.0.0.1",
-                'acl' => ""
-              }
-            ]
-          }
-        }.merge(creds),
-        'ejabberd' => {
-          'jabber_domain' => 'test.adamrabbit.net',
-        },
-        'freeswitch' => {
-          'local_ip' => public_ip,
-          'domain' => 'rayo.test.adamrabbit.net'
-        }
-      }
-
-      chef.log_level = :debug
-    end
-  end
-
   config.vm.define :xmpp do |config|
     config.vm.hostname  = "xmpp.test.adamrabbit.net"
 
@@ -225,58 +162,6 @@ Vagrant.configure("2") do |config|
           'memory' => {
             'internal_password' => 'fj8j4893jgg9jg9'
           }
-        }.merge(creds),
-        'ejabberd' => {
-          'jabber_domain' => 'test.adamrabbit.net',
-        }
-      }
-
-      chef.log_level = :debug
-    end
-  end
-
-  config.vm.define :ears do |config|
-    config.vm.hostname  = "ears.test.adamrabbit.net"
-
-    config.vm.provider :virtualbox do |vb|
-      vb.name = "Adam-Snark-Rabbit-Ears"
-    end
-
-    public_ip = "192.168.34.200"
-    config.vm.network :private_network, ip: public_ip
-
-    config.vm.provision "shell", path: 'give_vagrant_everything.sh'
-
-    config.vm.provision :chef_solo do |chef|
-      chef.cookbooks_path = "cookbooks"
-      chef.roles_path = "roles"
-      chef.data_bags_path = "data_bags"
-
-      chef.add_role "app"
-
-      chef.json = {
-        'adam' => {
-          'app_repo_ref' => `git rev-parse --abbrev-ref HEAD`.strip,
-          'environment' => 'development',
-          'memory_base_url' => 'http://test.adamrabbit.net:3000',
-          'root_domain' => 'test.adamrabbit.net',
-          'standalone_deployment' => true,
-          'deploy_key' => File.read('deploy_key'),
-          'memory' => {
-            'internal_password' => 'fj8j4893jgg9jg9',
-            'install' => false
-          },
-          'ears' => {
-            'install' => true
-          },
-          'fingers' => {
-            'install' => false
-          },
-          'brain' => {
-            'install' => false
-          },
-          'amqp_host' => '192.168.33.101',
-          'rayo_domain' => 'rayo.test.adamrabbit.net'
         }.merge(creds),
         'ejabberd' => {
           'jabber_domain' => 'test.adamrabbit.net',
@@ -318,9 +203,6 @@ Vagrant.configure("2") do |config|
             'internal_password' => 'fj8j4893jgg9jg9',
             'install' => false
           },
-          'ears' => {
-            'install' => false
-          },
           'fingers' => {
             'install' => true
           },
@@ -328,7 +210,6 @@ Vagrant.configure("2") do |config|
             'install' => false
           },
           'amqp_host' => '192.168.33.101',
-          'rayo_domain' => 'rayo.test.adamrabbit.net'
         }.merge(creds),
         'ejabberd' => {
           'jabber_domain' => 'test.adamrabbit.net',
@@ -370,9 +251,6 @@ Vagrant.configure("2") do |config|
             'internal_password' => 'fj8j4893jgg9jg9',
             'install' => false
           },
-          'ears' => {
-            'install' => false
-          },
           'fingers' => {
             'install' => false
           },
@@ -380,7 +258,6 @@ Vagrant.configure("2") do |config|
             'install' => true
           },
           'amqp_host' => '192.168.33.101',
-          'rayo_domain' => 'rayo.test.adamrabbit.net'
         }.merge(creds),
         'ejabberd' => {
           'jabber_domain' => 'test.adamrabbit.net',
