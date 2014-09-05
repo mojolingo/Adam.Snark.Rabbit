@@ -1,7 +1,7 @@
 DEPENDENCIES
   adam_snark_rabbit
     git: git@github.com:mojolingo/adam_cookbook.git
-    revision: d0cef5d957510f0f2929c2edec39e7a60788b7cd
+    revision: 226238f0083436385b27ab35a8fb62f2e148b4e6
     branch: feature/simple
   application_nginx
     git: https://github.com/poise/application_nginx.git
