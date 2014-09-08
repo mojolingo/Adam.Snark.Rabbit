@@ -1,2 +1,2 @@
 memory: bin/memory
-brain: bin/brain
+brain: brain/bin/run

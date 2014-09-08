@@ -1,7 +1,10 @@
-ci: run_tests prep_deployment_config
+ci: build_docker_images run_tests
+
+build_docker_images:
+	docker build -t mojolingo/adam-snark-rabbit-basic-brain brain
 
 run_tests:
-	STANDALONE_DEPLOYMENT=true kitchen test
+	docker run -i mojolingo/adam-snark-rabbit-basic-brain /bin/bash -c "cd /app && bin/test"
 
 # Create chef solo config for deployment environments
 prep_deployment_config:
