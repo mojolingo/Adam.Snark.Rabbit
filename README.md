@@ -50,45 +50,7 @@ This is a simple Vagrant based development environment. All the usual vagrant ru
 
 ## Production deployment
 
-1. Create a precise64 box
-2. Copy `bootstrap.sh` and give it `+x` perms. Edit the placeholder username and password (CI API key).
-3. Create a `dna.json` similar to the following:
-```json
-{
-  "run_list":"role[dev]",
-  "adam": {
-    "root_domain":"staging.adamrabbit.net",
-    "memory_base_url":"http://staging.adamrabbit.net:3000",
-    "deploy_key":"-----BEGIN RSA PRIVATE KEY-----ncenneccikiejwcoej-----END RSA PRIVATE KEY-----",
-    "github_key":"changeme",
-    "github_secret":"changeme",
-    "twitter_key":"changeme",
-    "twitter_secret":"changeme",
-    "wit_api_key":"changeme",
-    "bing_translate_key":"changeme",
-    "bing_translate_secret":"changeme",
-    "internal_password":"changeme",
-    "punchblock_port":"5224",
-    "reporter":{"api_key":"changeme"}
-  },
-  "ejabberd":{
-    "jabber_domain":"staging.adamrabbit.net",
-  }
-}
-```
-
-4. Create `/var/chef/data_bags/ejabberd_users/adam.json` from the following template:
-```json
-{
-  "id": "adam",
-  "node": "adam",
-  "domain": "staging.adamrabbit.net",
-  "password": "abc123"
-}
-```
-
-5. Execute `boostrap.sh`.
-6. Add a cron entry to execute `bootstrap.sh` hourly.
+See [adam_cookbook](https://github.com/mojolingo/adam_cookbook) for installation using Chef.
 
 ### Third-party integrations
 
