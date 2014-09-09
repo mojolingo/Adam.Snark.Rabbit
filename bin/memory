@@ -1,2 +1,0 @@
-#!/bin/bash
-cd memory && exec bundle exec unicorn -c config/unicorn.rb -p $PORT
