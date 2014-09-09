@@ -1,8 +1,8 @@
 ci: build_docker_images publish_images
 
 build_docker_images:
-	docker build -t quay.io/mojolingo/adam-snark-rabbit-basic-memory .
-	docker build -t quay.io/mojolingo/adam-snark-rabbit-basic-brain .
+	docker build -t quay.io/mojolingo/adam-snark-rabbit-basic-memory memory
+	docker build -t quay.io/mojolingo/adam-snark-rabbit-basic-brain brain
 
 run_tests:
 	docker run -i quay.io/mojolingo/adam-snark-rabbit-basic-brain /bin/bash -c "cd /app && bin/test"
