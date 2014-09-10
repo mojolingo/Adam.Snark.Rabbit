@@ -51,7 +51,7 @@ class App < Adhearsion::Plugin
 
     Blather.logger = xmpp.logger
 
-    xmpp.ready do
+    xmpp.when_ready do
       Adhearsion::Process.booted
       m.synchronize { blocker.broadcast }
     end

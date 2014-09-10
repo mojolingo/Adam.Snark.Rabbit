@@ -15,6 +15,7 @@ deploy_key
 vagrant/
 cookbooks
 .kitchen/
+mongo/
 
 # OS and editor things
 .*.sw*

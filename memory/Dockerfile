@@ -12,6 +12,8 @@ RUN gem install bundler
 
 ADD . /app
 
-RUN cd /app && bundle install --deployment
+WORKDIR /app
 
-CMD /app/bin/run
+RUN bundle install --deployment
+
+CMD bin/run
