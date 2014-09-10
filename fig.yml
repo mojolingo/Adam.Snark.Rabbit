@@ -3,10 +3,22 @@ mongo:
   volumes:
     - ./mongo:/data
 
+xmpp:
+  build: xmpp
+  ports:
+    - "5222:5222"
+    - "5269:5269"
+    - "5280:5280"
+  environment:
+    ERL_OPTIONS: "-noshell"
+    XMPP_DOMAIN: local.adamrabbit.net
+
 brain:
   build: brain
   volumes:
     - ./brain:/app
+  links:
+    - xmpp
   environment:
     ADAM_FINGERS_JID: adam@local.adamrabbit.net
     ADAM_FINGERS_PASSWORD: abc123

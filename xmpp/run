@@ -1,0 +1,3 @@
+#!/bin/bash
+erb /opt/ejabberd/conf/ejabberd.yml.erb > /opt/ejabberd/conf/ejabberd.yml
+exec /opt/ejabberd/bin/ejabberdctl "$@"
