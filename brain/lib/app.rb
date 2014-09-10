@@ -38,23 +38,25 @@ class App < Adhearsion::Plugin
     end
 
     Adhearsion::Process.important_threads << Thread.new do
-      catching_standard_errors { connect_to_server(blocker) }
+      catching_standard_errors do
+        connect_to_server do
+          Adhearsion::Process.booted
+          m.synchronize { blocker.broadcast }
+        end
+      end
     end
 
     # Wait for the connection to establish
     m.synchronize { blocker.wait m }
   end
 
-  def self.connect_to_server(blocker)
+  def self.connect_to_server(&when_ready)
     xmpp = XMPPHandler.new
     xmpp.setup ENV['ADAM_FINGERS_JID'], ENV['ADAM_FINGERS_PASSWORD']
 
     Blather.logger = xmpp.logger
 
-    xmpp.when_ready do
-      Adhearsion::Process.booted
-      m.synchronize { blocker.broadcast }
-    end
+    xmpp.when_ready(&when_ready)
 
     EM.run do
       xmpp.run
