@@ -1,4 +1,4 @@
-ci: build_docker_images publish_images
+ci: build_docker_images run_tests publish_images
 
 build_docker_images:
 	docker build -t quay.io/mojolingo/adam-snark-rabbit-basic-memory memory
