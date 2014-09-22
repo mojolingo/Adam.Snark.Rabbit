@@ -52,7 +52,7 @@ class App < Adhearsion::Plugin
 
   def self.connect_to_server(&when_ready)
     xmpp = XMPPHandler.new
-    xmpp.setup ENV['ADAM_FINGERS_JID'], ENV['ADAM_FINGERS_PASSWORD']
+    xmpp.setup ENV['ADAM_FINGERS_JID'], ENV['ADAM_FINGERS_PASSWORD'], ENV['ADAM_FINGERS_HOST']
 
     Blather.logger = xmpp.logger
 
