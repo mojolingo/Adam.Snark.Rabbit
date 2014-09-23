@@ -38,8 +38,7 @@ memory:
   environment:
     PORT: 3000
     ADAM_ROOT_DOMAIN: local.adamrabbit.net
-    RAILS_ENV: development
-    MONGOID_HOST: mongo1
+    MONGOID_HOST: mongo_1
     ADAM_MEMORY_URL: http://local.adamrabbit.net
     ADAM_MEMORY_INTERNAL_USERNAME: internal
     ADAM_MEMORY_INTERNAL_PASSWORD: fj8j4893jgg9jg9
