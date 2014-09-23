@@ -1,7 +1,7 @@
 ci: build_docker_images run_tests publish_images
 
 build_docker_images:
-	fig -p adam build
+	fig -p adam build --no-cache
 
 run_tests:
 	fig -p adam run --rm memory bin/test
