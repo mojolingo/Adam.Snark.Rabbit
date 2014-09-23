@@ -14,6 +14,6 @@ ADD . /app
 
 WORKDIR /app
 
-RUN bundle install --deployment --path /var/bundle
+RUN bundle install
 
 CMD bin/run
