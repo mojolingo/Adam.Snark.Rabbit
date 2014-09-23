@@ -1,3 +1,5 @@
+vendor/bundle
 vendor/ruby
+.bundle
 log
 tmp
