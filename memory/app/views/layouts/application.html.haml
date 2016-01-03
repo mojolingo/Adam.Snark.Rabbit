@@ -38,13 +38,13 @@
     .container
       = render :partial => "shared/flash_messages", :locals => {:flash => flash}
 
-      .content
-        .row
-          .span12
-            = yield
+    = yield
 
-      %footer
-        %p &copy; Mojo Lingo LLC 2013
+    %footer
+      .container
+        .span12
+          %span &copy; Mojo Lingo LLC 2013 - 
+          %span{class: 'curtain-caller'} Curtains!
     /
       Javascripts
       \==================================================

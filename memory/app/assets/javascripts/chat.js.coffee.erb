@@ -1,5 +1,13 @@
 BOSH_SERVICE = "http://#{document.domain}/http-bind"
 connection = null
+adamSpokeLast = undefined
+adamIsThinking = false
+animationTime = 250
+typingInterval = false
+curtainsTimeout = false
+tooNoisy = false
+curtainsCount = Math.floor(Math.random() * 3) # So we can cycle instead of randomly blundering through curtain call messages.
+curtainsDropped = false
 
 jid = (node) -> "#{node}@#{document.domain}"
 
@@ -7,6 +15,9 @@ format = (msg) ->
   return msg.replace(/\n/g, "<br/>")
 
 onMessage = (msg) ->
+  if curtainsDropped
+    curtainCall()
+  setCurtainTimer()
   type = msg.getAttribute 'type'
   elems = msg.getElementsByTagName 'body'
 
@@ -57,23 +68,17 @@ setupConnection = (user) ->
 getCreds = ->
   $.get 'me.json', setupConnection
 
-$(document).ready getCreds
-
-# Global things that make everything better.
-adamSpokeLast = undefined
-adamIsThinking = false
-animationTime = 250
-typingInterval = false
-tooNoisy = false
-curtainsCount = 0 # So we can cycle instead of random blunder through curtain call messages.
-curtainsDropped = false
-
 $(document).ready ->
+  getCreds
   # Position the "too noisy" element.
   too_noisy_right = (0 - $('form[name=chat]').width()) + 'px'
+  # Position the curtains.
   $('#chat').css( {right: too_noisy_right, zIndex: '99999999'} )
   # Adjust the curtains.
   sizeCurtains()
+  # Add text to curtains.
+  drawCurtains()
+  # Drop the curtains.
   curtainCall()
 
 $(window).resize ->
@@ -84,11 +89,17 @@ $('.too-noisy').click ->
     $('#chat').animate({ right: (0 - $('form[name=chat]').width()) + 'px' }, 250)
     tooNoisy = false
   else
-    $('#chat').animate({ right: 0 }, 250)
+    $('#chat').animate({ right: 0 }, 250, 'linear').promise().done ->
+      $('input#message').focus()
     tooNoisy = true
 
 $('.curtain-caller').click ->
   curtainCall()
+
+# Reset the curtain timer.
+setCurtainTimer = () ->
+  clearTimeout(curtainsTimeout)
+  curtainsTimeout = setTimeout(curtainCall, 60000)
 
 # Incase the screen is resized, resize the curtains.
 sizeCurtains = () ->
@@ -101,22 +112,28 @@ curtainCall = () ->
   if curtainsDropped
     # Raise the curtains
     $('#curtain-call').animate({top: (0 - $(window).height()) + 'px'}, 1000, 'linear').promise().done ->
-      switch curtainsCount
-        when 0
-          $('#curtain-call .rotate').html('FOR GOOD TIME CALL ADAM S. RABBIT')
-          curtainsCount = 1
-        when 1
-          $('#curtain-call .rotate').html('CALL ME! ANY DAY OR NIGHT')
-          curtainsCount = 2
-        when 2
-          $('#curtain-call .rotate').html('CALL ME MAYBE?')
-          curtainsCount = 0
+      drawCurtains()
     curtainsDropped = false
   else
-    # Drop the curtains
+    # Drop the curtains, kill the curtain drop timer, and clear the stage.
     $('#curtain-call').css({display: 'table'}).animate({top: 0}, 1000, 'easeOutBack')
+    clearTimeout(curtainsTimeout)
+    $('#messages').html('')
+    curtainsTimeout = false
     curtainsDropped = true
 
+# Change text on curtains.
+drawCurtains = () ->
+  switch curtainsCount
+    when 0
+      $('#curtain-call .rotate').html('FOR GOOD TIME CALL ADAM S. RABBIT')
+      curtainsCount = 1
+    when 1
+      $('#curtain-call .rotate').html('CALL ME! ANY DAY OR NIGHT')
+      curtainsCount = 2
+    when 2
+      $('#curtain-call .rotate').html('CALL ME MAYBE?')
+      curtainsCount = 0
 
 # Display rabbit's message.
 # Send 'null' if Adam is thinking.

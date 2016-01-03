@@ -9,4 +9,8 @@
 //= require jquery.ui.all
 //= require twitter/bootstrap
 //= require cocoon
-//= require_tree .
+//= require bootstrap
+//= require chat
+//= require strophe_255eefd
+//= require strophe.chatstates
+//= require_self
